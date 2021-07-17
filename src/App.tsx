@@ -1,17 +1,19 @@
-import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
-import "./App.css";
+import React from 'react';
+import styles from './App.module.css';
+import { Browser } from './features/browser/Browser';
+import { Toolbar } from './features/toolbar/Toolbar';
 
 function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <Counter />
-            </header>
+  return (
+    <div className={styles.app}>
+      <div className={styles.vertical}>
+        <Toolbar />
+        <div className={styles.horizontal}>
+          <Browser />
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default App;
