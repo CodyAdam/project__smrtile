@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './App.module.css';
 import { Browser } from './features/browser/Browser';
 import { Toolbar } from './features/toolbar/Toolbar';
