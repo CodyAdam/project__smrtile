@@ -1,5 +1,22 @@
 .container {
   width: 30%;
+  background-color: var(--bg1);
+  border-right: 1px solid var(--break);
+  padding: 20px;
+}
+.resizeBar {
   height: 100%;
-  background-color: green;
+  width: 6px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  background-color: var(--out);
+  transform: translateX(-4px);
+  cursor: w-resize;
+  transition: all 0.05s ease-in-out;
+}
+
+.resizeBar:hover {
+  transition: all 0.2s cubic-bezier(1, 0, 1, 0);
+  opacity: 1;
 }
