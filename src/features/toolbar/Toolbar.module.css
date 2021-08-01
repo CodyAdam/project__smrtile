@@ -1,6 +1,6 @@
 .container {
   height: 60px;
   width: 100%;
-  background-color: var(--bg1);
-  border-bottom: 1px solid var(--break);
+  background-color: var(--bg2);
+  border-bottom: 1px solid var(--bg1);
 }

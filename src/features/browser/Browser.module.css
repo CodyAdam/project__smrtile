@@ -1,16 +1,17 @@
 .container {
   width: 30%;
-  background-color: var(--bg1);
-  border-right: 1px solid var(--break);
+  background-color: var(--bg2);
+  border-right: 1px solid var(--bg1);
   padding: 20px;
 }
+
 .resizeBar {
   height: 100%;
   width: 6px;
   right: 0;
   top: 0;
   opacity: 0;
-  background-color: var(--out);
+  background-color: var(--txt1);
   transform: translateX(-4px);
   cursor: w-resize;
   transition: all 0.05s ease-in-out;
