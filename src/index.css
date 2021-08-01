@@ -1,13 +1,13 @@
 :root {
-  --bg1: #25292e;
-  --bg2: #202428;
-  --bg3: #191c1f;
-  --out: #353d44;
+  --bg1: #19181a;
+  --bg2: #221f22;
+  --bg3: #2d2a2e;
+  --bg4: #403e41;
   --break: #1a1414;
-  --txt1: #fafbfc;
-  --txt2: #6b737d;
-  --hl1: #f07482;
-  --shadow1: 0px 2px 7px 0px rgba(0, 0, 0, 0.5);
+  --txt1: #5b595c;
+  --txt2: #c1c0c0;
+  --txt3: #fcfcfa;
+  --hl1: #ffd866;
 }
 
 body {
