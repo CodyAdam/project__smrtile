@@ -1,0 +1,8 @@
+.container {
+  width: 50px;
+  background-color: var(--bg1);
+}
+
+.svg:hover {
+  fill: rgb(231, 48, 48);
+}
