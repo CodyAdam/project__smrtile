@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SmallSquareButton from '../../common/smallSquareButton/SquareButton';
+import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton';
 import { Modal } from '../../common/modal/Modal';
 
 export function TilesetCreation() {
