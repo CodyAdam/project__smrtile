@@ -13,11 +13,11 @@
 
 .modal {
   color: white;
-  background-color: var(--bg1);
-  border: 1px solid var(--break);
+  background-color: var(--bg2);
+  border: 1px solid var(--txt1);
   border-radius: 4px;
   padding: 20px;
-  box-shadow: var(--shadow1);
+  z-index: 11;
 }
 
 h1 {
