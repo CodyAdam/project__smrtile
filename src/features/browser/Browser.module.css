@@ -1,23 +1,40 @@
 .container {
-  width: 30%;
   background-color: var(--bg2);
   border-right: 1px solid var(--bg1);
-  padding: 20px;
+  position: relative;
 }
 
 .resizeBar {
+  position: absolute;
   height: 100%;
   width: 6px;
   right: 0;
   top: 0;
   opacity: 0;
   background-color: var(--txt1);
-  transform: translateX(-4px);
+  transform: translateX(4px);
   cursor: w-resize;
   transition: all 0.05s ease-in-out;
+  user-select: none;
 }
 
 .resizeBar:hover {
   transition: all 0.2s cubic-bezier(1, 0, 1, 0);
   opacity: 1;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.title span {
+  margin-left: 20px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.titleButton {
+  margin: 7.5px 7.5px 7.5px auto;
 }
