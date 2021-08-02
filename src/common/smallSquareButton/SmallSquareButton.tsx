@@ -11,7 +11,13 @@ export default function SmallSquareButton({
   className?: string;
 }) {
   return (
-    <button className={`${styles.button} ${className}`} onClick={onClick}>
+    <button
+      className={`${styles.button} ${className}`}
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+        onClick();
+      }}
+    >
       {children}
     </button>
   );
