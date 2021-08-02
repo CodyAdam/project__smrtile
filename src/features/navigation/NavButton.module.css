@@ -5,13 +5,18 @@
   width: 50px;
   height: 50px;
   background-color: transparent;
-  fill: var(--txt1);
+  color: var(--txt1);
   cursor: pointer;
   border-left: 2px solid transparent;
+  font-size: 28px;
 }
 
 .button:hover {
-  fill: var(--txt2);
+  color: var(--txt2);
+}
+.button:focus {
+  outline: none;
+  border-left: 2px solid var(--txt1);
 }
 
 .selected {
