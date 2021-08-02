@@ -4,17 +4,15 @@ import re
 
 suffix = '''
   );
-}
-'''
+}'''
 
 if len(sys.argv) <= 1:
-    print("1 arguments missing : directory path")
-    exit(1)
-
-path = sys.argv[1]
+    path = '\\'.join(os.path.realpath(__file__).split("\\")[:-1])
+else:
+    path = sys.argv[1]
 
 if not os.path.isdir(path):
-    print('this directory path does not exist')
+    print('this directory path does not exist : ' + path)
     exit(1)
 if not path[-1:] == "\\":
     path = path + '\\'
@@ -42,8 +40,8 @@ filenames = list(filter(filterSvg, filenames))
 
 for filename in filenames:
     name = filename[:-4]
-    prefix = '''
-export default function ''' + name + '''({ className }: { className: string }) {
+    prefix = '''export default function ''' + properName(
+        name) + '''({ className = '' }: { className?: string }) {
   return (
     '''
     new_filename = properName(name) + '.tsx'
@@ -53,6 +51,8 @@ export default function ''' + name + '''({ className }: { className: string }) {
     else:
         print(filename + "    -->    " + new_filename)
     svgContent = open(path + filename, "r").read()
+
+    svgContent = svgContent[:4] + ' className={className}' + svgContent[4:]
 
     new_file = open(path + new_filename, "w")
     new_file.write(prefix + svgContent + suffix)
