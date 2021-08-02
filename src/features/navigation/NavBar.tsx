@@ -1,26 +1,21 @@
 import styles from './NavBar.module.css';
 import { NavButton } from './NavButton';
 
-//icons
-import EditorIcon from '../../common/svg/Backspace';
-import CreatorIcon from '../../common/svg/Star';
-import ParametersIcon from '../../common/svg/Cog';
-
 export function NavBar() {
   return (
     <div className={styles.container}>
       <NavButton selected={false}>
-        <EditorIcon />
+        <div className={`icon icon-extensions`} />
       </NavButton>
       <NavButton selected={true}>
-        <CreatorIcon />
+        <div className={`icon icon-repo`} />
       </NavButton>
       <NavButton selected={false}>
-        <CreatorIcon />
+        <div className={`icon icon-home`} />
       </NavButton>
       <div className={styles.spacer} />
       <NavButton selected={false}>
-        <ParametersIcon />
+        <div className={`icon icon-gear`} />
       </NavButton>
     </div>
   );
