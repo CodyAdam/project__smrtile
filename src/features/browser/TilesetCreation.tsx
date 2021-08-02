@@ -7,17 +7,19 @@ export function TilesetCreation() {
 
   const handleOpen = () => {
     console.log('open');
-    setShow(true);
+    // setShow(true);
   };
 
   const handleCancel = () => {
     console.log('cancel');
-    setShow(false);
+    // setShow(false);
   };
 
   return (
     <>
-      <SmallSquareButton onClick={handleOpen} />
+      <SmallSquareButton onClick={handleOpen}>
+        <div className={`icon icon-add`} />
+      </SmallSquareButton>
       <Modal show={show} onCancel={handleCancel}>
         <>
           <h1>CREATE A NEW TILESET</h1>
