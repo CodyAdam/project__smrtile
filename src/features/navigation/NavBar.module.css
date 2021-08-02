@@ -1,8 +1,13 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  flex-shrink: 0;
   width: 50px;
   background-color: var(--bg1);
 }
 
-.svg:hover {
-  fill: rgb(231, 48, 48);
+.spacer {
+  margin: auto;
 }
