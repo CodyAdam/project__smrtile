@@ -10,7 +10,8 @@
   --hl1: #ffd866;
 }
 
-body {
+body,
+button {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -110,6 +111,8 @@ video {
   border: 0;
   font-size: 100%;
   vertical-align: baseline;
+  min-height: 0;
+  min-width: 0;
 }
 /* HTML5 display-role reset for older browsers */
 article,
