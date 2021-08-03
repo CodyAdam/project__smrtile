@@ -1,113 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, PayloadAction, createAction } from '@reduxjs/toolkit';
+import { BrowserHistory, BrowserState, ObjectType, Rule, SmartTile, Tileset, UUID } from './browserTypes';
 
-export interface Normalized<T> {
-  byId: { [id: string]: T };
-  allIds: string[];
-}
-export enum ObjectType {
-  TILE = 'tile',
-  TILESET = 'tileset',
-  SMARTTILE = 'smartTile',
-  RULE = 'rule',
-  RULESET = 'ruleset',
-  TILEGROUP = 'tileGroup',
-  TAG = 'tag'
-}
+//Normalize with EntityAdapter
+const rulesAdapter = createEntityAdapter<Rule>()
+const smartTilesAdapter = createEntityAdapter<SmartTile>()
+const tilesetsAdapter = createEntityAdapter<Tileset>()
 
-export type TileSymbol = {} // TODO
-export type Thumbnail = Tile | TileSymbol
-export type Vector2 = { x: number, y: number }
-export type Tag = { type: ObjectType.TAG, value: string };
-export type Base64 = string;
-export type TileGroup = Tile[]
-export type Tile = BasicTile | SmartTile
-export interface BasicTile {
-  type: ObjectType.TILE
-  tilesetPosition: Vector2
-  tileset: TilesetId
-}
-
-export interface BrowserState { // store
-  rules: Normalized<Rule>,
-  smartTiles: Normalized<SmartTile>,
-  tilesets: Normalized<Tileset>,
-  selection: BrowserSelectable
-}
-export type BrowserSelectable = Rule | Tileset | SmartTile | null
-
-export interface Rule {
-  type: ObjectType.RULE
-  name: string
-  tags: Tag[]
-  isGlobal: boolean
-  timelineIndex: number
-  thumbnail: Thumbnail
-  id: RuleId
-  Rulesets: Ruleset[]
-}
-export type RuleId = `${ObjectType.RULE}#${string}`
-
-export interface Ruleset {
-  type: ObjectType.RULESET
-  name: string
-  input: Pattern
-  output: { probability: number, pattern: Pattern }[]
-}
-export type Pattern = { x: number, y: number, patternTile: PatternTile, not: boolean }[]
-export type PatternTile = 'any' | Tile | Tag[]
-
-export interface SmartTile {
-  type: ObjectType.SMARTTILE
-  name: string
-  tags: Tag[]
-  thumbnail: Thumbnail
-  linkedRules: Rule[]
-  id: SmartTileId
-}
-export type SmartTileId = `${ObjectType.SMARTTILE}#${string}`
-
-export interface Tileset {
-  type: ObjectType.TILESET
-  name: string
-  tags: Tag[]
-  filters: TilesetFilter[]
-  image: Base64
-  width: number
-  height: number
-  grid: {
-    columns: number
-    rows: number
-    tile: {
-      width: number
-      height: number
-      offset: Offset
-    },
-  }
-  thumbnail: Thumbnail[]
-  id: TilesetId
-}
-export type TilesetFilter = 'pixelated' | 'transparent'
-export type Offset = { top: number, right: number, bottom: number, left: number }
-export type TilesetId = `${ObjectType.TILESET}#${string}`
-
+//Initial State
 const initialState: BrowserState = {
-  rules: {
-    byId: {},
-    allIds: [],
-  },
-  smartTiles: {
-    byId: {},
-    allIds: [],
-  },
-  tilesets: {
-    byId: {},
-    allIds: [],
-  },
+  rules: rulesAdapter.getInitialState(),
+  smartTiles: smartTilesAdapter.getInitialState(),
+  tilesets: tilesetsAdapter.getInitialState(),
   selection: null
 }
 
 export const browserSlice = createSlice({
   name: 'browser',
   initialState,
-  reducers: {}
+  reducers: {
+    addRule: (state, action: PayloadAction<UUID>) => {
+      const newRule: Rule = {
+        type: ObjectType.RULE,
+        name: "Nameless Rule",
+        tags: [],
+        isGlobal: false,
+        timelineIndex: 0,
+        thumbnail: null,
+        id: action.payload,
+        Rulesets: [],
+      }
+      rulesAdapter.addOne(state.rules, newRule)
+      state.selection = { type: ObjectType.RULE, id: action.payload }
+    },
+  }
 })
+
+//Actions 
+const historyActions = {
+  undo: createAction(BrowserHistory.UNDO),
+  redo: createAction(BrowserHistory.REDO)
+}
+export const { undo, redo } = historyActions
+export const { addRule } = browserSlice.actions;
+
+//Reducer 
+export default browserSlice.reducer
+
