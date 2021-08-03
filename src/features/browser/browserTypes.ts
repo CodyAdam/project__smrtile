@@ -14,30 +14,30 @@ export enum ObjectType {
   TILEGROUP = 'tileGroup',
   TAG = 'tag'
 }
-export type UUID = ReturnType<typeof nanoid>;
+export type ID = ReturnType<typeof nanoid>;
 export type TileSymbol = {} // TODO
 export type Thumbnail = Tile | TileSymbol | null
 export type Vector2 = { x: number, y: number }
 export type Tag = { type: ObjectType.TAG, value: string };
-export type Base64 = string;
+export type Base64 = string | undefined;
 export type TileGroup = Tile[]
 export type Tile = BasicTile | SmartTile
 export interface BasicTile {
   type: ObjectType.TILE
   tilesetPosition: Vector2
-  tileset: UUID
+  tileset: ID
 }
 
 export interface BrowserState { // store
   rules: EntityState<Rule>,
   smartTiles: EntityState<SmartTile>,
   tilesets: EntityState<Tileset>,
-  selection: BrowserSelection
+  selection: null | {
+    type: SelectionTypes,
+    id: ID
+  }
 }
-export type BrowserSelection = null | {
-  type: ObjectType.RULE | ObjectType.TILESET | ObjectType.SMARTTILE,
-  id: UUID
-}
+export type SelectionTypes = ObjectType.RULE | ObjectType.TILESET | ObjectType.SMARTTILE
 
 export interface Rule {
   type: ObjectType.RULE
@@ -46,8 +46,8 @@ export interface Rule {
   isGlobal: boolean
   timelineIndex: number
   thumbnail: Thumbnail
-  id: UUID
   Rulesets: Ruleset[]
+  id: ID
 }
 
 export interface Ruleset {
@@ -60,33 +60,33 @@ export type Pattern = { x: number, y: number, patternTile: PatternTile, not: boo
 export type PatternTile = 'any' | Tile | Tag[]
 
 export interface SmartTile {
-  type: ObjectType.SMARTTILE
-  name: string
-  tags: Tag[]
-  thumbnail: Thumbnail
-  linkedRules: Rule[]
-  id: UUID
+  type: ObjectType.SMARTTILE,
+  name: string,
+  tags: Tag[],
+  thumbnail: Thumbnail,
+  linkedRules: Rule[],
+  id: ID,
 }
 
 export interface Tileset {
-  type: ObjectType.TILESET
-  name: string
-  tags: Tag[]
-  filters: TilesetFilter[]
-  image: Base64
-  width: number
-  height: number
+  type: ObjectType.TILESET,
+  name: string,
+  tags: Tag[],
+  filters: TilesetFilter[],
+  image: Base64,
+  width: number,
+  height: number,
   grid: {
-    columns: number
-    rows: number
+    columns: number,
+    rows: number,
     tile: {
-      width: number
-      height: number
-      offset: Offset
+      width: number,
+      height: number,
+      offset: Offset,
     },
-  }
-  thumbnail: Thumbnail[]
-  id: UUID
+  },
+  thumbnail: Thumbnail[],
+  id: ID,
 }
 export type TilesetFilter = 'pixelated' | 'transparent'
 export type Offset = { top: number, right: number, bottom: number, left: number }
