@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './iconFont.css';
-import App from './App';
+import './app/iconFont.css';
+import App from './app/App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 

@@ -21,6 +21,7 @@ button {
 html,
 body,
 #root {
+  overflow: hidden;
   height: 100%;
   width: 100%;
 }
