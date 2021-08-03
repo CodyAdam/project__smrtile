@@ -5,7 +5,7 @@ import { BrowserHistory } from '../features/browser/browserTypes';
 
 export const store = configureStore({
   reducer: {
-    browserReducer: undoable(browserReducer, { undoType: BrowserHistory.UNDO, redoType: BrowserHistory.REDO }),
+    browser: undoable(browserReducer, { undoType: BrowserHistory.UNDO, redoType: BrowserHistory.REDO }),
   },
 });
 
