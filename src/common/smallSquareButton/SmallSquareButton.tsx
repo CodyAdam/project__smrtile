@@ -6,19 +6,20 @@ export default function SmallSquareButton({
   children,
   className,
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   children?: PropTypes.ReactElementLike;
   className?: string;
 }) {
   return (
-    <button
+    <div
       className={`${styles.button} ${className}`}
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
-        onClick();
+        if (onClick) onClick();
       }}
+      tabIndex={0}
     >
       {children}
-    </button>
+    </div>
   );
 }
