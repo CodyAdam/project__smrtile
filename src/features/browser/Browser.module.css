@@ -4,6 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 .spacer {
   margin: auto;
@@ -37,45 +38,43 @@
   padding: 0 6px 0 15px;
   flex-shrink: 0;
 }
-
 .title span {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
   font-weight: 400;
 }
-.groupName {
+.groupLabel {
   user-select: none;
   display: flex;
   align-items: center;
   height: 30px;
-  cursor: pointer;
   padding: 0 6px 0 15px;
   width: 100%;
+  color: var(--txt1);
   border: 1px solid transparent;
   background-color: transparent;
-  color: var(--txt1);
   outline: none;
 }
-.groupName:focus {
+.groupLabel:focus {
   border: 1px solid var(--txt1);
 }
 
-.groupName span {
+.groupLabel > span {
   font-size: 13px;
   font-weight: 700;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-.groupContent {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 20px;
 }
 .expandIcon {
   color: var(--txt2);
   font-size: 18px;
   margin-right: 10px;
   flex-shrink: 0;
+}
+.groupContent {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .groupContent button {

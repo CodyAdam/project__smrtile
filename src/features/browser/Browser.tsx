@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
 import styles from './Browser.module.css';
-import { TilesetCreation } from './TilesetCreation';
 import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton';
+import { addRule } from './browserSlice';
+import { useAppDispatch } from '../../app/hooks';
 
 export function Browser() {
   const [showRules, setShowRules] = useState(false);
@@ -10,6 +12,7 @@ export function Browser() {
   const [width, setWidth] = useState(300);
   let lastWidth = width;
   let lastPos: number = 0;
+  const dispatch = useAppDispatch();
 
   function handleDragStart(e: React.MouseEvent<HTMLDivElement>) {
     window.addEventListener('mousemove', handleDragMove);
@@ -41,7 +44,7 @@ export function Browser() {
       <div className={styles.scrollable}>
         <div className={styles.group}>
           <button
-            className={styles.groupName}
+            className={styles.groupLabel}
             onClick={() => {
               setShowRules(!showRules);
             }}
@@ -51,182 +54,15 @@ export function Browser() {
             </div>
             <span>RULES</span>
             <div className={styles.spacer} />
-            <SmallSquareButton onClick={() => {}}>
-              <div className={`icon icon-tag`} />
+            <SmallSquareButton
+              onClick={() => {
+                dispatch(addRule(nanoid()));
+              }}
+            >
+              <div className={`icon icon-add`} />
             </SmallSquareButton>
-            <TilesetCreation />
           </button>
           <div className={styles.groupContent} hidden={!showRules}>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-          </div>
-        </div>
-        <div className={styles.group}>
-          <button
-            className={styles.groupName}
-            onClick={() => {
-              setShowBrushes(!showBrushes);
-            }}
-          >
-            <div className={styles.expandIcon}>
-              <div className={`${showRules ? 'icon-chevron-down' : 'icon-chevron-right'} icon`} />
-            </div>
-            <span>BRUSHES</span>
-            <div className={styles.spacer} />
-            <SmallSquareButton onClick={() => {}}>
-              <div className={`icon icon-tag`} />
-            </SmallSquareButton>
-            <TilesetCreation />
-          </button>
-          <div className={styles.groupContent} hidden={!showBrushes}>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-          </div>
-        </div>
-        <div className={styles.group}>
-          <button
-            className={styles.groupName}
-            onClick={() => {
-              setShowTilesets(!showTilesets);
-            }}
-          >
-            <div className={styles.expandIcon}>
-              <div className={`${showRules ? 'icon-chevron-down' : 'icon-chevron-right'} icon`} />
-            </div>
-            <span>TILESETS</span>
-            <div className={styles.spacer} />
-            <SmallSquareButton onClick={() => {}}>
-              <div className={`icon icon-tag`} />
-            </SmallSquareButton>
-            <TilesetCreation />
-          </button>
-          <div className={styles.groupContent} hidden={!showTilesets}>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
             <button>AB</button>
             <button>AB</button>
             <button>AB</button>
