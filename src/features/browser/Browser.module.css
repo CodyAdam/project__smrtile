@@ -39,12 +39,14 @@
   flex-shrink: 0;
 }
 .title span {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
   font-weight: 400;
 }
 .groupLabel {
+  white-space: nowrap;
   user-select: none;
   display: flex;
   align-items: center;
@@ -61,6 +63,7 @@
 }
 
 .groupLabel > span {
+  word-wrap: unset;
   font-size: 13px;
   font-weight: 700;
   text-overflow: ellipsis;
@@ -71,19 +74,6 @@
   font-size: 18px;
   margin-right: 10px;
   flex-shrink: 0;
-}
-.groupContent {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.groupContent button {
-  height: 50px;
-  width: 50px;
-  margin: 3px;
-  background-color: rgba(245, 245, 245, 0.315);
-  border-radius: 10px;
-  border: none;
 }
 
 .scrollable {
@@ -103,4 +93,35 @@
 }
 .scrollable:hover::-webkit-scrollbar-thumb {
   background-color: rgb(255, 255, 255, 0.1);
+}
+
+.groupContent {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+[hidden] {
+  display: none;
+}
+
+.ruleCard,
+.smartTileCard,
+.tilesetCard {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--txt2);
+  height: 50px;
+  width: 50px;
+  margin: 3px;
+  background-color: var(--bg3);
+  border-radius: 7px;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+.selectedCard {
+  border: 1px solid var(--hl1);
 }
