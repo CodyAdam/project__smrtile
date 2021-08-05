@@ -32,10 +32,11 @@ export interface BrowserState { // store
   rules: EntityState<Rule>,
   smartTiles: EntityState<SmartTile>,
   tilesets: EntityState<Tileset>,
-  selection: null | {
-    type: SelectionTypes,
-    id: ID
-  }
+  selection: null | Selection
+}
+export type Selection = {
+  type: SelectionTypes,
+  id: ID
 }
 export type SelectionTypes = ObjectType.RULE | ObjectType.TILESET | ObjectType.SMARTTILE
 
