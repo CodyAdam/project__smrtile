@@ -2,15 +2,80 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import styles from './Browser.module.css';
 import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton';
-import { addRule, addSmartTile, addTileset } from './browserSlice';
-import { useAppDispatch } from '../../app/hooks';
+import {
+  addRule,
+  addSmartTile,
+  addTileset,
+  rulesSelector,
+  smartTilesSelector,
+  tilesetsSelector,
+  selectedSelector,
+  select,
+} from './browserSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { Rule, SmartTile, Tileset } from './browserTypes';
 
 export function Browser() {
   const dispatch = useAppDispatch();
+  const selected = useAppSelector(selectedSelector);
 
   const [showRules, setShowRules] = useState(false);
+  const rules = useAppSelector(rulesSelector);
+  let rulesContent = null;
+  if (rules)
+    rulesContent = rules.map((rule: Rule) => {
+      const isSelected = selected && selected.type === rule.type && selected.id === rule.id;
+      return (
+        <div
+          key={rule.id}
+          className={`${styles.ruleCard} ${isSelected ? styles.selectedCard : ''}`}
+          onClick={() => {
+            dispatch(select(rule));
+          }}
+        >
+          {rule.name.substring(0, 2).toUpperCase()}
+        </div>
+      );
+    });
+
   const [showSmartTiles, setShowSmartTiles] = useState(false);
+  const smartTiles = useAppSelector(smartTilesSelector);
+  let smartTilesContent = null;
+  if (smartTiles)
+    smartTilesContent = smartTiles.map((smartTile: SmartTile) => {
+      const isSelected = selected && selected.type === smartTile.type && selected.id === smartTile.id;
+      return (
+        <div
+          key={smartTile.id}
+          className={`${styles.smartTileCard} ${isSelected ? styles.selectedCard : ''}`}
+          onClick={() => {
+            dispatch(select(smartTile));
+          }}
+        >
+          {smartTile.name.substring(0, 2).toUpperCase()}
+        </div>
+      );
+    });
+
   const [showTilesets, setShowTilesets] = useState(false);
+  const tilesets = useAppSelector(tilesetsSelector);
+  let tilesetsContent = null;
+  if (tilesets)
+    tilesetsContent = tilesets.map((tileset: Tileset) => {
+      const isSelected = selected && selected.type === tileset.type && selected.id === tileset.id;
+      return (
+        <div
+          key={tileset.id}
+          className={`${styles.tilesetCard} ${isSelected ? styles.selectedCard : ''}`}
+          onClick={() => {
+            dispatch(select(tileset));
+          }}
+        >
+          {tileset.name.substring(0, 2).toUpperCase()}
+        </div>
+      );
+    });
+
   const [width, setWidth] = useState(300);
   let lastWidth = width;
   let lastPos: number = 0;
@@ -57,18 +122,15 @@ export function Browser() {
             <div className={styles.spacer} />
             <SmallSquareButton
               onClick={() => {
+                setShowRules(true);
                 dispatch(addRule(nanoid()));
               }}
             >
               <div className={`icon icon-add`} />
             </SmallSquareButton>
           </button>
-          <div className={styles.groupContent} hidden={!showRules}>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
+          <div className={styles.groupContent} hidden={!showRules || !rules.length}>
+            {rulesContent}
           </div>
         </div>
         <div className={styles.group}>
@@ -85,18 +147,15 @@ export function Browser() {
             <div className={styles.spacer} />
             <SmallSquareButton
               onClick={() => {
+                setShowSmartTiles(true);
                 dispatch(addSmartTile(nanoid()));
               }}
             >
               <div className={`icon icon-add`} />
             </SmallSquareButton>
           </button>
-          <div className={styles.groupContent} hidden={!showSmartTiles}>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
-            <button>AB</button>
+          <div className={styles.groupContent} hidden={!showSmartTiles || !smartTiles.length}>
+            {smartTilesContent}
           </div>
         </div>
         <div className={styles.group}>
@@ -113,17 +172,15 @@ export function Browser() {
             <div className={styles.spacer} />
             <SmallSquareButton
               onClick={() => {
+                setShowTilesets(true);
                 dispatch(addTileset(nanoid()));
               }}
             >
               <div className={`icon icon-add`} />
             </SmallSquareButton>
           </button>
-          <div className={styles.groupContent} hidden={!showTilesets}>
-            <button>TS1</button>
-            <button>TS2</button>
-            <button>TS3</button>
-            <button>TS4</button>
+          <div className={styles.groupContent} hidden={!showTilesets || !tilesets.length}>
+            {tilesetsContent}
           </div>
         </div>
       </div>
