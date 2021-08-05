@@ -13,8 +13,14 @@ export function TopBar() {
   if (selectedContent)
     selectionInfo = (
       <div className={styles.infoContainer}>
-        <h1>{selectedContent.name}</h1>
-        <h1>{selectedContent.id}</h1>
+        <div>
+          <h2>Name</h2>
+          <p>{selectedContent.name}</p>
+        </div>
+        <div>
+          <h2>ID</h2>
+          <p>{selectedContent.id}</p>
+        </div>
       </div>
     );
 
