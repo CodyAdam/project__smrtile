@@ -11,3 +11,13 @@
 .spacer {
   margin: auto;
 }
+
+.infoContainer {
+  display: flex;
+  overflow: hidden;
+}
+.infoContainer div {
+  flex-shrink: 0;
+  margin-right: 15px;
+  white-space: nowrap;
+}
