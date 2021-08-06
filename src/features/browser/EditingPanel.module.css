@@ -33,6 +33,7 @@ p {
   padding: 15px;
   border-radius: 6px;
   margin-bottom: 5px;
+  overflow: hidden;
 }
 .group:hover,
 .group:focus-within {
