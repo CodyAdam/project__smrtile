@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input {
+  outline: none;
+  background-color: var(--bg4);
+  color: var(--txt3);
+  padding: 5px;
+  width: min-content;
+  border-radius: 2px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  max-width: 100%;
+}
+
+.invalid {
+  border: 1px solid red !important;
+}
+.input:focus {
+  border: 1px solid var(--txt1);
+}
+.tag {
+  user-select: none;
+  cursor: pointer;
+  color: var(--txt2);
+  flex-shrink: 0;
+  border-radius: 6px;
+  margin: 0 5px 5px 0;
+  padding: 5px 10px;
+  background-color: var(--bg4);
+}
+
+.tag:hover {
+  background-color: rgb(173, 92, 92);
+}
