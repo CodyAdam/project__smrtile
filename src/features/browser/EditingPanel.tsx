@@ -29,7 +29,7 @@ export function EditingPanel() {
             <h2>Name</h2>
             <p>Chose a name for your rule</p>
             <TextInput
-              key={selected.id}
+              key={selected.name}
               text={selected.name}
               onChange={(newName) => {
                 dispatch(updateRule({ id: selected.id, changes: { name: newName } }));
@@ -43,8 +43,8 @@ export function EditingPanel() {
             </SmallSquareButton>
             <p>Chose some tags</p>
             <TagInput
+              key={JSON.stringify(selected.tags)}
               tags={selected.tags}
-              key={selected.id}
               onChange={(newTags) => {
                 dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));
               }}
