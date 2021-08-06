@@ -46,7 +46,7 @@ export function TextInput({
         }}
         onBlur={() => handleSave()}
         onChange={(e) => {
-          setValue(e.target.value);
+          setValue(e.target.value.substring(0, 25));
         }}
       />
       {tooltip}
