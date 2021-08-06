@@ -23,6 +23,7 @@ export function EditingPanel() {
             <h2>Name</h2>
             <p>Chose a name for your rule</p>
             <TextInput
+              key={selectedContent.name}
               text={selectedContent.name}
               onChange={(newName) => {
                 dispatch(updateRule({ id: selectedContent.id, changes: { name: newName } }));
