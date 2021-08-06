@@ -2,16 +2,18 @@
   width: 100%;
   height: 100%;
   padding: 20px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 h1 {
+  user-select: none;
   font-size: 24px;
   color: var(--hl1);
   padding: 15px;
   font-weight: 600;
 }
-
 h2 {
+  user-select: none;
   font-size: 13px;
   font-weight: 600;
   color: var(--hl1);
@@ -19,14 +21,18 @@ h2 {
 }
 
 p {
+  user-select: none;
   font-size: 13px;
   color: var(--txt3);
   margin-bottom: 10px;
 }
+.smallButton {
+  margin-bottom: 10px;
+}
 .group {
   padding: 15px;
-  transition: all 0.1s ease-in-out;
   border-radius: 6px;
+  margin-bottom: 5px;
 }
 .group:hover,
 .group:focus-within {
@@ -38,6 +44,5 @@ p {
   justify-content: center;
   align-items: center;
   font-style: italic;
-
   font-size: 13px;
 }
