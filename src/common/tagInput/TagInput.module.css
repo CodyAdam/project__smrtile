@@ -2,17 +2,25 @@
   display: flex;
   flex-wrap: wrap;
 }
+.addButton,
+.input,
+.tag,
+.recommend {
+  margin: 0 5px 5px 0;
+}
 
 .input {
+  font-size: 13px;
+  height: 25px;
   outline: none;
   background-color: var(--bg4);
   color: var(--txt3);
   padding: 5px;
-  width: min-content;
+  max-width: 100px;
   border-radius: 2px;
   white-space: nowrap;
   border: 1px solid transparent;
-  max-width: 100%;
+  border-radius: 8px 2px 8px 2px;
 }
 
 .invalid {
@@ -21,17 +29,50 @@
 .input:focus {
   border: 1px solid var(--txt1);
 }
-.tag {
+.addButton {
+  margin-right: 83px;
+}
+.tag,
+.recommend {
   user-select: none;
   cursor: pointer;
   color: var(--txt2);
   flex-shrink: 0;
-  border-radius: 6px;
-  margin: 0 5px 5px 0;
+  border-radius: 8px 2px 8px 2px;
   padding: 5px 10px;
   background-color: var(--bg4);
+  position: relative;
+  font-size: 13px;
+  height: 25px;
+  display: flex;
+}
+.tag div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 16px;
+  visibility: hidden;
+  transform: translate(-50%, -50%);
 }
 
 .tag:hover {
-  background-color: rgb(173, 92, 92);
+  background-color: #a04848;
+}
+.tag:hover div {
+  visibility: visible;
+}
+.tag:hover span {
+  opacity: 0.3;
+}
+.recommend div {
+  margin-right: 5px;
+  padding: 3px;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+
+.tag:focus,
+.recommend:focus {
+  outline: 1px solid var(--txt3);
 }
