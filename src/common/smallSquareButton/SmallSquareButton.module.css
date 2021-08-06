@@ -1,14 +1,14 @@
 .button {
   padding: 0;
   margin: 2px;
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   border: none;
   background-color: transparent;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
   color: var(--txt1);
-  font-size: 17px;
+  font-size: 16px;
   overflow: hidden;
   flex-shrink: 0;
   display: flex;
