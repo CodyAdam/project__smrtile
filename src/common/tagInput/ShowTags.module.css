@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: hsla(0, 0%, 0%, 0.1);
+  padding: 10px 10px 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  min-height: 45px;
+  align-items: center;
+}
+
+.container > span {
+  user-select: none;
+  font-size: 13px;
+  margin: 0 0 5px 5px;
+}
+
+.tag {
+  margin: 0 5px 5px 0;
+  user-select: none;
+  cursor: pointer;
+  color: var(--txt2);
+  flex-shrink: 0;
+  border-radius: 8px 2px 8px 2px;
+  padding: 0 10px;
+  background-color: var(--bg4);
+  position: relative;
+  font-size: 13px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+}
+.tag div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 16px;
+  visibility: hidden;
+  transform: translate(-50%, -50%);
+}
+
+.tag:hover {
+  background-color: #a04848;
+}
+.tag:hover div {
+  visibility: visible;
+}
+.tag:hover span {
+  opacity: 0.3;
+}

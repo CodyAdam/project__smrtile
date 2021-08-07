@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton';
+import { ShowTags } from '../../common/tagInput/ShowTags';
 import { TagInput } from '../../common/tagInput/TagInput';
 import { TextInput } from '../../common/textInput/TextInput';
 import { selectedContentSelector, updateRule } from './browserSlice';
@@ -42,6 +43,12 @@ export function EditingPanel() {
               <div className='icon icon-copy' />
             </SmallSquareButton>
             <p>Chose some tags</p>
+            <ShowTags
+              tags={selected.tags}
+              onChange={(newTags) => {
+                dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));
+              }}
+            />
             <TagInput
               key={JSON.stringify(selected.tags)}
               tags={selected.tags}

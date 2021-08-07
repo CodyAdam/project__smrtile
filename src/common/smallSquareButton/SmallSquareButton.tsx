@@ -11,15 +11,14 @@ export default function SmallSquareButton({
   className?: string;
 }) {
   return (
-    <div
+    <button
       className={`${styles.button} ${className}`}
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         if (onClick) onClick();
       }}
-      tabIndex={0}
     >
       {children}
-    </div>
+    </button>
   );
 }
