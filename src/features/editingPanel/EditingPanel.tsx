@@ -3,8 +3,8 @@ import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton'
 import { ShowTags } from '../../common/tagInput/ShowTags';
 import { TagInput } from '../../common/tagInput/TagInput';
 import { TextInput } from '../../common/textInput/TextInput';
-import { selectedContentSelector, updateRule } from './browserSlice';
-import { ObjectType } from './browserTypes';
+import { selectedContentSelector, updateRule } from '../browser/browserSlice';
+import { ObjectType } from '../browser/browserTypes';
 import styles from './EditingPanel.module.css';
 
 export function EditingPanel() {
@@ -45,6 +45,7 @@ export function EditingPanel() {
             <p>Chose some tags</p>
             <ShowTags
               tags={selected.tags}
+              className={styles.tags}
               onChange={(newTags) => {
                 dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));
               }}

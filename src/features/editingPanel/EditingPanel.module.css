@@ -5,6 +5,12 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+.h2,
+p,
+.smallButton,
+.tags {
+  margin-bottom: 10px;
+}
 h1 {
   user-select: none;
   font-size: 24px;
@@ -17,17 +23,12 @@ h2 {
   font-size: 13px;
   font-weight: 600;
   color: var(--hl1);
-  margin-bottom: 10px;
 }
 
 p {
   user-select: none;
   font-size: 13px;
   color: var(--txt3);
-  margin-bottom: 10px;
-}
-.smallButton {
-  margin-bottom: 10px;
 }
 .group {
   padding: 15px;

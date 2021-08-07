@@ -1,6 +1,6 @@
 import styles from './App.module.css';
 import { Browser } from '../features/browser/Browser';
-import { EditingPanel } from '../features/browser/EditingPanel';
+import { EditingPanel } from '../features/editingPanel/EditingPanel';
 import { TopBar } from '../features/browser/TopBar';
 import { NavBar } from '../features/navigation/NavBar';
 
