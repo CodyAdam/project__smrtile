@@ -7,7 +7,7 @@ export function TagInput({ tags, onChange }: { tags: Tag[]; onChange: (newTags: 
   const [value, setValue] = useState('');
   const [isInputValid, setIsInputValid] = useState(false);
 
-  const globalTags: Tag[] = [
+  const tagsSuggestion: Tag[] = [
     { type: ObjectType.TAG, color: '#a28d30', name: 'yellow' },
     { type: ObjectType.TAG, color: '#a02034', name: 'red' },
     { type: ObjectType.TAG, color: '#2e8456', name: 'green' },
@@ -39,7 +39,7 @@ export function TagInput({ tags, onChange }: { tags: Tag[]; onChange: (newTags: 
   function stringToTag(str: string): Tag {
     let output: Tag = { type: ObjectType.TAG, name: str };
     //check if is global tag
-    globalTags.forEach((tag) => {
+    tagsSuggestion.forEach((tag) => {
       if (tag.name === str) output = tag;
     });
     return output;
@@ -49,12 +49,12 @@ export function TagInput({ tags, onChange }: { tags: Tag[]; onChange: (newTags: 
     setIsInputValid(isValid(value));
   }, [value]);
 
-  const globalTagsRender = globalTags
+  const suggestion = tagsSuggestion
     .filter((tag) => !tags.map((tag) => tag.name).includes(tag.name))
     .map((tag: Tag, index: number) => (
       <button
         key={index + tag.name}
-        className={styles.globalTag}
+        className={styles.suggestionTag}
         style={{ backgroundColor: tag.color }}
         onClick={() => {
           handleAdd([tag]);
@@ -80,7 +80,7 @@ export function TagInput({ tags, onChange }: { tags: Tag[]; onChange: (newTags: 
         onChange={handleChange}
         autoFocus
       />
-      {globalTagsRender}
+      {suggestion}
     </div>
   );
 }

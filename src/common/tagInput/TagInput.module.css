@@ -24,7 +24,7 @@
   border: 1px solid var(--txt1);
 }
 
-.globalTag {
+.suggestionTag {
   margin: 0 5px 5px 0;
   user-select: none;
   cursor: pointer;
@@ -42,7 +42,7 @@
   display: none;
 }
 
-.globalTag div {
+.suggestionTag div {
   margin-right: 5px;
   padding: 3px;
   font-size: 10px;
@@ -50,11 +50,11 @@
   border-radius: 2px;
 }
 
-.globalTag:focus {
+.suggestionTag:focus {
   border: 1px solid var(--txt3);
   outline: none;
 }
 
-.container:hover .globalTag {
+.container:hover .suggestionTag {
   display: flex;
 }
