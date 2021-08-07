@@ -1,7 +1,15 @@
 import { Tag } from '../../features/browser/browserTypes';
 import styles from './ShowTags.module.css';
 
-export function ShowTags({ tags, onChange }: { tags: Tag[]; onChange: (newTags: Tag[]) => void }) {
+export function ShowTags({
+  tags,
+  onChange,
+  className,
+}: {
+  tags: Tag[];
+  onChange: (newTags: Tag[]) => void;
+  className?: string;
+}) {
   function handleRemove(index: number) {
     let newTags = [...tags];
     newTags.splice(index, 1);
@@ -23,5 +31,5 @@ export function ShowTags({ tags, onChange }: { tags: Tag[]; onChange: (newTags: 
         <div className={`icon icon-trash`}></div>
       </div>
     ));
-  return <div className={styles.container}>{tagsRender}</div>;
+  return <div className={`${className} ${styles.container}`}>{tagsRender}</div>;
 }
