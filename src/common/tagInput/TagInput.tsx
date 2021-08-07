@@ -3,7 +3,15 @@ import { useState, useEffect } from 'react';
 import { ObjectType, Tag } from '../../features/browser/browserTypes';
 import SmallSquareButton from '../smallSquareButton/SmallSquareButton';
 
-export function TagInput({ tags, onChange }: { tags: Tag[]; onChange: (newTags: Tag[]) => void }) {
+export function TagInput({
+  tags,
+  onChange,
+  className,
+}: {
+  tags: Tag[];
+  onChange: (newTags: Tag[]) => void;
+  className?: string;
+}) {
   const [value, setValue] = useState('');
   const [isInputValid, setIsInputValid] = useState(false);
 
@@ -67,7 +75,7 @@ export function TagInput({ tags, onChange }: { tags: Tag[]; onChange: (newTags: 
     ));
 
   return (
-    <div className={styles.container}>
+    <div className={`${className} ${styles.container}`}>
       <input
         placeholder='Add tag'
         value={value}

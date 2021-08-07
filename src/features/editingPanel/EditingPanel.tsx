@@ -45,13 +45,13 @@ export function EditingPanel() {
             <p>Chose some tags</p>
             <ShowTags
               tags={selected.tags}
-              className={styles.tags}
               onChange={(newTags) => {
                 dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));
               }}
             />
             <TagInput
               key={JSON.stringify(selected.tags)}
+              className={styles.tagInput}
               tags={selected.tags}
               onChange={(newTags) => {
                 dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));

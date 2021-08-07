@@ -4,7 +4,7 @@
 }
 
 .input {
-  margin: 0 5px 5px 0;
+  margin: 5px 5px 0 0;
   font-size: 13px;
   height: 25px;
   outline: none;
@@ -25,7 +25,7 @@
 }
 
 .suggestionTag {
-  margin: 0 5px 5px 0;
+  margin: 5px 5px 0 0;
   user-select: none;
   cursor: pointer;
   color: var(--txt2);

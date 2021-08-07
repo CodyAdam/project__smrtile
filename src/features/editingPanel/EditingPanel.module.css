@@ -7,8 +7,7 @@
 }
 h2,
 p,
-.smallButton,
-.tags {
+.smallButton {
   margin-bottom: 10px;
 }
 h1 {
@@ -47,4 +46,8 @@ p {
   align-items: center;
   font-style: italic;
   font-size: 13px;
+}
+
+.tagInput {
+  margin-top: 5px;
 }
