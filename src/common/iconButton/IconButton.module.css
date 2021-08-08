@@ -1,0 +1,23 @@
+.button {
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--txt1);
+  font-size: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
+.button:hover {
+  color: var(--txt2);
+}
+.button:active {
+  color: var(--txt3);
+}

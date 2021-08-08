@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { SmallSquareButton } from '../smallSquareButton/SmallSquareButton';
+import { IconButton } from '../iconButton/IconButton';
 import styles from './Propertie.module.css';
 import { useState } from 'react';
 
@@ -20,14 +21,14 @@ export function Propertie({
         <h2>{name}</h2>
         {about ? (
           <div className={styles.buttonContainer}>
-            <SmallSquareButton
+            <IconButton
               className={styles.button}
               onClick={() => {
                 setShowAbout(!showAbout);
               }}
             >
-              <div className='icon icon-question' />
-            </SmallSquareButton>
+              {showAbout ? <div className='icon icon-chevron-up' /> : <div className='icon icon-question' />}
+            </IconButton>
           </div>
         ) : null}
       </div>
