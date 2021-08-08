@@ -31,7 +31,13 @@ export function Propertie({
           </div>
         ) : null}
       </div>
-      {about && showAbout ? <p className={styles.about}>{about}</p> : null}
+      {about && showAbout ? (
+        <div className={styles.about}>
+          {about.split('\\n').map((str) => (
+            <p>{str}</p>
+          ))}
+        </div>
+      ) : null}
       {children}
     </div>
   );

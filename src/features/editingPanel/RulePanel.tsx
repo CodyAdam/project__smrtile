@@ -13,7 +13,13 @@ export function RulePanel({ selected }: { selected: Rule | SmartTile | Tileset }
   return (
     <div className={styles.container}>
       <h1>Rule</h1>
-      <Propertie name='Name' about='this is the name'>
+      <Propertie
+        name='Name'
+        about='The rule name have to:\n
+          • start and end with a letter or digit\n
+          • contain only letters, digits, [underscores], [dashes] and [spaces]\n
+          • contain at least 2 characters and 25 at most'
+      >
         <TextInput
           key={selected.name}
           text={selected.name}
