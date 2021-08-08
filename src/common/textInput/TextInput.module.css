@@ -22,43 +22,5 @@
 }
 
 .container {
-  position: relative;
-  display: inline-block;
-
   max-width: 100%;
-}
-.tooltip {
-  visibility: hidden;
-  width: 250px;
-  background-color: var(--bg4);
-  color: #fff;
-  padding: 5px;
-  border-radius: 6px;
-  font-size: 11px;
-
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  top: 125%;
-  left: 50%;
-  margin-left: -100px;
-
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.container .tooltip::after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent var(--bg4) transparent;
-}
-
-.container:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
 }

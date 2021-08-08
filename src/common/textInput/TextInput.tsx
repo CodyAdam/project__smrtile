@@ -1,28 +1,9 @@
 import styles from './TextInput.module.css';
 import { useState, useEffect } from 'react';
 
-export function TextInput({
-  text,
-  onChange,
-  showTooltip = true,
-}: {
-  text: string;
-  onChange: (newValue: string) => void;
-  showTooltip?: boolean;
-}) {
+export function TextInput({ text, onChange }: { text: string; onChange: (newValue: string) => void }) {
   const [value, setValue] = useState(text);
   const [isValid, setIsValid] = useState(true);
-
-  let tooltip = null;
-  if (!isValid && showTooltip)
-    tooltip = (
-      <div className={styles.tooltip}>
-        <div>The rule name have to:</div>
-        <div>• start and end with a letter or digit</div>
-        <div>• contain only letters, digits, [underscores], [dashes] and [spaces]</div>
-        <div>• contain at least 2 characters and 25 at most</div>
-      </div>
-    );
 
   useEffect(() => {
     // When the input text change we check its validity
@@ -49,7 +30,6 @@ export function TextInput({
           setValue(e.target.value.substring(0, 25));
         }}
       />
-      {tooltip}
     </div>
   );
 }
