@@ -2,22 +2,21 @@
   display: flex;
   flex-wrap: wrap;
   background-color: hsla(0, 0%, 0%, 0.1);
-  padding: 10px 10px 5px 10px;
+  padding: 8px;
   border-radius: 5px;
-  min-height: 45px;
+  min-height: 43px;
   align-items: center;
+  gap: 5px;
 }
 
 .container > span {
   user-select: none;
   font-size: 13px;
-  margin: 0 0 5px 5px;
+  margin-left: 5px;
 }
 
 .tag {
-  margin: 0 5px 5px 0;
   user-select: none;
-  cursor: pointer;
   color: var(--txt2);
   flex-shrink: 0;
   border-radius: 8px 2px 8px 2px;
@@ -29,7 +28,10 @@
   display: flex;
   align-items: center;
 }
-.tag div {
+.removable {
+  cursor: pointer;
+}
+.removable div {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -38,12 +40,36 @@
   transform: translate(-50%, -50%);
 }
 
-.tag:hover {
+.removable:hover {
   background-color: #a04848;
 }
-.tag:hover div {
+.removable:hover div {
   visibility: visible;
 }
-.tag:hover span {
+.removable:hover span {
   opacity: 0.3;
+}
+
+.button {
+  position: relative;
+}
+.copy {
+  transition: opacity 1s cubic-bezier(0.66, -0.19, 1, 0.19);
+}
+.button:active .copy {
+  transition: opacity 0s;
+  opacity: 0;
+}
+.button:active .check {
+  opacity: 1;
+
+  transition: opacity 0s;
+}
+.check {
+  transition: opacity 1s;
+  position: absolute;
+  opacity: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
