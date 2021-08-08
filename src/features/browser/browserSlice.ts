@@ -73,6 +73,21 @@ export const browserSlice = createSlice({
       tilesetsAdapter.addOne(state.tilesets, newTileset)
       state.selection = { type: ObjectType.TILESET, id: action.payload } as Selection
     },
+    removeRule: (state, action: PayloadAction<ID>) => {
+      rulesAdapter.removeOne(state.rules, action.payload)
+      if (state.selection && state.selection.id === action.payload)
+        state.selection = null
+    },
+    removeSmartTile: (state, action: PayloadAction<ID>) => {
+      smartTilesAdapter.removeOne(state.smartTiles, action.payload)
+      if (state.selection && state.selection.id === action.payload)
+        state.selection = null
+    },
+    removeTileset: (state, action: PayloadAction<ID>) => {
+      tilesetsAdapter.removeOne(state.tilesets, action.payload)
+      if (state.selection && state.selection.id === action.payload)
+        state.selection = null
+    },
     updateRule: (state, actions: PayloadAction<Update<Rule>>) => { rulesAdapter.updateOne(state.rules, actions.payload) },
     updateSmartTile: (state, actions: PayloadAction<Update<SmartTile>>) => { smartTilesAdapter.updateOne(state.smartTiles, actions.payload) },
     updateTileset: (state, actions: PayloadAction<Update<Tileset>>) => { tilesetsAdapter.updateOne(state.tilesets, actions.payload) },
@@ -92,7 +107,7 @@ const historyActions = {
   redo: createAction(BrowserHistory.REDO)
 }
 export const { undo, redo } = historyActions
-export const { addRule, addSmartTile, addTileset, select, deselect, updateRule, updateSmartTile, updateTileset } = browserSlice.actions;
+export const { addRule, addSmartTile, addTileset, select, deselect, updateRule, updateSmartTile, updateTileset, removeRule, removeSmartTile, removeTileset } = browserSlice.actions;
 
 //Selectors
 
