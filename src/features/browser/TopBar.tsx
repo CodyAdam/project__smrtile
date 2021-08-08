@@ -1,5 +1,5 @@
 import styles from './TopBar.module.css';
-import { SmallSquareButton } from '../../common/smallSquareButton/SmallSquareButton';
+import { SquareButton } from '../../common/squareButton/SquareButton';
 import { useAppDispatch } from '../../app/hooks';
 import { undo, redo } from '../browser/browserSlice';
 import { useAppSelector } from '../../app/hooks';
@@ -29,20 +29,20 @@ export function TopBar() {
       {selectionInfo}
       <div className={styles.spacer} />
 
-      <SmallSquareButton
+      <SquareButton
         onClick={() => {
           dispatch(undo());
         }}
       >
         <div className={`icon icon-arrow-small-left`} />
-      </SmallSquareButton>
-      <SmallSquareButton
+      </SquareButton>
+      <SquareButton
         onClick={() => {
           dispatch(redo());
         }}
       >
         <div className={`icon icon-arrow-small-right`} />
-      </SmallSquareButton>
+      </SquareButton>
     </div>
   );
 }

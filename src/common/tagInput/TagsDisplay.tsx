@@ -1,6 +1,6 @@
 import { Tag } from '../../features/browser/browserTypes';
 import styles from './TagsDisplay.module.css';
-import { SmallSquareButton } from '../smallSquareButton/SmallSquareButton';
+import { SquareButton } from '../squareButton/SquareButton';
 
 export function TagsDisplay({
   tags,
@@ -39,12 +39,12 @@ export function TagsDisplay({
             {onChange ? <div className={`icon icon-trash`} /> : null}
           </div>
         ))}
-        <SmallSquareButton onClick={copyTags} className={styles.button}>
+        <SquareButton onClick={copyTags} className={styles.button}>
           <div>
             <div className={`icon icon-copy ${styles.copy}`}></div>
             <div className={`icon icon-check ${styles.check}`}></div>
           </div>
-        </SmallSquareButton>
+        </SquareButton>
       </div>
     );
   } else

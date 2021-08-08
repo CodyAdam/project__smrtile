@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import { SmallSquareButton } from '../smallSquareButton/SmallSquareButton';
-import { IconButton } from '../iconButton/IconButton';
 import styles from './Propertie.module.css';
+import PropTypes from 'prop-types';
+import { IconButton } from '../iconButton/IconButton';
 import { useState } from 'react';
 
 export function Propertie({

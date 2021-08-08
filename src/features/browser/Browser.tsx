@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import styles from './Browser.module.css';
-import { SmallSquareButton } from '../../common/smallSquareButton/SmallSquareButton';
+import { SquareButton } from '../../common/squareButton/SquareButton';
 import {
   addRule,
   addSmartTile,
@@ -103,9 +103,9 @@ export function Browser() {
       <div className={styles.title}>
         <span>BROWSER</span>
         <div className={styles.spacer} />
-        <SmallSquareButton onClick={() => {}}>
+        <SquareButton onClick={() => {}}>
           <div className={`icon-tag icon`} />
-        </SmallSquareButton>
+        </SquareButton>
       </div>
       <div className={styles.scrollable}>
         <div className={styles.group}>
@@ -120,14 +120,14 @@ export function Browser() {
             </div>
             <span>RULES</span>
             <div className={styles.spacer} />
-            <SmallSquareButton
+            <SquareButton
               onClick={() => {
                 setShowRules(true);
                 dispatch(addRule(nanoid()));
               }}
             >
               <div className={`icon icon-add`} />
-            </SmallSquareButton>
+            </SquareButton>
           </button>
           <div className={styles.groupContent} hidden={!showRules || !rules.length}>
             {rulesContent}
@@ -145,14 +145,14 @@ export function Browser() {
             </div>
             <span>SMART TILES</span>
             <div className={styles.spacer} />
-            <SmallSquareButton
+            <SquareButton
               onClick={() => {
                 setShowSmartTiles(true);
                 dispatch(addSmartTile(nanoid()));
               }}
             >
               <div className={`icon icon-add`} />
-            </SmallSquareButton>
+            </SquareButton>
           </button>
           <div className={styles.groupContent} hidden={!showSmartTiles || !smartTiles.length}>
             {smartTilesContent}
@@ -170,14 +170,14 @@ export function Browser() {
             </div>
             <span>TILESETS</span>
             <div className={styles.spacer} />
-            <SmallSquareButton
+            <SquareButton
               onClick={() => {
                 setShowTilesets(true);
                 dispatch(addTileset(nanoid()));
               }}
             >
               <div className={`icon icon-add`} />
-            </SmallSquareButton>
+            </SquareButton>
           </button>
           <div className={styles.groupContent} hidden={!showTilesets || !tilesets.length}>
             {tilesetsContent}

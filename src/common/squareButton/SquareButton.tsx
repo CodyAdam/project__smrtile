@@ -1,7 +1,7 @@
-import styles from './SmallSquareButton.module.css';
+import styles from './SquareButton.module.css';
 import PropTypes from 'prop-types';
 
-export function SmallSquareButton({
+export function SquareButton({
   onClick,
   children,
   className,
