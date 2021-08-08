@@ -5,13 +5,16 @@ export function SquareButton({
   onClick,
   children,
   className,
+  title,
 }: {
   onClick?: () => void;
   children?: PropTypes.ReactElementLike;
   className?: string;
+  title?: string;
 }) {
   return (
     <button
+      title={title}
       className={`${styles.button} ${className}`}
       onClick={(e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();

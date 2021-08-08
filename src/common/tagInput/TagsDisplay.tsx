@@ -39,7 +39,7 @@ export function TagsDisplay({
             {onChange ? <div className={`icon icon-trash`} /> : null}
           </div>
         ))}
-        <SquareButton onClick={copyTags} className={styles.button}>
+        <SquareButton title='copy' onClick={copyTags} className={styles.button}>
           <div>
             <div className={`icon icon-copy ${styles.copy}`}></div>
             <div className={`icon icon-check ${styles.check}`}></div>
