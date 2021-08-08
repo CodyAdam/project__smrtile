@@ -1,5 +1,5 @@
 import styles from './TopBar.module.css';
-import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton';
+import { SmallSquareButton } from '../../common/smallSquareButton/SmallSquareButton';
 import { useAppDispatch } from '../../app/hooks';
 import { undo, redo } from '../browser/browserSlice';
 import { useAppSelector } from '../../app/hooks';

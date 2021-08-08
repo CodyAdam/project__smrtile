@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import styles from './Browser.module.css';
-import SmallSquareButton from '../../common/smallSquareButton/SmallSquareButton';
+import { SmallSquareButton } from '../../common/smallSquareButton/SmallSquareButton';
 import {
   addRule,
   addSmartTile,
