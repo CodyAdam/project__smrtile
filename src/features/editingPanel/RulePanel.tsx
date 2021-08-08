@@ -2,12 +2,13 @@ import { useAppDispatch } from '../../app/hooks';
 import { TagsDisplay } from '../../common/tags/TagsDisplay';
 import { TagInput } from '../../common/tags/TagInput';
 import { TextInput } from '../../common/textInput/TextInput';
-import { updateRule } from '../browser/browserSlice';
-import { Rule, SmartTile, Tileset } from '../browser/browserTypes';
+import { updateRule, removeRule } from '../browser/browserSlice';
+import { Rule } from '../browser/browserTypes';
 import { Propertie } from '../../common/propertie/Propertie';
 import styles from './RulePanel.module.css';
+import { SquareButton } from '../../common/squareButton/SquareButton';
 
-export function RulePanel({ selected }: { selected: Rule | SmartTile | Tileset }) {
+export function RulePanel({ selected }: { selected: Rule }) {
   const dispatch = useAppDispatch();
 
   return (
@@ -48,6 +49,14 @@ export function RulePanel({ selected }: { selected: Rule | SmartTile | Tileset }
       <Propertie name='Properties'>
         <input type='checkbox' name='' id='' />
       </Propertie>
+      <SquareButton
+        title='delete'
+        onClick={() => {
+          dispatch(removeRule(selected.id));
+        }}
+      >
+        <div className='icon icon-trash' />
+      </SquareButton>
     </div>
   );
 }
