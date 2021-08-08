@@ -10,7 +10,7 @@ export function SquareButton({
   onClick?: () => void;
   children?: PropTypes.ReactElementLike;
   className?: string;
-  title?: string;
+  title: string;
 }) {
   return (
     <button
