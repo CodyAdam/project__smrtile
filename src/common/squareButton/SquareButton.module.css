@@ -1,6 +1,7 @@
 .button {
   padding: 0;
   width: 22px;
+  overflow: hidden;
   height: 22px;
   border: none;
   background-color: transparent;
@@ -8,11 +9,11 @@
   cursor: pointer;
   color: var(--txt1);
   font-size: 16px;
-  overflow: hidden;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid transparent;
 }
 
 .button:hover {
