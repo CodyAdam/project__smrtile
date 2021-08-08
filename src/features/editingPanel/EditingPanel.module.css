@@ -1,20 +1,9 @@
-.container {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-h2,
-p,
-.smallButton {
-  margin-bottom: 10px;
-}
 h1 {
   user-select: none;
   font-size: 24px;
+
+  padding: 10px;
   color: var(--hl1);
-  padding: 15px;
   font-weight: 600;
 }
 h2 {
@@ -29,16 +18,20 @@ p {
   font-size: 13px;
   color: var(--txt3);
 }
-.group {
-  padding: 15px;
+
+article {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
   border-radius: 6px;
-  margin-bottom: 5px;
+  gap: 8px;
   overflow: hidden;
 }
-.group:hover,
-.group:focus-within {
+article:hover,
+article:focus-within {
   background-color: rgba(255, 255, 255, 0.02);
 }
+
 .placeholder {
   background-color: rgba(0, 0, 0, 0.1);
   display: flex;
@@ -46,8 +39,9 @@ p {
   align-items: center;
   font-style: italic;
   font-size: 13px;
-}
-
-.tagInput {
-  margin-top: 5px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
