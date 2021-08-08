@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../../app/hooks';
-import { TagsDisplay } from '../../common/tagInput/TagsDisplay';
-import { TagInput } from '../../common/tagInput/TagInput';
+import { TagsDisplay } from '../../common/tags/TagsDisplay';
+import { TagInput } from '../../common/tags/TagInput';
 import { TextInput } from '../../common/textInput/TextInput';
 import { updateRule } from '../browser/browserSlice';
 import { Rule, SmartTile, Tileset } from '../browser/browserTypes';
