@@ -103,7 +103,7 @@ export function Browser() {
       <div className={styles.title}>
         <span>BROWSER</span>
         <div className={styles.spacer} />
-        <SquareButton onClick={() => {}}>
+        <SquareButton onClick={() => {}} title='filter'>
           <div className={`icon-tag icon`} />
         </SquareButton>
       </div>
@@ -121,6 +121,7 @@ export function Browser() {
             <span>RULES</span>
             <div className={styles.spacer} />
             <SquareButton
+              title='add'
               onClick={() => {
                 setShowRules(true);
                 dispatch(addRule(nanoid()));
@@ -146,6 +147,7 @@ export function Browser() {
             <span>SMART TILES</span>
             <div className={styles.spacer} />
             <SquareButton
+              title='add'
               onClick={() => {
                 setShowSmartTiles(true);
                 dispatch(addSmartTile(nanoid()));
@@ -171,6 +173,7 @@ export function Browser() {
             <span>TILESETS</span>
             <div className={styles.spacer} />
             <SquareButton
+              title='add'
               onClick={() => {
                 setShowTilesets(true);
                 dispatch(addTileset(nanoid()));

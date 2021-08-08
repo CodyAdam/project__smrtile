@@ -21,6 +21,7 @@ export function Propertie({
         {about ? (
           <div className={styles.buttonContainer}>
             <IconButton
+              title={showAbout ? 'hide' : 'about'}
               className={styles.button}
               onClick={() => {
                 setShowAbout(!showAbout);
@@ -33,8 +34,8 @@ export function Propertie({
       </div>
       {about && showAbout ? (
         <div className={styles.about}>
-          {about.split('\\n').map((str) => (
-            <p>{str}</p>
+          {about.split('\\n').map((str, index) => (
+            <p key={index}>{str}</p>
           ))}
         </div>
       ) : null}

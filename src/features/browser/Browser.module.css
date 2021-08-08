@@ -38,7 +38,7 @@
   flex-shrink: 0;
 }
 .title > button {
-  margin: 0 6px;
+  margin: 0 10px;
 }
 .title span {
   margin-left: 15px;
@@ -54,7 +54,7 @@
   display: flex;
   align-items: center;
   height: 30px;
-  padding: 0 6px 0 15px;
+  padding: 0 10px 0 15px;
   width: 100%;
   color: var(--txt1);
   border: 1px solid transparent;

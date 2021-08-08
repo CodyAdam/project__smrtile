@@ -30,6 +30,7 @@ export function TopBar() {
       <div className={styles.spacer} />
 
       <SquareButton
+        title='undo'
         onClick={() => {
           dispatch(undo());
         }}
@@ -37,6 +38,7 @@ export function TopBar() {
         <div className={`icon icon-arrow-small-left`} />
       </SquareButton>
       <SquareButton
+        title='redo'
         onClick={() => {
           dispatch(redo());
         }}
