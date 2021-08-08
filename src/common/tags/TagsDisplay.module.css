@@ -40,7 +40,6 @@
   visibility: hidden;
   transform: translate(-50%, -50%);
 }
-
 .removable:hover {
   background-color: #a04848;
 }
@@ -51,17 +50,17 @@
   opacity: 0.3;
 }
 
-.button {
+.copyContainer {
   position: relative;
 }
 .copy {
   transition: opacity 1s cubic-bezier(0.66, -0.19, 1, 0.19);
 }
-.button:active .copy {
+.copyContainer:active .copy {
   transition: opacity 0s;
   opacity: 0;
 }
-.button:active .check {
+.copyContainer:active .check {
   opacity: 1;
 
   transition: opacity 0s;
@@ -73,4 +72,11 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.button {
+  visibility: hidden;
+}
+.container:hover .button {
+  visibility: visible;
 }

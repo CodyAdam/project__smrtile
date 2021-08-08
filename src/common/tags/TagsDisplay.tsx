@@ -23,6 +23,10 @@ export function TagsDisplay({
     navigator.clipboard.writeText(tags.map((tag) => tag.name).join(' ') + ' ');
   }
 
+  function clear() {
+    if (onChange) onChange([]);
+  }
+
   if (tags.length) {
     return (
       <div className={`${className} ${styles.container}`}>
@@ -39,11 +43,14 @@ export function TagsDisplay({
             {onChange ? <div className={`icon icon-trash`} /> : null}
           </div>
         ))}
-        <SquareButton title='copy' onClick={copyTags} className={styles.button}>
+        <SquareButton title='copy' onClick={copyTags} className={`${styles.button} ${styles.copyContainer}`}>
           <div>
             <div className={`icon icon-copy ${styles.copy}`}></div>
             <div className={`icon icon-check ${styles.check}`}></div>
           </div>
+        </SquareButton>
+        <SquareButton title='clear' onClick={clear} className={styles.button}>
+          <div className={`icon icon-clear-all`} />
         </SquareButton>
       </div>
     );
