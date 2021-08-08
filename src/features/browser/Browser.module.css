@@ -35,10 +35,13 @@
   align-items: center;
   height: 40px;
   user-select: none;
-  padding: 0 6px 0 15px;
   flex-shrink: 0;
 }
+.title > button {
+  margin: 0 6px;
+}
 .title span {
+  margin-left: 15px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
