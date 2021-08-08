@@ -1,7 +1,6 @@
 import styles from './TagInput.module.css';
 import { useState, useEffect } from 'react';
 import { ObjectType, Tag } from '../../features/browser/browserTypes';
-import SmallSquareButton from '../smallSquareButton/SmallSquareButton';
 
 export function TagInput({
   tags,
@@ -57,23 +56,6 @@ export function TagInput({
     setIsInputValid(isValid(value));
   }, [value]);
 
-  const suggestion = tagsSuggestion
-    .filter((tag) => !tags.map((tag) => tag.name).includes(tag.name))
-    .map((tag: Tag, index: number) => (
-      <button
-        key={index + tag.name}
-        className={styles.suggestionTag}
-        style={{ backgroundColor: tag.color }}
-        onClick={() => {
-          handleAdd([tag]);
-        }}
-        tabIndex={0}
-      >
-        <div className={`icon icon-add ${styles.add}`}></div>
-        <span>{tag.name}</span>
-      </button>
-    ));
-
   return (
     <div className={`${className} ${styles.container}`}>
       <input
@@ -86,9 +68,23 @@ export function TagInput({
           if (e.key === 'Enter' && isInputValid) handleAdd([stringToTag(value)]);
         }}
         onChange={handleChange}
-        autoFocus
       />
-      {suggestion}
+      {tagsSuggestion
+        .filter((tag) => !tags.map((tag) => tag.name).includes(tag.name))
+        .map((tag: Tag, index: number) => (
+          <button
+            key={index + tag.name}
+            className={styles.suggestionTag}
+            style={{ backgroundColor: tag.color }}
+            onClick={() => {
+              handleAdd([tag]);
+            }}
+            tabIndex={0}
+          >
+            <div className={`icon icon-add ${styles.add}`}></div>
+            <span>{tag.name}</span>
+          </button>
+        ))}
     </div>
   );
 }
