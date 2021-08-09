@@ -1,5 +1,4 @@
 import styles from './ImageInput.module.css';
-import { useState } from 'react';
 
 export function ImageInput({ onChange }: { onChange: (imageData: string) => void }) {
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
