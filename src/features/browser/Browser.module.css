@@ -95,7 +95,7 @@
   border-radius: 4px;
 }
 .scrollable:hover::-webkit-scrollbar-thumb {
-  background-color: rgb(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0.2);
 }
 
 .groupContent {

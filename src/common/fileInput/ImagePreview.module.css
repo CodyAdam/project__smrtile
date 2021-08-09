@@ -1,15 +1,14 @@
 .container {
-  overflow: auto;
   height: 300px;
-  min-width: 320px;
   max-width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 8px;
   border-radius: 5px;
+  overflow: hidden auto;
+  overflow: hidden overlay;
 }
 .img {
-  min-height: 100%;
-  max-width: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .placeholder {
@@ -33,4 +32,19 @@
   image-rendering: pixelated; /* Chrome */
   image-rendering: optimize-contrast; /* CSS3 Proposed                  */
   -ms-interpolation-mode: nearest-neighbor; /* IE8+                           */
+}
+
+.container::-webkit-scrollbar,
+.container::-webkit-scrollbar-corner {
+  background-color: transparent;
+  width: 8px;
+  height: 8px;
+  transition: all 1s ease-in-out;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+.container:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255, 0.2);
 }
