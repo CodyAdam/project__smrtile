@@ -3,6 +3,7 @@ import { selectedContentSelector } from '../browser/browserSlice';
 import { ObjectType } from '../browser/browserTypes';
 import styles from './EditingPanel.module.css';
 import { RulePanel } from './RulePanel';
+import { TilesetPanel } from './TilesetPanel';
 
 export function EditingPanel() {
   const selected = useAppSelector(selectedContentSelector);
@@ -23,14 +24,6 @@ export function EditingPanel() {
         </div>
       );
     case ObjectType.TILESET:
-      return (
-        <div>
-          <h1>NOT YET IMPLEMENTED</h1>
-          <article>
-            <h2>Soon</h2>
-            <p>Soon</p>
-          </article>
-        </div>
-      );
+      return <TilesetPanel selected={selected} />;
   }
 }
