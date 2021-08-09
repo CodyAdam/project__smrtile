@@ -22,7 +22,7 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
   return (
     <div className={styles.container}>
       <h1>Tileset</h1>
-      <Propertie name='Tileset file' about='Upload the tilesheet image for the tileset'>
+      <Propertie name='Import image' about='Upload the tilesheet image for the tileset'>
         <>
           <ImageInput
             onChange={(imageData) => {
@@ -30,8 +30,10 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
               dispatch(updateTileset({ id: selected.id, changes: { imageUrl: imageData } }));
             }}
           />
-          <ImagePreview imageUrl={selected.imageUrl} filters={selected.filters} />
         </>
+      </Propertie>
+      <Propertie name='Preview'>
+        <ImagePreview imageUrl={selected.imageUrl} filters={selected.filters} />
       </Propertie>
       <Propertie name='Pixelated' about='Choose whether or not the image should be pixelated\n(for pixel art assets)'>
         <CheckboxInput
