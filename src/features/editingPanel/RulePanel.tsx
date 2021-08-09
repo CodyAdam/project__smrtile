@@ -5,7 +5,7 @@ import { TextInput } from '../../common/textInput/TextInput';
 import { updateRule, removeRule } from '../browser/browserSlice';
 import { Rule } from '../browser/browserTypes';
 import { Propertie } from '../../common/propertie/Propertie';
-import styles from './RulePanel.module.css';
+import styles from './Panel.module.css';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 
 export function RulePanel({ selected }: { selected: Rule }) {
@@ -29,7 +29,7 @@ export function RulePanel({ selected }: { selected: Rule }) {
           }}
         />
       </Propertie>
-      <Propertie name='Tags'>
+      <Propertie name='Tags' about='Use tags to easily filter items\nDescription TODO'>
         <>
           <TagsDisplay
             tags={selected.tags}
