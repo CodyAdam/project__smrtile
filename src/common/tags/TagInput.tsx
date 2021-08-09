@@ -15,9 +15,9 @@ export function TagInput({
   const [isInputValid, setIsInputValid] = useState(false);
 
   const tagsSuggestion: Tag[] = [
-    { type: ObjectType.TAG, color: '#a28d30', name: 'yellow' },
-    { type: ObjectType.TAG, color: '#a02034', name: 'red' },
-    { type: ObjectType.TAG, color: '#2e8456', name: 'green' },
+    { type: ObjectType.TAG, color: '#cfc72e', name: 'yellow' },
+    { type: ObjectType.TAG, color: '#ba273e', name: 'red' },
+    { type: ObjectType.TAG, color: '#39b271', name: 'green' },
   ];
 
   function handleAdd(toAdd: Tag[]) {
