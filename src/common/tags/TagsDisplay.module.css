@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  background-color: hsla(0, 0%, 0%, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 8px;
   border-radius: 5px;
   min-height: 43px;
@@ -9,11 +9,11 @@
   overflow: hidden;
   gap: 5px;
 }
-
-.container > span {
+.placeholder {
   user-select: none;
   font-size: 13px;
   margin-left: 5px;
+  font-style: italic;
 }
 
 .tag {

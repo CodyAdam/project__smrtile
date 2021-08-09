@@ -9,5 +9,10 @@ export function ImagePreview({ imageData, filters }: { imageData?: string; filte
         <img className={`${styles.img} ${filterClasses}`} src={imageData} alt='' />
       </div>
     );
-  } else return null;
+  } else
+    return (
+      <div className={styles.container}>
+        <div className={styles.placeholder}>There is no tileset to display yet</div>
+      </div>
+    );
 }

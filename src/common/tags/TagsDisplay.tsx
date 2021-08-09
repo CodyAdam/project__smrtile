@@ -57,7 +57,7 @@ export function TagsDisplay({
   } else
     return (
       <div className={`${className} ${styles.container}`}>
-        <span>There are no tags yet</span>
+        <div className={styles.placeholder}>There are no tags yet</div>
       </div>
     );
 }
