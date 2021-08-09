@@ -19,7 +19,7 @@ export type TileSymbol = {} // TODO
 export type Thumbnail = Tile | TileSymbol | null
 export type Vector2 = { x: number, y: number }
 export type Tag = { type: ObjectType.TAG, color?: string, name: string };
-export type Base64 = string | undefined;
+export type ImageURL = string;
 export type TileGroup = Tile[]
 export type Tile = BasicTile | SmartTile
 export interface BasicTile {
@@ -74,7 +74,7 @@ export interface Tileset {
   name: string,
   tags: Tag[],
   filters: TilesetFilter[],
-  image: Base64,
+  imageUrl: ImageURL | undefined,
   width: number,
   height: number,
   grid: {

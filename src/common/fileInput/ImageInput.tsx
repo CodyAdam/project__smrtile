@@ -1,29 +1,12 @@
 import styles from './ImageInput.module.css';
 
-export function ImageInput({ onChange }: { onChange: (imageData: string) => void }) {
+export function ImageInput({ onChange }: { onChange: (imageUrl: string) => void }) {
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
-    if (files) {
-      const file = files.item(0);
-      if (file) {
-        toBase64(file)
-          .then((imageData) => {
-            if (imageData && typeof imageData === 'string') onChange(imageData);
-          })
-          .catch(() => {
-            console.error('Failed to read the file : ' + file.name);
-          });
-      }
+    if (files && files.length) {
+      const file = files[0];
+      onChange(window.URL.createObjectURL(file));
     }
-  }
-
-  function toBase64(file: File) {
-    return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
   }
 
   return (

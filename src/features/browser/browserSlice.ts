@@ -37,7 +37,7 @@ const defaultTileset: Tileset = {
   name: "Nameless Tileset",
   tags: [],
   filters: [],
-  image: undefined,
+  imageUrl: undefined,
   width: 0,
   height: 0,
   grid: {

@@ -9,7 +9,6 @@ import { CheckboxInput } from '../../common/checkboxInput/CheckboxInput';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
-  const imageData = selected.image;
 
   function setFilter(filter: TilesetFilter, value: boolean): TilesetFilter[] {
     const filters = [...selected.filters];
@@ -27,10 +26,11 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
         <>
           <ImageInput
             onChange={(imageData) => {
-              dispatch(updateTileset({ id: selected.id, changes: { image: imageData } }));
+              if (selected.imageUrl) window.URL.revokeObjectURL(selected.imageUrl);
+              dispatch(updateTileset({ id: selected.id, changes: { imageUrl: imageData } }));
             }}
           />
-          <ImagePreview imageData={imageData} filters={selected.filters} />
+          <ImagePreview imageUrl={selected.imageUrl} filters={selected.filters} />
         </>
       </Propertie>
       <Propertie name='Pixelated' about='Choose whether or not the image should be pixelated\n(for pixel art assets)'>
