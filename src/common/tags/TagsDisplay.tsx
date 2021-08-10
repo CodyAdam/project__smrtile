@@ -32,7 +32,7 @@ export function TagsDisplay({
       <div className={`${className} ${styles.container}`}>
         {tags.map((tag: Tag, index: number) => (
           <div
-            key={index + tag.name}
+            key={index}
             className={`${styles.tag} ${onChange ? styles.removable : ''}`}
             style={{ backgroundColor: tag.color }}
             onClick={() => {
