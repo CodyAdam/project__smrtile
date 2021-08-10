@@ -8,3 +8,31 @@
   flex-direction: column;
   row-gap: 5px;
 }
+
+.container::-webkit-scrollbar,
+.container::-webkit-scrollbar-corner {
+  background-color: transparent;
+  width: 8px;
+  height: 8px;
+  transition: all 1s ease-in-out;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+.container:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255, 0.2);
+}
+
+.grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
