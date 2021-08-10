@@ -8,11 +8,12 @@
   align-items: center;
   overflow: hidden;
   gap: 5px;
+  width: 100%;
 }
 .placeholder {
   user-select: none;
   font-size: 13px;
-  margin-left: 5px;
+  margin: 0 5px;
   font-style: italic;
 }
 
