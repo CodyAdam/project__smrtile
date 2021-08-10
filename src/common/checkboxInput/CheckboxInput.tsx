@@ -1,12 +1,23 @@
 import styles from './CheckboxInput.module.css';
 
-export function CheckboxInput({ value, onChange }: { value: boolean; onChange: (isChecked: boolean) => void }) {
-  function handleChange() {
+export function CheckboxInput({
+  title,
+  value,
+  onChange,
+}: {
+  title?: string;
+  value: boolean;
+  onChange: (isChecked: boolean) => void;
+}) {
+  function handleClick() {
     onChange(!value);
   }
   return (
     <div className={styles.container}>
-      <input type='checkbox' checked={value} onChange={handleChange} />
+      <button className={styles.button} onClick={handleClick}>
+        {value ? <div className={`icon icon-check ${styles.icon}`} /> : null}
+      </button>
+      {title ? <div className={styles.title}>{title}</div> : null}
     </div>
   );
 }
