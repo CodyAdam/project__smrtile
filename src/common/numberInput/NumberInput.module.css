@@ -5,6 +5,7 @@
   position: relative;
 }
 .title {
+  user-select: none;
   font-size: 13px;
 }
 
@@ -36,4 +37,8 @@
   cursor: w-resize;
   position: absolute;
   right: 1px;
+}
+
+.invalid {
+  border: 1px solid red !important;
 }
