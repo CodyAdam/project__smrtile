@@ -37,17 +37,15 @@ const defaultTileset: Tileset = {
   name: "Nameless Tileset",
   tags: [],
   filters: [],
-  imageUrl: undefined,
+  sprite: undefined,
   width: 0,
   height: 0,
   grid: {
     columns: 0,
     rows: 0,
-    tile: {
-      width: 0,
-      height: 0,
-      offset: { top: 0, right: 0, bottom: 0, left: 0 },
-    },
+    width: 0,
+    height: 0,
+    offset: { top: 0, right: 0, bottom: 0, left: 0 }
   },
   thumbnail: [],
   id: '',
@@ -111,6 +109,9 @@ export const { addRule, addSmartTile, addTileset, select, deselect, updateRule, 
 
 //Selectors
 
+export const historyIndexSelector = createSelector(
+  (state: RootState) => state.browser.index,
+  index => index)
 export const selectedSelector = createSelector(
   (state: RootState) => state.browser.present,
   state => state.selection)

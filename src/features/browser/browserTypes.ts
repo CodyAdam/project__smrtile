@@ -74,20 +74,24 @@ export interface Tileset {
   name: string,
   tags: Tag[],
   filters: TilesetFilter[],
-  imageUrl: ImageURL | undefined,
+  sprite: Sprite | undefined,
   width: number,
   height: number,
-  grid: {
-    columns: number,
-    rows: number,
-    tile: {
-      width: number,
-      height: number,
-      offset: Offset,
-    },
-  },
+  grid: GridSettings,
   thumbnail: Thumbnail[],
   id: ID,
+}
+export type GridSettings = {
+  columns: number,
+  rows: number,
+  width: number,
+  height: number,
+  offset: Offset,
+}
+export type Sprite = {
+  url: string,
+  width: number,
+  height: number,
 }
 export type TilesetFilter = 'pixelated' | 'transparent'
 export type Offset = { top: number, right: number, bottom: number, left: number }
