@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+.title {
+  font-size: 13px;
+}
+
+.input {
+  outline: none;
+  background-color: var(--bg4);
+  color: var(--txt3);
+  padding: 5px;
+  width: 58px;
+  border-radius: 2px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  font-size: 13px;
+  height: 25px;
+  padding-right: 20px;
+}
+.input:focus {
+  border: 1px solid var(--txt1);
+}
+/* hide little arrows */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+
+.slider {
+  cursor: w-resize;
+  position: absolute;
+  right: 1px;
+}
