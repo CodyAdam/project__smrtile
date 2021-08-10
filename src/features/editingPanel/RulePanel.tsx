@@ -54,9 +54,8 @@ export function RulePanel({ selected }: { selected: Rule }) {
         onClick={() => {
           dispatch(removeRule(selected.id));
         }}
-      >
-        <div className='icon icon-trash' />
-      </SquareButton>
+        icon='trash'
+      />
     </div>
   );
 }

@@ -34,17 +34,15 @@ export function TopBar() {
         onClick={() => {
           dispatch(undo());
         }}
-      >
-        <div className={`icon icon-arrow-small-left`} />
-      </SquareButton>
+        icon='arrow-small-left'
+      />
       <SquareButton
         title='redo'
         onClick={() => {
           dispatch(redo());
         }}
-      >
-        <div className={`icon icon-arrow-small-right`} />
-      </SquareButton>
+        icon='arrow-small-right'
+      />
     </div>
   );
 }

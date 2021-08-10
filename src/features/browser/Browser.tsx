@@ -103,9 +103,7 @@ export function Browser() {
       <div className={styles.title}>
         <span>BROWSER</span>
         <div className={styles.spacer} />
-        <SquareButton onClick={() => {}} title='filter'>
-          <div className={`icon-tag icon`} />
-        </SquareButton>
+        <SquareButton icon='tag' onClick={() => {}} title='filter' />
       </div>
       <div className={styles.scrollable}>
         <div className={styles.group}>
@@ -126,9 +124,8 @@ export function Browser() {
                 setShowRules(true);
                 dispatch(addRule(nanoid()));
               }}
-            >
-              <div className={`icon icon-add`} />
-            </SquareButton>
+              icon='add'
+            />
           </button>
           <div className={styles.groupContent} hidden={!showRules || !rules.length}>
             {rulesContent}
@@ -152,9 +149,8 @@ export function Browser() {
                 setShowSmartTiles(true);
                 dispatch(addSmartTile(nanoid()));
               }}
-            >
-              <div className={`icon icon-add`} />
-            </SquareButton>
+              icon='add'
+            />
           </button>
           <div className={styles.groupContent} hidden={!showSmartTiles || !smartTiles.length}>
             {smartTilesContent}
@@ -178,9 +174,8 @@ export function Browser() {
                 setShowTilesets(true);
                 dispatch(addTileset(nanoid()));
               }}
-            >
-              <div className={`icon icon-add`} />
-            </SquareButton>
+              icon='add'
+            />
           </button>
           <div className={styles.groupContent} hidden={!showTilesets || !tilesets.length}>
             {tilesetsContent}

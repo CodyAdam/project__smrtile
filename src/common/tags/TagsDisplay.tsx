@@ -49,9 +49,7 @@ export function TagsDisplay({
             <div className={`icon icon-check ${styles.check}`}></div>
           </div>
         </SquareButton>
-        <SquareButton title='clear' onClick={clear} className={styles.button}>
-          <div className={`icon icon-clear-all`} />
-        </SquareButton>
+        <SquareButton title='clear' icon='clear-all' onClick={clear} className={styles.button} />
       </div>
     );
   } else
