@@ -12,7 +12,7 @@ export function EditingPanel() {
     return <div className={`${styles.placeholder}`}>Select an element inside the Browser or add a new element</div>;
   switch (selected.type) {
     case ObjectType.RULE:
-      return <RulePanel selected={selected} />;
+      return <RulePanel key={selected.id} selected={selected} />;
     case ObjectType.SMARTTILE:
       return (
         <div>
@@ -24,6 +24,6 @@ export function EditingPanel() {
         </div>
       );
     case ObjectType.TILESET:
-      return <TilesetPanel selected={selected} />;
+      return <TilesetPanel key={selected.id} selected={selected} />;
   }
 }
