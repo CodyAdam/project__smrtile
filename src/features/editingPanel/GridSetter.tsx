@@ -269,7 +269,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
         </div>
       ) : null}
       <TextButton
-        title='Apply'
+        title='Apply changes'
         invalid={!isRowValid() || !isColumnsValid()}
         onClick={() => {
           dispatch(updateTileset({ id: selected.id, changes: { grid: grid } }));
