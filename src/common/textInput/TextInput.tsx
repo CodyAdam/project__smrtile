@@ -6,6 +6,10 @@ export function TextInput({ text, onChange }: { text: string; onChange: (newValu
   const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
+    setValue(text);
+  }, [text]);
+
+  useEffect(() => {
     // When the input text change we check its validity
     const regexr = /^([A-Z]|[a-z]|\d)([A-Z]|[a-z]|(_|-| )|\d)*([A-Z]|[a-z]|\d)$/;
     setIsValid(value.length >= 2 && value.length <= 25 && regexr.test(value));

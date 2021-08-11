@@ -22,7 +22,6 @@ export function RulePanel({ selected }: { selected: Rule }) {
           • contain at least 2 characters and 25 at most'
       >
         <TextInput
-          key={selected.name}
           text={selected.name}
           onChange={(newName) => {
             dispatch(updateRule({ id: selected.id, changes: { name: newName } }));
