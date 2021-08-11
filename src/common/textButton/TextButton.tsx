@@ -22,10 +22,10 @@ export function TextButton({
     return (
       <button
         title={invalid && invalidText ? invalidText : title}
-        className={`${styles.button} ${className} ${invalid ? styles.invalid : ''}`}
+        className={` ${className} ${invalid ? styles.invalidButton : styles.button}`}
         onClick={(e: React.MouseEvent<HTMLElement>) => {
           e.stopPropagation();
-          if (onClick) onClick();
+          if (onClick && !invalid) onClick();
         }}
       >
         <div className={styles.title}>{title}</div>
@@ -36,10 +36,10 @@ export function TextButton({
     return (
       <button
         title={invalid && invalidText ? invalidText : title}
-        className={`${styles.button} ${className} ${invalid ? styles.invalid : ''}`}
+        className={` ${className} ${invalid ? styles.invalidButton : styles.button}`}
         onClick={(e: React.MouseEvent<HTMLElement>) => {
           e.stopPropagation();
-          if (onClick) onClick();
+          if (onClick && !invalid) onClick();
         }}
       >
         <div className={styles.title}>{title}</div>

@@ -1,5 +1,4 @@
 .button {
-  padding: 0;
   overflow: hidden;
   height: 26px;
   border: none;
@@ -12,7 +11,7 @@
   justify-content: center;
   align-items: center;
   border: 1px solid transparent;
-  padding: 6px;
+  padding: 6px 10px;
   font-size: 14px;
   gap: 8px;
 }
@@ -31,7 +30,20 @@
   outline: none;
 }
 
-.invalid {
+.invalidButton {
   cursor: not-allowed;
   border: 1px solid rgb(190, 38, 38) !important;
+  overflow: hidden;
+  height: 26px;
+  border: none;
+  background-color: var(--bg4);
+  border-radius: 5px;
+  color: var(--txt2);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 14px;
+  gap: 8px;
 }
