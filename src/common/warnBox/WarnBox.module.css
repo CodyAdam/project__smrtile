@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  height: 26px;
+  background-color: var(--hl2);
+  border-radius: 5px;
+  color: var(--txt2);
+  flex-shrink: 0;
+  display: flex;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.icon,
+.message {
+  color: var(--txt3);
+}
