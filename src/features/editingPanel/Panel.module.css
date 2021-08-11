@@ -2,8 +2,8 @@
   height: 100%;
   width: 100%;
   padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
+  overflow: hidden overlay;
   display: flex;
   flex-direction: column;
   row-gap: 5px;
