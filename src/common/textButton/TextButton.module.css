@@ -2,27 +2,25 @@
   overflow: hidden;
   height: 26px;
   border: none;
-  background-color: var(--bg4);
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
   cursor: pointer;
-  color: var(--txt2);
+  color: var(--txt3);
   flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid transparent;
-  padding: 6px 10px;
-  font-size: 14px;
+  padding: 6px 8px;
+  font-size: 13px;
   gap: 8px;
 }
 
 .button:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  color: var(--txt2);
 }
 .button:active {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--txt3);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .button:focus {
@@ -36,14 +34,14 @@
   overflow: hidden;
   height: 26px;
   border: none;
-  background-color: var(--bg4);
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
   color: var(--txt2);
   flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 10px;
-  font-size: 14px;
+  padding: 6px 8px;
+  font-size: 13px;
   gap: 8px;
 }
