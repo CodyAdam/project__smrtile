@@ -39,7 +39,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
     const { height } = selected.sprite;
     const isRows = height % grid.rows === 0 && grid.rows === Math.floor(grid.rows);
     const isHeight =
-      grid.height * grid.rows + grid.offset.top + grid.offset.bottom === height &&
+      grid.rows * (grid.height + grid.offset.top + grid.offset.bottom) === height &&
       grid.height === Math.floor(grid.height);
     return isRows && isHeight;
   }
@@ -49,13 +49,14 @@ export function GridSetter({ selected }: { selected: Tileset }) {
     const { width } = selected.sprite;
     const isColumns = width % grid.columns === 0 && grid.columns === Math.floor(grid.columns);
     const isWidth =
-      grid.width * grid.columns + grid.offset.right + grid.offset.left === width &&
+      grid.columns * (grid.width + grid.offset.right + grid.offset.left) === width &&
       grid.width === Math.floor(grid.width);
     return isColumns && isWidth;
   }
   return (
     <>
       {!selected.sprite ? <WarnBox message='You have to import an image first' /> : null}
+      {!isSquared ? <WarnBox message='Rectangle tiles are not yet supported' /> : null}
       <CheckboxInput
         value={isSquared}
         title='Squared tile'
@@ -76,16 +77,17 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   ? {
                       ...grid,
                       columns: columns,
-                      width: getSanitazedValue(selected.sprite.width / columns),
-                      height: getSanitazedValue(selected.sprite.width / columns),
+                      width: getSanitazedValue(selected.sprite.width / columns - grid.offset.right - grid.offset.left),
+                      height: getSanitazedValue(selected.sprite.width / columns - grid.offset.right - grid.offset.left),
                       rows: getSanitazedValue(
-                        selected.sprite.height / getSanitazedValue(selected.sprite.width / columns),
+                        selected.sprite.height /
+                          getSanitazedValue(selected.sprite.width / columns - grid.offset.right - grid.offset.left),
                       ),
                     }
                   : {
                       ...grid,
                       columns: columns,
-                      width: getSanitazedValue(selected.sprite.width / columns),
+                      width: getSanitazedValue(selected.sprite.width / columns - grid.offset.right - grid.offset.left),
                     };
                 setGrid(newGrid);
               }
@@ -97,14 +99,14 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                 value={grid.width}
                 title='Tile size'
                 invalid={!isColumnsValid() || !isRowValid()}
-                onChange={(width) => {
+                onChange={(size) => {
                   if (selected.sprite) {
                     const newGrid: GridSettings = {
                       ...grid,
-                      width: width,
-                      height: width,
-                      columns: getSanitazedValue(selected.sprite.width / width),
-                      rows: getSanitazedValue(selected.sprite.height / width),
+                      width: size,
+                      height: size,
+                      columns: getSanitazedValue(selected.sprite.width / (size + grid.offset.left + grid.offset.right)),
+                      rows: getSanitazedValue(selected.sprite.height / (size + grid.offset.top + grid.offset.bottom)),
                     };
                     setGrid(newGrid);
                   }
@@ -121,7 +123,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     width: width,
-                    columns: getSanitazedValue(selected.sprite.width / width),
+                    columns: getSanitazedValue(selected.sprite.width / (width + grid.offset.left + grid.offset.right)),
                   };
                   setGrid(newGrid);
                 }
@@ -143,13 +145,13 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                       columns: getSanitazedValue(
                         selected.sprite.width / getSanitazedValue(selected.sprite.height / rows),
                       ),
-                      height: getSanitazedValue(selected.sprite.height / rows),
-                      width: getSanitazedValue(selected.sprite.height / rows),
+                      height: getSanitazedValue(selected.sprite.height / rows - grid.offset.top - grid.offset.bottom),
+                      width: getSanitazedValue(selected.sprite.height / rows - grid.offset.top - grid.offset.bottom),
                     }
                   : {
                       ...grid,
                       rows: rows,
-                      height: getSanitazedValue(selected.sprite.height / rows),
+                      height: getSanitazedValue(selected.sprite.height / rows - grid.offset.top - grid.offset.bottom),
                     };
                 setGrid(newGrid);
               }
@@ -167,13 +169,19 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                         ...grid,
                         height: height,
                         width: height,
-                        rows: getSanitazedValue(selected.sprite.height / height),
-                        columns: getSanitazedValue(selected.sprite.width / height),
+                        rows: getSanitazedValue(
+                          selected.sprite.height / (height + grid.offset.top + grid.offset.bottom),
+                        ),
+                        columns: getSanitazedValue(
+                          selected.sprite.width / (height + grid.offset.top + grid.offset.bottom),
+                        ),
                       }
                     : {
                         ...grid,
                         height: height,
-                        rows: getSanitazedValue(selected.sprite.height / height),
+                        rows: getSanitazedValue(
+                          selected.sprite.height / (height + grid.offset.top + grid.offset.bottom),
+                        ),
                       };
 
                   setGrid(newGrid);
@@ -188,7 +196,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
         value={useOffset}
         title='Use offset'
         onChange={(bool) => {
-          if (!bool) setGrid({ ...grid, offset: { top: 0, bottom: 0, left: 0, right: 0 } });
+          if (!bool) setGrid({ ...grid, offset: { top: 0, right: 0, bottom: 0, left: 0 } });
           setUseOffset(bool);
         }}
       />
@@ -204,6 +212,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, top },
+                    rows: getSanitazedValue(selected.sprite.height / (grid.height + top + grid.offset.bottom)),
                   };
                   setGrid(newGrid);
                 }
@@ -218,6 +227,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, bottom },
+                    rows: getSanitazedValue(selected.sprite.height / (grid.height + grid.offset.top + bottom)),
                   };
                   setGrid(newGrid);
                 }
@@ -234,6 +244,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, right },
+                    columns: getSanitazedValue(selected.sprite.width / (grid.width + right + grid.offset.left)),
                   };
                   setGrid(newGrid);
                 }
@@ -248,6 +259,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, left },
+                    columns: getSanitazedValue(selected.sprite.width / (grid.width + left + grid.offset.right)),
                   };
                   setGrid(newGrid);
                 }
