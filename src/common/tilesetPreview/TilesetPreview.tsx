@@ -1,5 +1,5 @@
 import { GridSettings, Sprite, TilesetFilter } from '../../features/browser/browserTypes';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import styles from './TilesetPreview.module.css';
 
 export function TilesetPreview({
@@ -13,21 +13,14 @@ export function TilesetPreview({
   filters?: TilesetFilter[];
   showGrid?: boolean;
 }) {
-  const [showLocalGrid, setShowLocalGrid] = useState(showGrid);
   const W = window.innerWidth;
   const H = sprite ? sprite.height * (window.innerWidth / sprite.width) : 0;
   const canvas = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    setShowLocalGrid(showGrid);
-  }, [showGrid]);
-
-  useEffect(() => {
     if (canvas.current && grid && sprite) {
       const c = canvas.current.getContext('2d');
       if (c) {
-        console.log('drawing');
-
         c.clearRect(0, 0, W, H);
         c.strokeStyle = 'white';
         c.lineWidth = 3;
