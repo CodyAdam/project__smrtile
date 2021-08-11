@@ -271,6 +271,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
       <TextButton
         title='Apply changes'
         invalid={!isRowValid() || !isColumnsValid()}
+        invalidText='Some of the inputs are not valid'
         onClick={() => {
           dispatch(updateTileset({ id: selected.id, changes: { grid: grid } }));
         }}
