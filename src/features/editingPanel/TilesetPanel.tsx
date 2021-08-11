@@ -1,15 +1,17 @@
 import styles from './Panel.module.css';
 import { Tileset, TilesetFilter } from '../browser/browserTypes';
 import { Propertie } from '../../common/propertie/Propertie';
-import { ImageInput } from '../../common/fileInput/ImageInput';
-import { ImagePreview } from '../../common/fileInput/ImagePreview';
+import { ImageInput } from '../../common/imageInput/ImageInput';
+import { TilesetPreview } from '../../common/tilesetPreview/TilesetPreview';
 import { useAppDispatch } from '../../app/hooks';
 import { updateTileset } from '../browser/browserSlice';
 import { CheckboxInput } from '../../common/checkboxInput/CheckboxInput';
 import { GridSetter } from './GridSetter';
+import { useState } from 'react';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
+  const [showGrid, setShowGrid] = useState(true);
 
   function setFilter(filter: TilesetFilter, value: boolean): TilesetFilter[] {
     const filters = [...selected.filters];
@@ -28,12 +30,34 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
           onChange={(sprite) => {
             //TODO
             // if (selected.imageUrl) window.URL.revokeObjectURL(selected.imageUrl);
-            dispatch(updateTileset({ id: selected.id, changes: { sprite: sprite } }));
+            dispatch(
+              updateTileset({
+                id: selected.id,
+                changes: {
+                  sprite: sprite,
+                  grid: { columns: 0, height: 0, width: 0, rows: 0, offset: { bottom: 0, left: 0, right: 0, top: 0 } },
+                },
+              }),
+            );
           }}
         />
       </Propertie>
       <Propertie name='Preview'>
-        <ImagePreview sprite={selected.sprite} filters={selected.filters} />
+        <>
+          <CheckboxInput
+            value={showGrid}
+            title='Show the grid'
+            onChange={(bool) => {
+              setShowGrid(bool);
+            }}
+          />
+          <TilesetPreview
+            sprite={selected.sprite}
+            showGrid={showGrid}
+            grid={selected.grid}
+            filters={selected.filters}
+          />
+        </>
       </Propertie>
       <Propertie name='Grid' about='Set the grid layout size\nDesc TODO'>
         <GridSetter selected={selected} />
