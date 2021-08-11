@@ -6,7 +6,7 @@ import { ImagePreview } from '../../common/fileInput/ImagePreview';
 import { useAppDispatch } from '../../app/hooks';
 import { updateTileset } from '../browser/browserSlice';
 import { CheckboxInput } from '../../common/checkboxInput/CheckboxInput';
-import { GridSetter } from './GridSettings';
+import { GridSetter } from './GridSetter';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
