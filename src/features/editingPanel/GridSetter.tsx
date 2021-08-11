@@ -55,7 +55,6 @@ export function GridSetter({ selected }: { selected: Tileset }) {
   }
   return (
     <>
-      {!selected.sprite ? <WarnBox message='You have to import an image first' /> : null}
       {!isSquared ? <WarnBox message='Rectangle tiles are not yet supported' /> : null}
       <CheckboxInput
         value={isSquared}
