@@ -75,8 +75,6 @@ export interface Tileset {
   tags: Tag[],
   filters: TilesetFilter[],
   sprite: Sprite | undefined,
-  width: number,
-  height: number,
   grid: GridSettings,
   thumbnail: Thumbnail[],
   id: ID,

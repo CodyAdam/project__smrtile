@@ -38,8 +38,6 @@ const defaultTileset: Tileset = {
   tags: [],
   filters: [],
   sprite: undefined,
-  width: 0,
-  height: 0,
   grid: {
     columns: 0,
     rows: 0,
