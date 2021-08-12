@@ -8,6 +8,8 @@ import { updateTileset } from '../browser/browserSlice';
 import { CheckboxInput } from '../../common/checkboxInput/CheckboxInput';
 import { GridSetter } from './GridSetter';
 import { useState } from 'react';
+import { TagsDisplay } from '../../common/tags/TagsDisplay';
+import { TagInput } from '../../common/tags/TagInput';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
@@ -73,6 +75,22 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
             dispatch(updateTileset({ id: selected.id, changes: { filters: setFilter('pixelated', value) } }));
           }}
         />
+      </Propertie>
+      <Propertie name='Tags'>
+        <>
+          <TagsDisplay
+            tags={selected.tags}
+            onChange={(tags) => {
+              dispatch(updateTileset({ id: selected.id, changes: { tags: tags } }));
+            }}
+          />
+          <TagInput
+            tags={selected.tags}
+            onChange={(tags) => {
+              dispatch(updateTileset({ id: selected.id, changes: { tags: tags } }));
+            }}
+          />
+        </>
       </Propertie>
     </div>
   );
