@@ -31,7 +31,7 @@ export function TilesetPreview({
           c.lineTo(x, H);
           c.stroke();
         }
-        for (let row = 1; row < grid.columns; row++) {
+        for (let row = 1; row < grid.rows; row++) {
           const y = row * (grid.height + grid.offset.top + grid.offset.bottom) * (H / sprite.height);
           c.beginPath();
           c.moveTo(0, y);
