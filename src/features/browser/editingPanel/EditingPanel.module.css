@@ -19,6 +19,9 @@ p {
   font-size: 13px;
   color: var(--txt3);
 }
+i {
+  color: var(--txt1);
+}
 
 .placeholder {
   font-style: italic;

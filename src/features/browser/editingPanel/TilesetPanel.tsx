@@ -59,6 +59,13 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
             grid={selected.grid}
             filters={selected.filters}
           />
+          {selected.sprite ? (
+            <p>
+              <i>
+                Image size: <b>{selected.sprite.width}</b> x <b>{selected.sprite.height}</b>
+              </i>
+            </p>
+          ) : null}
         </>
       </Propertie>
       <Propertie name='Grid' about='Set the grid layout size\nDesc TODO'>
