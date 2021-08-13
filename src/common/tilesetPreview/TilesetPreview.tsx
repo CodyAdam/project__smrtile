@@ -1,5 +1,5 @@
 import { GridSettings, Sprite, TilesetFilter } from '../../features/browser/browserTypes';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styles from './TilesetPreview.module.css';
 
 export function TilesetPreview({
@@ -13,6 +13,7 @@ export function TilesetPreview({
   filters?: TilesetFilter[];
   showGrid?: boolean;
 }) {
+  let [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
   const W = window.innerWidth;
   const H = sprite ? sprite.height * (window.innerWidth / sprite.width) : 0;
   const canvas = useRef<HTMLCanvasElement | null>(null);
@@ -51,22 +52,51 @@ export function TilesetPreview({
               c.strokeRect(x, y, w, h);
             }
           }
+        console.log(mousePos);
+
+        if (mousePos) {
+          // draw on mouse
+
+          const w = (grid.width + grid.offset.left + grid.offset.right) * (W / sprite.width);
+          const h = (grid.height + grid.offset.top + grid.offset.bottom) * (H / sprite.height);
+          const x = mousePos.x * W - ((mousePos.x * W) % w);
+          const y = mousePos.y * H - ((mousePos.y * H) % h);
+          const row = Math.round(y / h);
+          const col = Math.round(x / w);
+          c.fillStyle = 'black';
+          c.globalAlpha = 0.4;
+          c.fillRect(x, y, w, h);
+          c.globalAlpha = 1.0;
+          c.fillStyle = 'white';
+          c.font = '30px Segoe UI, sans-serif';
+          c.fillText(`x: ${col} y: ${row}`, x + 10, y + 30);
+        }
       }
     }
-  }, [canvas, W, H, sprite, grid]);
+  }, [canvas, W, H, sprite, grid, mousePos]);
+
+  function handleMouseMove(e: React.MouseEvent) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({ x: (e.clientX - rect.x) / rect.width, y: (e.clientY - rect.y) / rect.height });
+  }
+  function handleMouseLeave(e: React.MouseEvent) {
+    setMousePos(null);
+  }
 
   if (sprite) {
     const filterClasses = filters ? (filters.includes('pixelated') ? styles.pixelated : '') : '';
     return (
-      <>
-        <div className={styles.container}>
-          <img className={`${styles.img} ${filterClasses}`} src={sprite.url} alt='' />
-          <canvas className={`${styles.canvas} ${showGrid ? '' : styles.disabled}`} ref={canvas} width={W} height={H} />
-        </div>
-        <div className={styles.sizeLabel}>
-          Image size: <b>{sprite.width}</b> x <b>{sprite.height}</b>
-        </div>
-      </>
+      <div className={styles.container}>
+        <img className={`${styles.img} ${filterClasses}`} src={sprite.url} alt='' />
+        <canvas
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={`${styles.canvas} ${showGrid ? '' : styles.disabled}`}
+          ref={canvas}
+          width={W}
+          height={H}
+        />
+      </div>
     );
   } else
     return (
