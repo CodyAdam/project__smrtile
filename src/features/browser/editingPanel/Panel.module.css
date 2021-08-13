@@ -6,7 +6,7 @@
   overflow: hidden overlay;
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
+  row-gap: 20px;
 }
 
 .container::-webkit-scrollbar,
