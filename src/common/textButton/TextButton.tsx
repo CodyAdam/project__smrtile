@@ -1,5 +1,4 @@
 import styles from './TextButton.module.css';
-import PropTypes from 'prop-types';
 
 export function TextButton({
   onClick,
@@ -15,7 +14,7 @@ export function TextButton({
   icon?: string;
   invalid?: boolean;
   invalidText?: string;
-  children?: PropTypes.ReactElementLike;
+  children?: React.ReactNode;
   className?: string;
 }) {
   if (icon)

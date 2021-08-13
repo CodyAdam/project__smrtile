@@ -1,5 +1,4 @@
 import styles from './SquareButton.module.css';
-import PropTypes from 'prop-types';
 
 export function SquareButton({
   onClick,
@@ -10,7 +9,7 @@ export function SquareButton({
 }: {
   onClick?: () => void;
   icon?: string;
-  children?: PropTypes.ReactElementLike;
+  children?: React.ReactNode;
   className?: string;
   title: string;
 }) {

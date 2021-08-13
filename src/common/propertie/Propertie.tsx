@@ -1,17 +1,8 @@
 import styles from './Propertie.module.css';
-import PropTypes from 'prop-types';
 import { IconButton } from '../iconButton/IconButton';
 import { useState } from 'react';
 
-export function Propertie({
-  name,
-  children,
-  about,
-}: {
-  name: string;
-  children?: PropTypes.ReactElementLike;
-  about?: string;
-}) {
+export function Propertie({ name, children, about }: { name: string; children?: React.ReactNode; about?: string }) {
   const [showAbout, setShowAbout] = useState(false);
 
   return (

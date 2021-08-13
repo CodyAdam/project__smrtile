@@ -1,5 +1,4 @@
 import styles from './IconButton.module.css';
-import PropTypes from 'prop-types';
 
 export function IconButton({
   onClick,
@@ -8,7 +7,7 @@ export function IconButton({
   title,
 }: {
   onClick?: () => void;
-  children?: PropTypes.ReactElementLike;
+  children?: React.ReactNode;
   className?: string;
   title: string;
 }) {
