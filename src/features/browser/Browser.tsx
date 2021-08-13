@@ -13,7 +13,8 @@ import {
   select,
 } from './browserSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Rule, SmartTile, Tileset } from './browserTypes';
+import { ID, Rule, SmartTile, Tileset } from './browserTypes';
+import { TilesetPreview } from '../../common/tilesetPreview/TilesetPreview';
 
 export function Browser() {
   const dispatch = useAppDispatch();
@@ -58,9 +59,11 @@ export function Browser() {
     });
 
   const [showTilesets, setShowTilesets] = useState(false);
+  const [expanded, setExpanded] = useState<ID[]>([]);
   const tilesets = useAppSelector(tilesetsSelector);
   let tilesetsContent = null;
-  if (tilesets)
+  let tilesetsPreview = null;
+  if (tilesets) {
     tilesetsContent = tilesets.map((tileset: Tileset) => {
       const isSelected = selected && selected.type === tileset.type && selected.id === tileset.id;
       return (
@@ -70,11 +73,23 @@ export function Browser() {
           onClick={() => {
             dispatch(select(tileset));
           }}
+          onDoubleClick={() => {
+            if (expanded.includes(tileset.id)) setExpanded([...expanded].filter((id) => id !== tileset.id));
+            else setExpanded([...expanded, tileset.id]);
+          }}
         >
           {tileset.name.substring(0, 2).toUpperCase()}
         </div>
       );
     });
+    tilesetsPreview = tilesets.map((tileset: Tileset) => {
+      if (expanded.includes(tileset.id))
+        return (
+          <TilesetPreview filters={tileset.filters} grid={tileset.grid} showGrid={false} sprite={tileset.sprite} />
+        );
+      else return null;
+    });
+  }
 
   const [width, setWidth] = useState(300);
   let lastWidth = width;
@@ -179,6 +194,7 @@ export function Browser() {
           </button>
           <div className={styles.groupContent} hidden={!showTilesets || !tilesets.length}>
             {tilesetsContent}
+            {tilesetsPreview}
           </div>
         </div>
       </div>

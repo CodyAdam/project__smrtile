@@ -1,12 +1,12 @@
-import { useAppDispatch } from '../../app/hooks';
-import { TagsDisplay } from '../../common/tags/TagsDisplay';
-import { TagInput } from '../../common/tags/TagInput';
-import { TextInput } from '../../common/textInput/TextInput';
-import { updateRule, removeRule } from '../browser/browserSlice';
-import { Rule } from '../browser/browserTypes';
-import { Propertie } from '../../common/propertie/Propertie';
+import { useAppDispatch } from '../../../app/hooks';
+import { TagsDisplay } from '../../../common/tags/TagsDisplay';
+import { TagInput } from '../../../common/tags/TagInput';
+import { TextInput } from '../../../common/textInput/TextInput';
+import { updateRule, removeRule } from '../browserSlice';
+import { Rule } from '../browserTypes';
+import { Propertie } from '../../../common/propertie/Propertie';
 import styles from './Panel.module.css';
-import { SquareButton } from '../../common/squareButton/SquareButton';
+import { SquareButton } from '../../../common/squareButton/SquareButton';
 
 export function RulePanel({ selected }: { selected: Rule }) {
   const dispatch = useAppDispatch();

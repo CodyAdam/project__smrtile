@@ -1,15 +1,15 @@
 import styles from './Panel.module.css';
-import { Tileset, TilesetFilter } from '../browser/browserTypes';
-import { Propertie } from '../../common/propertie/Propertie';
-import { ImageInput } from '../../common/imageInput/ImageInput';
-import { TilesetPreview } from '../../common/tilesetPreview/TilesetPreview';
-import { useAppDispatch } from '../../app/hooks';
-import { updateTileset } from '../browser/browserSlice';
-import { CheckboxInput } from '../../common/checkboxInput/CheckboxInput';
+import { Tileset, TilesetFilter } from '../browserTypes';
+import { Propertie } from '../../../common/propertie/Propertie';
+import { ImageInput } from '../../../common/imageInput/ImageInput';
+import { TilesetPreview } from '../../../common/tilesetPreview/TilesetPreview';
+import { useAppDispatch } from '../../../app/hooks';
+import { updateTileset } from '../browserSlice';
+import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
 import { GridSetter } from './GridSetter';
 import { useState } from 'react';
-import { TagsDisplay } from '../../common/tags/TagsDisplay';
-import { TagInput } from '../../common/tags/TagInput';
+import { TagsDisplay } from '../../../common/tags/TagsDisplay';
+import { TagInput } from '../../../common/tags/TagInput';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
