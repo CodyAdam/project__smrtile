@@ -15,12 +15,12 @@ import {
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { ID, Rule, SmartTile, Tileset } from './browserTypes';
 import { TilesetPreview } from '../../common/tilesetPreview/TilesetPreview';
+import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 
 export function Browser() {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
 
-  const [showRules, setShowRules] = useState(false);
   const rules = useAppSelector(rulesSelector);
   let rulesContent = null;
   if (rules)
@@ -39,7 +39,6 @@ export function Browser() {
       );
     });
 
-  const [showSmartTiles, setShowSmartTiles] = useState(false);
   const smartTiles = useAppSelector(smartTilesSelector);
   let smartTilesContent = null;
   if (smartTiles)
@@ -58,7 +57,6 @@ export function Browser() {
       );
     });
 
-  const [showTilesets, setShowTilesets] = useState(false);
   const [expanded, setExpanded] = useState<ID[]>([]);
   const tilesets = useAppSelector(tilesetsSelector);
   let tilesetsContent = null;
@@ -121,82 +119,31 @@ export function Browser() {
         <SquareButton icon='tag' onClick={() => {}} title='filter' />
       </div>
       <div className={styles.scrollable}>
-        <div className={styles.group}>
-          <button
-            className={styles.groupLabel}
-            onClick={() => {
-              setShowRules(!showRules);
-            }}
-          >
-            <div className={styles.expandIcon}>
-              <div className={`${showRules ? 'icon-chevron-down' : 'icon-chevron-right'} icon`} />
-            </div>
-            <span>RULES</span>
-            <div className={styles.spacer} />
-            <SquareButton
-              title='add'
-              onClick={() => {
-                setShowRules(true);
-                dispatch(addRule(nanoid()));
-              }}
-              icon='add'
-            />
-          </button>
-          <div className={styles.groupContent} hidden={!showRules || !rules.length}>
-            {rulesContent}
-          </div>
-        </div>
-        <div className={styles.group}>
-          <button
-            className={styles.groupLabel}
-            onClick={() => {
-              setShowSmartTiles(!showSmartTiles);
-            }}
-          >
-            <div className={styles.expandIcon}>
-              <div className={`${showSmartTiles ? 'icon-chevron-down' : 'icon-chevron-right'} icon`} />
-            </div>
-            <span>SMART TILES</span>
-            <div className={styles.spacer} />
-            <SquareButton
-              title='add'
-              onClick={() => {
-                setShowSmartTiles(true);
-                dispatch(addSmartTile(nanoid()));
-              }}
-              icon='add'
-            />
-          </button>
-          <div className={styles.groupContent} hidden={!showSmartTiles || !smartTiles.length}>
-            {smartTilesContent}
-          </div>
-        </div>
-        <div className={styles.group}>
-          <button
-            className={styles.groupLabel}
-            onClick={() => {
-              setShowTilesets(!showTilesets);
-            }}
-          >
-            <div className={styles.expandIcon}>
-              <div className={`${showTilesets ? 'icon-chevron-down' : 'icon-chevron-right'} icon`} />
-            </div>
-            <span>TILESETS</span>
-            <div className={styles.spacer} />
-            <SquareButton
-              title='add'
-              onClick={() => {
-                setShowTilesets(true);
-                dispatch(addTileset(nanoid()));
-              }}
-              icon='add'
-            />
-          </button>
-          <div className={styles.groupContent} hidden={!showTilesets || !tilesets.length}>
-            {tilesetsContent}
-            {tilesetsPreview}
-          </div>
-        </div>
+        <BrowsingGroup
+          title='rules'
+          onAdd={() => {
+            dispatch(addRule(nanoid()));
+          }}
+        >
+          {rulesContent}
+        </BrowsingGroup>
+        <BrowsingGroup
+          title='smart tiles'
+          onAdd={() => {
+            dispatch(addSmartTile(nanoid()));
+          }}
+        >
+          {smartTilesContent}
+        </BrowsingGroup>
+        <BrowsingGroup
+          title='tilesets'
+          onAdd={() => {
+            dispatch(addTileset(nanoid()));
+          }}
+        >
+          {tilesetsContent}
+          {tilesetsPreview}
+        </BrowsingGroup>
       </div>
       <div className={styles.resizeBar} onMouseDown={handleDragStart}></div>
     </div>
