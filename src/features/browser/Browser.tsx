@@ -80,10 +80,16 @@ export function Browser() {
         </div>
       );
     });
-    tilesetsPreview = tilesets.map((tileset: Tileset) => {
+    tilesetsPreview = tilesets.map((tileset: Tileset, index) => {
       if (expanded.includes(tileset.id))
         return (
-          <TilesetPreview filters={tileset.filters} grid={tileset.grid} showGrid={false} sprite={tileset.sprite} />
+          <TilesetPreview
+            key={index}
+            filters={tileset.filters}
+            grid={tileset.grid}
+            showGrid={false}
+            sprite={tileset.sprite}
+          />
         );
       else return null;
     });
