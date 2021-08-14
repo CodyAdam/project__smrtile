@@ -65,23 +65,3 @@
 .scrollable:hover::-webkit-scrollbar-thumb {
   background-color: rgb(255, 255, 255, 0.2);
 }
-
-.ruleCard,
-.smartTileCard,
-.tilesetCard {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--txt2);
-  height: 50px;
-  width: 50px;
-  background-color: var(--bg3);
-  border-radius: 7px;
-  border: 1px solid transparent;
-  flex-shrink: 0;
-}
-.selectedCard {
-  border: 1px solid var(--hl1);
-}

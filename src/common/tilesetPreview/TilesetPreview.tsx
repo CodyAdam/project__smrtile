@@ -24,6 +24,8 @@ export function TilesetPreview({
       if (c) {
         c.clearRect(0, 0, W, H);
         c.strokeStyle = 'white';
+
+        c.globalAlpha = 0.4;
         c.lineWidth = 3;
         for (let col = 1; col < grid.columns; col++) {
           const x = col * (grid.width + grid.offset.left + grid.offset.right) * (W / sprite.width);
@@ -39,6 +41,7 @@ export function TilesetPreview({
           c.lineTo(W, y);
           c.stroke();
         }
+        c.globalAlpha = 1;
         if (grid.offset.bottom !== 0 || grid.offset.left !== 0 || grid.offset.right !== 0 || grid.offset.top !== 0)
           for (let row = 0; row < grid.rows; row++) {
             for (let col = 0; col < grid.columns; col++) {
@@ -52,21 +55,18 @@ export function TilesetPreview({
               c.strokeRect(x, y, w, h);
             }
           }
-        console.log(mousePos);
 
         if (mousePos) {
           // draw on mouse
-
           const w = (grid.width + grid.offset.left + grid.offset.right) * (W / sprite.width);
           const h = (grid.height + grid.offset.top + grid.offset.bottom) * (H / sprite.height);
           const x = mousePos.x * W - ((mousePos.x * W) % w);
           const y = mousePos.y * H - ((mousePos.y * H) % h);
           const row = Math.round(y / h);
           const col = Math.round(x / w);
-          c.fillStyle = 'black';
-          c.globalAlpha = 0.4;
-          c.fillRect(x, y, w, h);
-          c.globalAlpha = 1.0;
+          c.strokeStyle = 'white';
+          c.lineWidth = 5;
+          c.strokeRect(x, y, w, h);
           c.fillStyle = 'white';
           c.font = '30px Segoe UI, sans-serif';
           c.fillText(`x: ${col} y: ${row}`, x + 10, y + 30);

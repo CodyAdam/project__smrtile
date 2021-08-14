@@ -1,0 +1,21 @@
+.container {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--txt2);
+  height: 50px;
+  width: 50px;
+  background-color: var(--bg3);
+  border-radius: 7px;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+
+.selected {
+  border: 1px solid var(--hl1);
+}
+
+.clickable {
+  cursor: pointer;
+}

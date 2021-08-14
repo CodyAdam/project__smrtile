@@ -13,9 +13,9 @@ import {
   select,
 } from './browserSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { ID, Rule, SmartTile, Tileset } from './browserTypes';
-import { TilesetPreview } from '../../common/tilesetPreview/TilesetPreview';
+import { Rule, SmartTile, Tileset } from './browserTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
+import { Card } from '../../common/card/Card';
 
 export function Browser() {
   const dispatch = useAppDispatch();
@@ -25,17 +25,16 @@ export function Browser() {
   let rulesContent = null;
   if (rules)
     rulesContent = rules.map((rule: Rule) => {
-      const isSelected = selected && selected.type === rule.type && selected.id === rule.id;
+      const isSelected = !!selected && selected.type === rule.type && selected.id === rule.id;
       return (
-        <div
+        <Card
           key={rule.id}
-          className={`${styles.ruleCard} ${isSelected ? styles.selectedCard : ''}`}
+          object={rule}
+          selected={isSelected}
           onClick={() => {
             dispatch(select(rule));
           }}
-        >
-          {rule.name.substring(0, 2).toUpperCase()}
-        </div>
+        />
       );
     });
 
@@ -43,55 +42,35 @@ export function Browser() {
   let smartTilesContent = null;
   if (smartTiles)
     smartTilesContent = smartTiles.map((smartTile: SmartTile) => {
-      const isSelected = selected && selected.type === smartTile.type && selected.id === smartTile.id;
+      const isSelected = !!selected && selected.type === smartTile.type && selected.id === smartTile.id;
       return (
-        <div
+        <Card
           key={smartTile.id}
-          className={`${styles.smartTileCard} ${isSelected ? styles.selectedCard : ''}`}
+          object={smartTile}
+          selected={isSelected}
           onClick={() => {
             dispatch(select(smartTile));
           }}
-        >
-          {smartTile.name.substring(0, 2).toUpperCase()}
-        </div>
+        />
       );
     });
 
-  const [expanded, setExpanded] = useState<ID[]>([]);
   const tilesets = useAppSelector(tilesetsSelector);
   let tilesetsContent = null;
   let tilesetsPreview = null;
   if (tilesets) {
-    tilesetsContent = tilesets.map((tileset: Tileset) => {
-      const isSelected = selected && selected.type === tileset.type && selected.id === tileset.id;
+    tilesetsContent = tilesets.map((tileset: Tileset, index) => {
+      const isSelected = !!selected && selected.type === tileset.type && selected.id === tileset.id;
       return (
-        <div
+        <Card
           key={tileset.id}
-          className={`${styles.tilesetCard} ${isSelected ? styles.selectedCard : ''}`}
+          object={tileset}
+          selected={isSelected}
           onClick={() => {
             dispatch(select(tileset));
           }}
-          onDoubleClick={() => {
-            if (expanded.includes(tileset.id)) setExpanded([...expanded].filter((id) => id !== tileset.id));
-            else setExpanded([...expanded, tileset.id]);
-          }}
-        >
-          {tileset.name.substring(0, 2).toUpperCase()}
-        </div>
+        />
       );
-    });
-    tilesetsPreview = tilesets.map((tileset: Tileset, index) => {
-      if (expanded.includes(tileset.id))
-        return (
-          <TilesetPreview
-            key={index}
-            filters={tileset.filters}
-            grid={tileset.grid}
-            showGrid={false}
-            sprite={tileset.sprite}
-          />
-        );
-      else return null;
     });
   }
 
@@ -121,7 +100,6 @@ export function Browser() {
     <div className={styles.container} style={{ width: `${width}px` }}>
       <div className={styles.title}>
         <span>BROWSER</span>
-        <div className={styles.spacer} />
         <SquareButton icon='tag' onClick={() => {}} title='filter' />
       </div>
       <div className={styles.scrollable}>
