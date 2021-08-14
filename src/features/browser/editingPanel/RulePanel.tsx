@@ -2,7 +2,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { TagsDisplay } from '../../../common/tags/TagsDisplay';
 import { TagInput } from '../../../common/tags/TagInput';
 import { TextInput } from '../../../common/textInput/TextInput';
-import { updateRule, removeRule } from '../browserSlice';
+import { update, remove } from '../browserSlice';
 import { Rule } from '../browserTypes';
 import { Propertie } from '../../../common/propertie/Propertie';
 import styles from './Panel.module.css';
@@ -24,7 +24,7 @@ export function RulePanel({ selected }: { selected: Rule }) {
         <TextInput
           text={selected.name}
           onChange={(newName) => {
-            dispatch(updateRule({ id: selected.id, changes: { name: newName } }));
+            dispatch(update({ target: selected, changes: { name: newName } }));
           }}
         />
       </Propertie>
@@ -33,14 +33,14 @@ export function RulePanel({ selected }: { selected: Rule }) {
           <TagsDisplay
             tags={selected.tags}
             onChange={(newTags) => {
-              dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));
+              dispatch(update({ target: selected, changes: { tags: newTags } }));
             }}
           />
           <TagInput
             className={styles.tagInput}
             tags={selected.tags}
             onChange={(newTags) => {
-              dispatch(updateRule({ id: selected.id, changes: { tags: newTags } }));
+              dispatch(update({ target: selected, changes: { tags: newTags } }));
             }}
           />
         </>
@@ -51,7 +51,7 @@ export function RulePanel({ selected }: { selected: Rule }) {
       <SquareButton
         title='delete'
         onClick={() => {
-          dispatch(removeRule(selected.id));
+          dispatch(remove(selected));
         }}
         icon='trash'
       />

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { WarnBox } from '../../../common/warnBox/WarnBox';
 import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
 import { TextButton } from '../../../common/textButton/TextButton';
-import { updateTileset } from '../browserSlice';
+import { update } from '../browserSlice';
 import { useAppDispatch } from '../../../app/hooks';
 
 export function GridSetter({ selected }: { selected: Tileset }) {
@@ -272,7 +272,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
         invalid={!isRowValid() || !isColumnsValid()}
         invalidText='Some of the inputs are not valid'
         onClick={() => {
-          dispatch(updateTileset({ id: selected.id, changes: { grid: grid } }));
+          dispatch(update({ target: selected, changes: { grid: grid } }));
         }}
       />
     </>

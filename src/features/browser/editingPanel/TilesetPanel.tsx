@@ -4,7 +4,7 @@ import { Propertie } from '../../../common/propertie/Propertie';
 import { ImageInput } from '../../../common/imageInput/ImageInput';
 import { TilesetPreview } from '../../../common/tilesetPreview/TilesetPreview';
 import { useAppDispatch } from '../../../app/hooks';
-import { updateTileset } from '../browserSlice';
+import { update } from '../browserSlice';
 import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
 import { GridSetter } from './GridSetter';
 import { useState } from 'react';
@@ -33,8 +33,8 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
             //TODO
             // if (selected.imageUrl) window.URL.revokeObjectURL(selected.imageUrl);
             dispatch(
-              updateTileset({
-                id: selected.id,
+              update({
+                target: selected,
                 changes: {
                   sprite: sprite,
                   grid: { columns: 0, height: 0, width: 0, rows: 0, offset: { bottom: 0, left: 0, right: 0, top: 0 } },
@@ -79,7 +79,7 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
           title='Pixelated'
           value={selected.filters.includes('pixelated')}
           onChange={(value) => {
-            dispatch(updateTileset({ id: selected.id, changes: { filters: setFilter('pixelated', value) } }));
+            dispatch(update({ target: selected, changes: { filters: setFilter('pixelated', value) } }));
           }}
         />
       </Propertie>
@@ -88,13 +88,13 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
           <TagsDisplay
             tags={selected.tags}
             onChange={(tags) => {
-              dispatch(updateTileset({ id: selected.id, changes: { tags: tags } }));
+              dispatch(update({ target: selected, changes: { tags: tags } }));
             }}
           />
           <TagInput
             tags={selected.tags}
             onChange={(tags) => {
-              dispatch(updateTileset({ id: selected.id, changes: { tags: tags } }));
+              dispatch(update({ target: selected, changes: { tags: tags } }));
             }}
           />
         </>

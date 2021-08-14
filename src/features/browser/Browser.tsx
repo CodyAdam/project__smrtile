@@ -2,18 +2,9 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import styles from './Browser.module.css';
 import { SquareButton } from '../../common/squareButton/SquareButton';
-import {
-  addRule,
-  addSmartTile,
-  addTileset,
-  rulesSelector,
-  smartTilesSelector,
-  tilesetsSelector,
-  selectedSelector,
-  select,
-} from './browserSlice';
+import { add, rulesSelector, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './browserSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Rule, SmartTile, Tileset } from './browserTypes';
+import { ObjectType, Rule, SmartTile, Tileset } from './browserTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../common/card/Card';
 
@@ -106,7 +97,7 @@ export function Browser() {
         <BrowsingGroup
           title='rules'
           onAdd={() => {
-            dispatch(addRule(nanoid()));
+            dispatch(add({ type: ObjectType.RULE, id: nanoid() }));
           }}
         >
           {rulesContent}
@@ -114,7 +105,7 @@ export function Browser() {
         <BrowsingGroup
           title='smart tiles'
           onAdd={() => {
-            dispatch(addSmartTile(nanoid()));
+            dispatch(add({ type: ObjectType.SMARTTILE, id: nanoid() }));
           }}
         >
           {smartTilesContent}
@@ -122,7 +113,7 @@ export function Browser() {
         <BrowsingGroup
           title='tilesets'
           onAdd={() => {
-            dispatch(addTileset(nanoid()));
+            dispatch(add({ type: ObjectType.TILESET, id: nanoid() }));
           }}
         >
           {tilesetsContent}

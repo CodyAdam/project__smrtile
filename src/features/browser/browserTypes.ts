@@ -38,6 +38,7 @@ export type Selection = {
   type: SelectionTypes,
   id: ID
 }
+export type SelectionObject = Rule | Tileset | SmartTile
 export type SelectionTypes = ObjectType.RULE | ObjectType.TILESET | ObjectType.SMARTTILE
 
 export interface Rule {

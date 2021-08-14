@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector, Update } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { BrowserHistory, BrowserState, ObjectType, Rule, SmartTile, Tileset, ID, Selection } from './browserTypes';
+import { BrowserHistory, BrowserState, ObjectType, Rule, SmartTile, Tileset, ID, Selection, SelectionTypes, SelectionObject } from './browserTypes';
 
 //Normalize with EntityAdapter
 const rulesAdapter = createEntityAdapter<Rule>()
@@ -54,39 +54,54 @@ export const browserSlice = createSlice({
   name: 'browser',
   initialState,
   reducers: {
-    addRule: (state, action: PayloadAction<ID>) => {
-      const newRule: Rule = { ...defaultRule, id: action.payload, }
-      rulesAdapter.addOne(state.rules, newRule)
-      state.selection = { type: ObjectType.RULE, id: action.payload }
+    add: (state, action: PayloadAction<{ type: SelectionTypes, id: ID }>) => {
+      const { type, id } = action.payload;
+      switch (type) {
+        case ObjectType.RULE:
+          rulesAdapter.addOne(state.rules, { ...defaultRule, id })
+          state.selection = { type: ObjectType.RULE, id }
+          break;
+        case ObjectType.SMARTTILE:
+          smartTilesAdapter.addOne(state.smartTiles, { ...defaultSmartTile, id })
+          state.selection = { type: ObjectType.SMARTTILE, id }
+          break;
+        case ObjectType.TILESET:
+          tilesetsAdapter.addOne(state.tilesets, { ...defaultTileset, id })
+          state.selection = { type: ObjectType.TILESET, id }
+          break;
+      }
     },
-    addSmartTile: (state, action: PayloadAction<ID>) => {
-      const newSmartTile: SmartTile = { ...defaultSmartTile, id: action.payload, }
-      smartTilesAdapter.addOne(state.smartTiles, newSmartTile)
-      state.selection = { type: ObjectType.SMARTTILE, id: action.payload }
+    remove: (state, action: PayloadAction<SelectionObject>) => {
+      const target = action.payload;
+      switch (target.type) {
+        case ObjectType.RULE:
+          rulesAdapter.removeOne(state.rules, target.id)
+          if (state.selection && state.selection.id === target.id)
+            state.selection = null
+          break;
+        case ObjectType.SMARTTILE:
+          smartTilesAdapter.removeOne(state.smartTiles, target.id)
+          if (state.selection && state.selection.id === target.id)
+            state.selection = null
+          break;
+        case ObjectType.TILESET:
+          tilesetsAdapter.removeOne(state.tilesets, target.id)
+          if (state.selection && state.selection.id === target.id)
+            state.selection = null
+          break;
+      }
     },
-    addTileset: (state, action: PayloadAction<ID>) => {
-      const newTileset: Tileset = { ...defaultTileset, id: action.payload, }
-      tilesetsAdapter.addOne(state.tilesets, newTileset)
-      state.selection = { type: ObjectType.TILESET, id: action.payload } as Selection
+    update: (state, actions: PayloadAction<{ target: SelectionObject, changes: Partial<SelectionObject> }>) => {
+      const { target, changes } = actions.payload;
+      switch (target.type) {
+        case ObjectType.RULE: rulesAdapter.updateOne(state.rules, { id: target.id, changes: changes as Rule })
+          break;
+        case ObjectType.SMARTTILE: smartTilesAdapter.updateOne(state.smartTiles, { id: target.id, changes: changes as SmartTile })
+          break
+        case ObjectType.TILESET: tilesetsAdapter.updateOne(state.tilesets, { id: target.id, changes: changes as Tileset })
+          break;
+      }
     },
-    removeRule: (state, action: PayloadAction<ID>) => {
-      rulesAdapter.removeOne(state.rules, action.payload)
-      if (state.selection && state.selection.id === action.payload)
-        state.selection = null
-    },
-    removeSmartTile: (state, action: PayloadAction<ID>) => {
-      smartTilesAdapter.removeOne(state.smartTiles, action.payload)
-      if (state.selection && state.selection.id === action.payload)
-        state.selection = null
-    },
-    removeTileset: (state, action: PayloadAction<ID>) => {
-      tilesetsAdapter.removeOne(state.tilesets, action.payload)
-      if (state.selection && state.selection.id === action.payload)
-        state.selection = null
-    },
-    updateRule: (state, actions: PayloadAction<Update<Rule>>) => { rulesAdapter.updateOne(state.rules, actions.payload) },
-    updateSmartTile: (state, actions: PayloadAction<Update<SmartTile>>) => { smartTilesAdapter.updateOne(state.smartTiles, actions.payload) },
-    updateTileset: (state, actions: PayloadAction<Update<Tileset>>) => { tilesetsAdapter.updateOne(state.tilesets, actions.payload) },
     select: (state, action: PayloadAction<Selection>) => {
       state.selection = { type: action.payload.type, id: action.payload.id }
     },
@@ -103,10 +118,9 @@ const historyActions = {
   redo: createAction(BrowserHistory.REDO)
 }
 export const { undo, redo } = historyActions
-export const { addRule, addSmartTile, addTileset, select, deselect, updateRule, updateSmartTile, updateTileset, removeRule, removeSmartTile, removeTileset } = browserSlice.actions;
+export const { add, select, deselect, update, remove } = browserSlice.actions;
 
 //Selectors
-
 export const historyIndexSelector = createSelector(
   (state: RootState) => state.browser.index,
   index => index)
