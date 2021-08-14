@@ -1,11 +1,13 @@
 .container {
   position: relative;
-  max-height: 300px;
+  resize: horizontal;
+  height: auto;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden auto;
   overflow: hidden overlay;
   width: 100%;
+  max-width: 100%;
 }
 .img {
   width: 100%;
