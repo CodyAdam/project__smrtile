@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import browserReducer from '../features/creator/creatorSlice';
+import explorerReducer from '../features/creator/explorer/explorerSlice';
 import undoable from 'redux-undo';
 import { BrowserHistory } from './globalTypes';
 
 export const store = configureStore({
   reducer: {
-    browser: undoable(browserReducer, { undoType: BrowserHistory.UNDO, redoType: BrowserHistory.REDO }),
+    browser: undoable(explorerReducer, { undoType: BrowserHistory.UNDO, redoType: BrowserHistory.REDO }),
   },
 });
 

@@ -1,18 +1,17 @@
-import { useAppDispatch } from '../../../app/hooks';
-import { TagsDisplay } from '../../../common/tags/TagsDisplay';
-import { TagInput } from '../../../common/tags/TagInput';
-import { TextInput } from '../../../common/textInput/TextInput';
-import { update, remove } from '../creatorSlice';
-import { Rule } from '../../../app/globalTypes';
-import { Propertie } from '../../../common/propertie/Propertie';
-import styles from './Panel.module.css';
-import { SquareButton } from '../../../common/squareButton/SquareButton';
+import { useAppDispatch } from '../../../../app/hooks';
+import { TagsDisplay } from '../../../../common/tags/TagsDisplay';
+import { TagInput } from '../../../../common/tags/TagInput';
+import { TextInput } from '../../../../common/textInput/TextInput';
+import { update, remove } from '../../explorer/explorerSlice';
+import { Rule } from '../../../../app/globalTypes';
+import { Propertie } from '../../../../common/propertie/Propertie';
+import { SquareButton } from '../../../../common/squareButton/SquareButton';
 
 export function RulePanel({ selected }: { selected: Rule }) {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={styles.container}>
+    <>
       <h1>Rule</h1>
       <Propertie
         name='Name'
@@ -37,7 +36,6 @@ export function RulePanel({ selected }: { selected: Rule }) {
             }}
           />
           <TagInput
-            className={styles.tagInput}
             tags={selected.tags}
             onChange={(newTags) => {
               dispatch(update({ target: selected, changes: { tags: newTags } }));
@@ -55,6 +53,6 @@ export function RulePanel({ selected }: { selected: Rule }) {
         }}
         icon='trash'
       />
-    </div>
+    </>
   );
 }

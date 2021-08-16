@@ -1,21 +1,25 @@
+import styles from './EditingHub.module.css';
 import { useAppSelector } from '../../../app/hooks';
-import { selectedContentSelector } from '../creatorSlice';
+import { selectedContentSelector } from '../explorer/explorerSlice';
 import { ObjectType } from '../../../app/globalTypes';
-import styles from './EditingPanel.module.css';
-import { RulePanel } from './RulePanel';
-import { TilesetPanel } from './TilesetPanel';
+import { RulePanel } from './rule/RulePanel';
+import { TilesetPanel } from './tileset/TilesetPanel';
 
-export function EditingPanel() {
+export function EditingHub() {
   const selected = useAppSelector(selectedContentSelector);
 
   if (!selected)
     return <div className={`${styles.placeholder}`}>Select an element inside the Browser or add a new element</div>;
   switch (selected.type) {
     case ObjectType.RULE:
-      return <RulePanel key={selected.id} selected={selected} />;
+      return (
+        <div className={styles.container}>
+          <RulePanel key={selected.id} selected={selected} />
+        </div>
+      );
     case ObjectType.SMARTTILE:
       return (
-        <div>
+        <div className={styles.container}>
           <h1>NOT YET IMPLEMENTED</h1>
           <article>
             <h2>Soon</h2>
@@ -24,6 +28,10 @@ export function EditingPanel() {
         </div>
       );
     case ObjectType.TILESET:
-      return <TilesetPanel key={selected.id} selected={selected} />;
+      return (
+        <div className={styles.container}>
+          <TilesetPanel key={selected.id} selected={selected} />
+        </div>
+      );
   }
 }

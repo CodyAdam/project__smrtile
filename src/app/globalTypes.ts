@@ -5,6 +5,7 @@ export enum BrowserHistory {
   UNDO = 'BROWSER_UNDO',
   REDO = 'BROWSER_REDO'
 }
+
 export enum ObjectType {
   TILE = 'tile',
   TILESET = 'tileset',
@@ -28,7 +29,7 @@ export interface BasicTile {
   tileset: ID
 }
 
-export interface BrowserState { // store
+export interface ExplorerState { // store
   rules: EntityState<Rule>,
   smartTiles: EntityState<SmartTile>,
   tilesets: EntityState<Tileset>,

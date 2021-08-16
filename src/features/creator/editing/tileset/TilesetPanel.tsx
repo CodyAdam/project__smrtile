@@ -1,15 +1,15 @@
-import styles from './Panel.module.css';
-import { Tileset, TilesetFilter } from '../../../app/globalTypes';
-import { Propertie } from '../../../common/propertie/Propertie';
-import { ImageInput } from '../../../common/imageInput/ImageInput';
-import { TilesetPreview } from '../../../common/tilesetPreview/TilesetPreview';
-import { useAppDispatch } from '../../../app/hooks';
-import { update } from '../creatorSlice';
-import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
+import styles from './TilesetPanel.module.css';
+import { Tileset, TilesetFilter } from '../../../../app/globalTypes';
+import { Propertie } from '../../../../common/propertie/Propertie';
+import { ImageInput } from '../../../../common/imageInput/ImageInput';
+import { TilesetPreview } from '../../../../common/tilesetPreview/TilesetPreview';
+import { useAppDispatch } from '../../../../app/hooks';
+import { update } from '../../explorer/explorerSlice';
+import { CheckboxInput } from '../../../../common/checkboxInput/CheckboxInput';
 import { GridSetter } from './GridSetter';
 import { useState } from 'react';
-import { TagsDisplay } from '../../../common/tags/TagsDisplay';
-import { TagInput } from '../../../common/tags/TagInput';
+import { TagsDisplay } from '../../../../common/tags/TagsDisplay';
+import { TagInput } from '../../../../common/tags/TagInput';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <h1>Tileset</h1>
       <Propertie name='Import image' about='Upload the tilesheet image for the tileset'>
         <ImageInput
@@ -99,6 +99,6 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
           />
         </>
       </Propertie>
-    </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector, Update } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { BrowserHistory, BrowserState, ObjectType, Rule, SmartTile, Tileset, ID, Selection, SelectionTypes, SelectionObject } from '../../app/globalTypes';
+import { RootState } from '../../../app/store';
+import { BrowserHistory, ExplorerState as ExplorerState, ObjectType, Rule, SmartTile, Tileset, ID, Selection, SelectionTypes, SelectionObject } from '../../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const rulesAdapter = createEntityAdapter<Rule>()
@@ -8,7 +8,7 @@ const smartTilesAdapter = createEntityAdapter<SmartTile>()
 const tilesetsAdapter = createEntityAdapter<Tileset>()
 
 //Initial State
-const initialState: BrowserState = {
+const initialState: ExplorerState = {
   rules: rulesAdapter.getInitialState(),
   smartTiles: smartTilesAdapter.getInitialState(),
   tilesets: tilesetsAdapter.getInitialState(),
@@ -50,8 +50,8 @@ const defaultTileset: Tileset = {
 
 }
 
-export const browserSlice = createSlice({
-  name: 'browser',
+export const explorerSlice = createSlice({
+  name: 'creator',
   initialState,
   reducers: {
     add: (state, action: PayloadAction<{ type: SelectionTypes, id: ID }>) => {
@@ -110,7 +110,7 @@ export const browserSlice = createSlice({
 })
 
 //Reducer 
-export default browserSlice.reducer
+export default explorerSlice.reducer
 
 //Actions 
 const historyActions = {
@@ -118,7 +118,7 @@ const historyActions = {
   redo: createAction(BrowserHistory.REDO)
 }
 export const { undo, redo } = historyActions
-export const { add, select, deselect, update, remove } = browserSlice.actions;
+export const { add, select, deselect, update, remove } = explorerSlice.actions;
 
 //Selectors
 export const historyIndexSelector = createSelector(
@@ -137,7 +137,7 @@ export const tilesetsSelector = createSelector(
   tilesetsAdapter.getSelectors().selectAll)
 export const selectedContentSelector = createSelector(
   (state: RootState) => state.browser.present,
-  (state: BrowserState) => {
+  (state: ExplorerState) => {
     if (!state.selection) return null;
     switch (state.selection.type) {
       case ObjectType.RULE:

@@ -1,3 +1,14 @@
+.container {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  overflow: hidden auto;
+  overflow: hidden overlay;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
 h1 {
   flex-shrink: 0;
   user-select: none;
@@ -36,4 +47,19 @@ i {
   padding: 20px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.container::-webkit-scrollbar,
+.container::-webkit-scrollbar-corner {
+  background-color: transparent;
+  width: 8px;
+  height: 8px;
+  transition: all 1s ease-in-out;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+.container:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255, 0.2);
 }

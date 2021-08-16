@@ -1,12 +1,12 @@
-import styles from './Panel.module.css';
-import { GridSettings, Tileset } from '../../../app/globalTypes';
-import { NumberInput } from '../../../common/numberInput/NumberInput';
+import styles from './TilesetPanel.module.css';
+import { GridSettings, Tileset } from '../../../../app/globalTypes';
+import { NumberInput } from '../../../../common/numberInput/NumberInput';
 import { useEffect, useState } from 'react';
-import { WarnBox } from '../../../common/warnBox/WarnBox';
-import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
-import { TextButton } from '../../../common/textButton/TextButton';
-import { update } from '../creatorSlice';
-import { useAppDispatch } from '../../../app/hooks';
+import { WarnBox } from '../../../../common/warnBox/WarnBox';
+import { CheckboxInput } from '../../../../common/checkboxInput/CheckboxInput';
+import { TextButton } from '../../../../common/textButton/TextButton';
+import { update } from '../../explorer/explorerSlice';
+import { useAppDispatch } from '../../../../app/hooks';
 
 export function GridSetter({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();

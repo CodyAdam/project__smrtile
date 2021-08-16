@@ -1,6 +1,6 @@
 import styles from './App.module.css';
-import { Browser } from '../features/creator/explorer/Explorer';
-import { EditingPanel } from '../features/creator/editing/EditingPanel';
+import { Explorer } from '../features/creator/explorer/Explorer';
+import { EditingHub } from '../features/creator/editing/EditingHub';
 import { TopBar } from '../features/creator/topBar/TopBar';
 import { NavBar } from '../common/navigation/NavBar';
 import { ResizeHorizontal } from '../common/resize/Resizable';
@@ -14,8 +14,8 @@ function App() {
           <TopBar />
           <div className={styles.horizontal}>
             <ResizeHorizontal min={2} max={98}>
-              <Browser></Browser>
-              <EditingPanel></EditingPanel>
+              <Explorer></Explorer>
+              <EditingHub></EditingHub>
             </ResizeHorizontal>
           </div>
         </div>
