@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector, Update } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { BrowserHistory, BrowserState, ObjectType, Rule, SmartTile, Tileset, ID, Selection, SelectionTypes, SelectionObject } from './browserTypes';
+import { BrowserHistory, BrowserState, ObjectType, Rule, SmartTile, Tileset, ID, Selection, SelectionTypes, SelectionObject } from '../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const rulesAdapter = createEntityAdapter<Rule>()

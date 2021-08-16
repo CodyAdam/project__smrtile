@@ -1,11 +1,11 @@
-import styles from './Browser.module.css';
+import styles from './Explorer.module.css';
 import { nanoid } from 'nanoid';
-import { SquareButton } from '../../common/squareButton/SquareButton';
-import { add, rulesSelector, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './browserSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { ObjectType, Rule, SmartTile, Tileset } from './browserTypes';
-import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
-import { Card } from '../../common/card/Card';
+import { SquareButton } from '../../../common/squareButton/SquareButton';
+import { add, rulesSelector, smartTilesSelector, tilesetsSelector, selectedSelector, select } from '../creatorSlice';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { ObjectType, Rule, SmartTile, Tileset } from '../../../app/globalTypes';
+import { BrowsingGroup } from '../../../common/browsingGroup/BrowsingGroup';
+import { Card } from '../../../common/card/Card';
 
 export function Browser() {
   const dispatch = useAppDispatch();

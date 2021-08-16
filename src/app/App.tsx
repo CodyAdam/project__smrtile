@@ -1,6 +1,6 @@
 import styles from './App.module.css';
-import { Browser } from '../features/creator/Browser';
-import { EditingPanel } from '../features/creator/editingPanel/EditingPanel';
+import { Browser } from '../features/creator/explorer/Explorer';
+import { EditingPanel } from '../features/creator/editing/EditingPanel';
 import { TopBar } from '../features/creator/topBar/TopBar';
 import { NavBar } from '../common/navigation/NavBar';
 import { ResizeHorizontal } from '../common/resize/Resizable';

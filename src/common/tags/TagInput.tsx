@@ -1,6 +1,6 @@
 import styles from './TagInput.module.css';
 import { useState, useEffect } from 'react';
-import { ObjectType, Tag } from '../../features/creator/browserTypes';
+import { ObjectType, Tag } from '../../app/globalTypes';
 
 export function TagInput({
   tags,

@@ -1,4 +1,4 @@
-import { GridSettings, Sprite, TilesetFilter } from '../../features/creator/browserTypes';
+import { GridSettings, Sprite, TilesetFilter } from '../../app/globalTypes';
 import { useRef, useEffect, useState } from 'react';
 import styles from './TilesetPreview.module.css';
 

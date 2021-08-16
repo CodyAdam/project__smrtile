@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../app/hooks';
-import { selectedContentSelector } from '../browserSlice';
-import { ObjectType } from '../browserTypes';
+import { selectedContentSelector } from '../creatorSlice';
+import { ObjectType } from '../../../app/globalTypes';
 import styles from './EditingPanel.module.css';
 import { RulePanel } from './RulePanel';
 import { TilesetPanel } from './TilesetPanel';

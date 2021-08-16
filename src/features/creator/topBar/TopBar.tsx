@@ -1,9 +1,9 @@
 import styles from './TopBar.module.css';
 import { SquareButton } from '../../../common/squareButton/SquareButton';
 import { useAppDispatch } from '../../../app/hooks';
-import { undo, redo } from '../browserSlice';
+import { undo, redo } from '../creatorSlice';
 import { useAppSelector } from '../../../app/hooks';
-import { selectedContentSelector } from '../browserSlice';
+import { selectedContentSelector } from '../creatorSlice';
 
 export function TopBar() {
   const selectedContent = useAppSelector(selectedContentSelector);
