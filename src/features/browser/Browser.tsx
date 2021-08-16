@@ -65,30 +65,8 @@ export function Browser() {
     });
   }
 
-  const [width, setWidth] = useState(300);
-  let lastWidth = width;
-  let lastPos: number = 0;
-
-  function handleDragStart(e: React.MouseEvent<HTMLDivElement>) {
-    window.addEventListener('mousemove', handleDragMove);
-    window.addEventListener('mouseup', handleDragEnd);
-    lastPos = e.clientX;
-    lastWidth = width;
-  }
-
-  function handleDragEnd() {
-    window.removeEventListener('mousemove', handleDragMove);
-    window.removeEventListener('mouseup', handleDragEnd);
-  }
-
-  function handleDragMove(e: MouseEvent) {
-    lastWidth = lastWidth + e.clientX - lastPos;
-    setWidth(lastWidth);
-    lastPos = e.clientX;
-  }
-
   return (
-    <div className={styles.container} style={{ width: `${width}px` }}>
+    <div className={styles.container}>
       <div className={styles.title}>
         <span>BROWSER</span>
         <SquareButton icon='tag' onClick={() => {}} title='filter' />
@@ -120,7 +98,6 @@ export function Browser() {
           {tilesetsPreview}
         </BrowsingGroup>
       </div>
-      <div className={styles.resizeBar} onMouseDown={handleDragStart}></div>
     </div>
   );
 }
