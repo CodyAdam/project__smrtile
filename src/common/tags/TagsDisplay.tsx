@@ -1,4 +1,4 @@
-import { Tag } from '../../features/browser/browserTypes';
+import { Tag } from '../../features/creator/browserTypes';
 import styles from './TagsDisplay.module.css';
 import { SquareButton } from '../squareButton/SquareButton';
 

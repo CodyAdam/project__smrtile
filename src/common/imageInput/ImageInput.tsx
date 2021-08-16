@@ -1,4 +1,4 @@
-import { Sprite } from '../../features/browser/browserTypes';
+import { Sprite } from '../../features/creator/browserTypes';
 import styles from './ImageInput.module.css';
 
 export function ImageInput({ onChange }: { onChange: (sprite: Sprite) => void }) {

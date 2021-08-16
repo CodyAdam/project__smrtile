@@ -1,9 +1,9 @@
 import styles from './App.module.css';
-import { Browser } from '../features/browser/Browser';
-import { EditingPanel } from '../features/browser/editingPanel/EditingPanel';
-import { TopBar } from '../features/browser/topBar/TopBar';
-import { NavBar } from '../features/navigation/NavBar';
-import { ResizeHorizontal, ResizeVertical } from '../common/resize/Resizable';
+import { Browser } from '../features/creator/Browser';
+import { EditingPanel } from '../features/creator/editingPanel/EditingPanel';
+import { TopBar } from '../features/creator/topBar/TopBar';
+import { NavBar } from '../common/navigation/NavBar';
+import { ResizeHorizontal } from '../common/resize/Resizable';
 
 function App() {
   return (

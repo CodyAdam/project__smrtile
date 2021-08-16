@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import styles from './Browser.module.css';
+import { nanoid } from 'nanoid';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, rulesSelector, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './browserSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';

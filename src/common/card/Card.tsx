@@ -1,4 +1,4 @@
-import { Rule, SmartTile, Tileset } from '../../features/browser/browserTypes';
+import { Rule, SmartTile, Tileset } from '../../features/creator/browserTypes';
 import styles from './Card.module.css';
 
 export function Card({
