@@ -3,14 +3,16 @@ import { nanoid } from 'nanoid';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
+import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../app/globalTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../common/card/Card';
 import { ResizeVertical } from '../../common/resize/Resizable';
+import { useState } from 'react';
 
 export function Explorer() {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
+  const [value, setValue] = useState<number>(0);
 
   const smartBrushes = useAppSelector(smartTilesSelector);
   let smartTilesContent = null;
@@ -49,7 +51,7 @@ export function Explorer() {
   }
 
   return (
-    <ResizeVertical min={4} max={96}>
+    <ResizeVertical min={4} max={96} onResize={setValue}>
       <div className={styles.container}>
         <div className={styles.title}>
           <span>EXPLORER</span>
@@ -80,7 +82,11 @@ export function Explorer() {
           <span>TILE PICKER</span>
           <SquareButton icon='tag' onClick={() => {}} title='filter' />
         </div>
-        <div>tile picker goes here! </div>
+        <div>
+          tile picker goes here!
+          <br />
+          {value}
+        </div>
       </div>
     </ResizeVertical>
   );

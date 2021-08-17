@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Resizable.module.css';
 
 export function ResizeHorizontal({
@@ -58,11 +58,13 @@ export function ResizeHorizontal({
 }
 
 export function ResizeVertical({
+  onResize,
   className,
   children,
   min = 0,
   max = 100,
 }: {
+  onResize?: (value: number) => void;
   className?: string;
   children: [React.ReactNode, React.ReactNode];
   min?: number;
@@ -71,6 +73,10 @@ export function ResizeVertical({
   const [value, setValue] = useState(50);
   const div = useRef<HTMLDivElement>(null);
   let lastPos = 0;
+
+  useEffect(() => {
+    if (onResize) onResize(value);
+  }, [value]);
 
   function clearSelection() {
     if (window.getSelection) {
