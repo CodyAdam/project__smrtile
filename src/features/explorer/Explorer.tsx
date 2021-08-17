@@ -22,37 +22,41 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
   const smartBrushes = useAppSelector(smartTilesSelector);
   let smartTilesContent = null;
   if (smartBrushes)
-    smartTilesContent = smartBrushes.map((smartBrush: SmartBrush) => {
-      const isSelected = !!selected && selected.type === smartBrush.type && selected.id === smartBrush.id;
-      return (
-        <Card
-          key={smartBrush.id}
-          object={smartBrush}
-          selected={isSelected}
-          onClick={() => {
-            dispatch(select(smartBrush));
-          }}
-        />
-      );
-    });
+    smartTilesContent = smartBrushes
+      .sort((val1, val2) => val2.sortOrder.index - val1.sortOrder.index)
+      .map((smartBrush: SmartBrush) => {
+        const isSelected = !!selected && selected.type === smartBrush.type && selected.id === smartBrush.id;
+        return (
+          <Card
+            key={smartBrush.id}
+            object={smartBrush}
+            selected={isSelected}
+            onClick={() => {
+              if (selected && selected.id !== smartBrush.id) dispatch(select(smartBrush));
+            }}
+          />
+        );
+      });
 
   const tilesets = useAppSelector(tilesetsSelector);
   let tilesetsContent = null;
   let tilesetsPreview = null;
   if (tilesets) {
-    tilesetsContent = tilesets.map((tileset: Tileset, index) => {
-      const isSelected = !!selected && selected.type === tileset.type && selected.id === tileset.id;
-      return (
-        <Card
-          key={tileset.id}
-          object={tileset}
-          selected={isSelected}
-          onClick={() => {
-            dispatch(select(tileset));
-          }}
-        />
-      );
-    });
+    tilesetsContent = tilesets
+      .sort((val1, val2) => val2.sortOrder.index - val1.sortOrder.index)
+      .map((tileset: Tileset, index) => {
+        const isSelected = !!selected && selected.type === tileset.type && selected.id === tileset.id;
+        return (
+          <Card
+            key={tileset.id}
+            object={tileset}
+            selected={isSelected}
+            onClick={() => {
+              if (selected && selected.id !== tileset.id) dispatch(select(tileset));
+            }}
+          />
+        );
+      });
   }
 
   return (

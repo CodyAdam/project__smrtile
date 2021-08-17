@@ -51,10 +51,20 @@ export const explorerSlice = createSlice({
       const { type, id } = action.payload;
       switch (type) {
         case ObjTypes.SMART_BRUSH:
+          state.smartBrushes.ids.forEach(id => {
+            const element = state.smartBrushes.entities[id]
+            if (element)
+              element.sortOrder.index = element.sortOrder.index + 1;
+          });
           smartTilesAdapter.addOne(state.smartBrushes, { ...defaultSmartBrush, id })
           state.editSelection = { type: ObjTypes.SMART_BRUSH, id }
           break;
         case ObjTypes.TILESET:
+          state.tilesets.ids.forEach(id => {
+            const element = state.tilesets.entities[id]
+            if (element)
+              element.sortOrder.index = element.sortOrder.index + 1;
+          });
           tilesetsAdapter.addOne(state.tilesets, { ...defaultTileset, id })
           state.editSelection = { type: ObjTypes.TILESET, id }
           break;
