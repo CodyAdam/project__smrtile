@@ -32,6 +32,7 @@ export type Thumbnail = TileSymbol | null
 export type Vector2 = { x: number, y: number }
 export type Tag = { color?: string, name: string };
 export type ImageURL = string;
+export type Order = number;
 
 //////////////////////////////////////////////////////////////////////////
 // PICKER
@@ -60,17 +61,7 @@ export type EditSelection = {
 }
 export type EditSelectObject = Tileset | SmartBrush;
 export type EditSelect = ObjTypes.TILESET | ObjTypes.SMART_BRUSH
-export type SortOrder = Folder | Item
-export type Folder = {
-  type: ObjTypes.ORDER_FOLDER,
-  name: string,
-  index: number,
-  content: Item
-}
-export type Item = {
-  type: ObjTypes.ORDER_ITEM,
-  index: number
-}
+
 //////////////////////////////////////////////////////////////////////////
 // TILES 
 //////////////////////////////////////////////////////////////////////////
@@ -104,7 +95,7 @@ export type AnimatedTile = {
 export interface SmartBrush {
   type: ObjTypes.SMART_BRUSH,
   name: string,
-  sortOrder: SortOrder,
+  order: Order,
   thumbnail: Thumbnail,
   timelineIndex: number
   isToggle: boolean,
@@ -145,7 +136,7 @@ export interface AnimatedSprite {
 export interface Tileset {
   type: ObjTypes.TILESET,
   name: string,
-  sortOrder: SortOrder,
+  order: Order,
   image: ImageData | undefined,
   grid: GridSettings,
   animations: AnimatedTile[],
