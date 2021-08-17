@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
-import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, AssetTileset, ID, LeftSelection, LeftSelect, LeftSelectObject } from '../../../app/globalTypes';
+import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, AssetTileset, ID, EditSelection, EditSelect, EditSelectObject } from '../../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const smartTilesAdapter = createEntityAdapter<SmartBrush>()
@@ -10,11 +10,10 @@ const tilesetsAdapter = createEntityAdapter<AssetTileset>()
 const initialState: ExplorerState = {
   smartBrushes: smartTilesAdapter.getInitialState(),
   tilesets: tilesetsAdapter.getInitialState(),
-  leftSelection: null,
-  rightSelection: null
+  editSelection: null,
 }
 const defaultSmartBrush: SmartBrush = {
-  type: ObjTypes.SMARTBRUSH,
+  type: ObjTypes.SMART_BRUSH,
   name: "Nameless SmartTile",
   rulesets: [],
   isToggle: false,
@@ -35,7 +34,6 @@ const defaultTileset: AssetTileset = {
     offset: { top: 0, right: 0, bottom: 0, left: 0 }
   },
   animations: [],
-  objects: [],
   thumbnail: [],
   filters: [],
   tags: [],
@@ -47,47 +45,47 @@ export const explorerSlice = createSlice({
   name: 'creator',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<{ type: LeftSelect, id: ID }>) => {
+    add: (state, action: PayloadAction<{ type: EditSelect, id: ID }>) => {
       const { type, id } = action.payload;
       switch (type) {
-        case ObjTypes.SMARTBRUSH:
+        case ObjTypes.SMART_BRUSH:
           smartTilesAdapter.addOne(state.smartBrushes, { ...defaultSmartBrush, id })
-          state.leftSelection = { type: ObjTypes.SMARTBRUSH, id }
+          state.editSelection = { type: ObjTypes.SMART_BRUSH, id }
           break;
         case ObjTypes.TILESET:
           tilesetsAdapter.addOne(state.tilesets, { ...defaultTileset, id })
-          state.leftSelection = { type: ObjTypes.TILESET, id }
+          state.editSelection = { type: ObjTypes.TILESET, id }
           break;
       }
     },
-    remove: (state, action: PayloadAction<LeftSelectObject>) => {
+    remove: (state, action: PayloadAction<EditSelectObject>) => {
       const target = action.payload;
       switch (target.type) {
-        case ObjTypes.SMARTBRUSH:
+        case ObjTypes.SMART_BRUSH:
           smartTilesAdapter.removeOne(state.smartBrushes, target.id)
-          if (state.leftSelection && state.leftSelection.id === target.id)
-            state.leftSelection = null
+          if (state.editSelection && state.editSelection.id === target.id)
+            state.editSelection = null
           break;
         case ObjTypes.TILESET:
           tilesetsAdapter.removeOne(state.tilesets, target.id)
-          if (state.leftSelection && state.leftSelection.id === target.id)
-            state.leftSelection = null
+          if (state.editSelection && state.editSelection.id === target.id)
+            state.editSelection = null
           break;
       }
     },
-    update: (state, actions: PayloadAction<{ target: LeftSelectObject, changes: Partial<LeftSelectObject> }>) => {
+    update: (state, actions: PayloadAction<{ target: EditSelectObject, changes: Partial<EditSelectObject> }>) => {
       const { target, changes } = actions.payload;
       switch (target.type) {
-        case ObjTypes.SMARTBRUSH: smartTilesAdapter.updateOne(state.smartBrushes, { id: target.id, changes: changes as SmartBrush })
+        case ObjTypes.SMART_BRUSH: smartTilesAdapter.updateOne(state.smartBrushes, { id: target.id, changes: changes as SmartBrush })
           break
         case ObjTypes.TILESET: tilesetsAdapter.updateOne(state.tilesets, { id: target.id, changes: changes as AssetTileset })
           break;
       }
     },
-    select: (state, action: PayloadAction<LeftSelection>) => {
-      state.leftSelection = { type: action.payload.type, id: action.payload.id }
+    select: (state, action: PayloadAction<EditSelection>) => {
+      state.editSelection = { type: action.payload.type, id: action.payload.id }
     },
-    deselect: state => { state.leftSelection = null }
+    deselect: state => { state.editSelection = null }
   }
 })
 
@@ -108,7 +106,7 @@ export const historyIndexSelector = createSelector(
   index => index)
 export const selectedSelector = createSelector(
   (state: RootState) => state.browser.present,
-  state => state.leftSelection)
+  state => state.editSelection)
 export const smartTilesSelector = createSelector(
   (state: RootState) => state.browser.present.smartBrushes, smartTilesAdapter.getSelectors().selectAll)
 export const tilesetsSelector = createSelector(
@@ -117,12 +115,12 @@ export const tilesetsSelector = createSelector(
 export const selectedContentSelector = createSelector(
   (state: RootState) => state.browser.present,
   (state: ExplorerState) => {
-    if (!state.leftSelection) return null;
-    switch (state.leftSelection.type) {
-      case ObjTypes.SMARTBRUSH:
-        return smartTilesAdapter.getSelectors().selectById(state.smartBrushes, state.leftSelection.id)
+    if (!state.editSelection) return null;
+    switch (state.editSelection.type) {
+      case ObjTypes.SMART_BRUSH:
+        return smartTilesAdapter.getSelectors().selectById(state.smartBrushes, state.editSelection.id)
       case ObjTypes.TILESET:
-        return tilesetsAdapter.getSelectors().selectById(state.tilesets, state.leftSelection.id)
+        return tilesetsAdapter.getSelectors().selectById(state.tilesets, state.editSelection.id)
       default:
         return null;
     }

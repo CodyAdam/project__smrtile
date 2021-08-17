@@ -15,12 +15,13 @@ export enum ExplorerHistory {
 //////////////////////////////////////////////////////////////////////////
 
 export enum ObjTypes {
-  SMARTBRUSH = 'smartBrush',
-  TILE = 'tile',
-  SMARTTILE = 'smartBrush',
+  TILE_SMART = 'smartTile',
+  TILE_BASIC = 'basicTile',
+  TILE_ANIMATED = 'animatedTile',
+  SMART_BRUSH = 'smartBrush',
   TILESET = 'tileset',
-  ANIMATION = 'animation',
-  OBJECT = 'object',
+  BASIC_SPRITE = 'basicSprite',
+  ANIMATED_SPRITE = 'animatedSprite',
 }
 
 export type ID = ReturnType<typeof nanoid>;
@@ -31,6 +32,17 @@ export type Tag = { color?: string, name: string };
 export type ImageURL = string;
 
 //////////////////////////////////////////////////////////////////////////
+// PICKER
+//////////////////////////////////////////////////////////////////////////
+
+export interface PickerState { // store
+  picked: null | PickSelection
+}
+export type PickSelection = Tile
+export type PickSelect = ObjTypes.TILE_BASIC | ObjTypes.TILE_ANIMATED | ObjTypes.TILE_BASIC
+
+
+//////////////////////////////////////////////////////////////////////////
 // EXPLORER
 //////////////////////////////////////////////////////////////////////////
 
@@ -38,29 +50,47 @@ export type ImageURL = string;
 export interface ExplorerState { // store
   smartBrushes: EntityState<SmartBrush>,
   tilesets: EntityState<AssetTileset>,
-  leftSelection: null | LeftSelection
-  rightSelection: null | RightSelection
+  editSelection: null | EditSelection
 }
-export type LeftSelection = {
-  type: LeftSelect,
+export type EditSelection = {
+  type: EditSelect,
   id: ID
 }
-export type RightSelection = {
-  type: RightSelect,
-  id: ID
+export type EditSelectObject = AssetTileset | SmartBrush;
+export type EditSelect = ObjTypes.TILESET | ObjTypes.SMART_BRUSH
+
+//////////////////////////////////////////////////////////////////////////
+// TILES 
+//////////////////////////////////////////////////////////////////////////
+
+export type Tile = AnimatedTile | BasicTile | SmartTile;
+export interface SmartTile {
+  type: ObjTypes.TILE_SMART
+  name: string,
+  smartBrush: ID
+  sprite: Sprite,
+  tags: Tag[],
 }
-export type LeftSelectObject = AssetTileset | SmartBrush;
-export type LeftSelect = ObjTypes.TILE | ObjTypes.TILESET | ObjTypes.SMARTBRUSH
-export type RightSelectObject = AssetTileset | AssetAnimation | AssetObject;
-export type RightSelect = ObjTypes.TILESET | ObjTypes.ANIMATION | ObjTypes.OBJECT
-
-
+export type BasicTile = {
+  type: ObjTypes.TILE_BASIC,
+  name: string,
+  tileset: ID,
+  sprite: BasicSprite,
+  tags: Tag[],
+}
+export type AnimatedTile = {
+  type: ObjTypes.TILE_ANIMATED
+  name: string,
+  tileset: ID,
+  sprite: AnimatedSprite,
+  tags: Tag[],
+}
 //////////////////////////////////////////////////////////////////////////
 // SMART BRUSH
 //////////////////////////////////////////////////////////////////////////
 
 export interface SmartBrush {
-  type: ObjTypes.SMARTBRUSH,
+  type: ObjTypes.SMART_BRUSH,
   name: string,
   thumbnail: Thumbnail,
   timelineIndex: number
@@ -82,30 +112,18 @@ export interface Rule {
 }
 export type Pattern = { layer: number, x: number, y: number, patternTile: PatternTile, not: boolean }[]
 export type PatternTile = 'any' | SmartBrush | BasicTile
-export type Tile = Animation | BasicTile | SmartTile;
-export interface BasicTile {
-  type: ObjTypes.TILE
-  sprite: Sprite,
-}
-export interface SmartTile {
-  type: ObjTypes.SMARTTILE
-  smartBrush: ID
-  sprite: Sprite,
-}
+
 export type Sprite = BasicSprite | AnimatedSprite
 export interface BasicSprite {
+  type: ObjTypes.TILE_ANIMATED
   tileset: ID,
   pos: { origin: Vector2 },
 }
-export interface ObjectSprite {
-  tileset: ID,
-  pos: SpritePosition,
-}
 export interface AnimatedSprite {
+  type: ObjTypes.TILE_ANIMATED
   tileset: ID,
-  frames: { delay: number, pos: SpritePosition }[]
+  pos: { origin: Vector2, delay: number }[]
 }
-export type SpritePosition = { origin: Vector2, top: number, right: number, bottom: number, left: number }
 
 //////////////////////////////////////////////////////////////////////////
 // ASSETS
@@ -116,8 +134,7 @@ export interface AssetTileset {
   name: string,
   image: ImageData | undefined,
   grid: GridSettings,
-  animations: AssetAnimation[],
-  objects: AssetObject[],
+  animations: AnimatedTile[],
   thumbnail: Thumbnail[],
   filters: TilesetFilter[],
   tags: Tag[],
@@ -128,8 +145,6 @@ export type ImageData = {
   width: number,
   height: number,
 }
-export type AssetAnimation = {}
-export type AssetObject = {}
 export type GridSettings = {
   columns: number,
   rows: number,

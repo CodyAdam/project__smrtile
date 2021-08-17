@@ -57,7 +57,7 @@ export function Explorer() {
         <BrowsingGroup
           title='smart brushes'
           onAdd={() => {
-            dispatch(add({ type: ObjTypes.SMARTBRUSH, id: nanoid() }));
+            dispatch(add({ type: ObjTypes.SMART_BRUSH, id: nanoid() }));
           }}
         >
           {smartTilesContent}
