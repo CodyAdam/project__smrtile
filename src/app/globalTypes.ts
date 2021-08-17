@@ -49,16 +49,24 @@ export type PickSelect = ObjTypes.TILE_BASIC | ObjTypes.TILE_ANIMATED | ObjTypes
 
 export interface ExplorerState { // store
   smartBrushes: EntityState<SmartBrush>,
-  tilesets: EntityState<AssetTileset>,
+  tilesets: EntityState<Tileset>,
   editSelection: null | EditSelection
 }
 export type EditSelection = {
   type: EditSelect,
   id: ID
 }
-export type EditSelectObject = AssetTileset | SmartBrush;
+export type EditSelectObject = Tileset | SmartBrush;
 export type EditSelect = ObjTypes.TILESET | ObjTypes.SMART_BRUSH
-
+export type SortOrder = Folder | Item
+export type Folder = {
+  name: string,
+  index: number,
+  content: Item
+}
+export type Item = {
+  index: number
+}
 //////////////////////////////////////////////////////////////////////////
 // TILES 
 //////////////////////////////////////////////////////////////////////////
@@ -92,6 +100,7 @@ export type AnimatedTile = {
 export interface SmartBrush {
   type: ObjTypes.SMART_BRUSH,
   name: string,
+  sortOrder: SortOrder,
   thumbnail: Thumbnail,
   timelineIndex: number
   isToggle: boolean,
@@ -129,9 +138,10 @@ export interface AnimatedSprite {
 // ASSETS
 //////////////////////////////////////////////////////////////////////////
 
-export interface AssetTileset {
+export interface Tileset {
   type: ObjTypes.TILESET,
   name: string,
+  sortOrder: SortOrder,
   image: ImageData | undefined,
   grid: GridSettings,
   animations: AnimatedTile[],

@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { ObjTypes, SmartBrush, AssetTileset } from '../../app/globalTypes';
+import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../common/card/Card';
 
@@ -32,7 +32,7 @@ export function Explorer() {
   let tilesetsContent = null;
   let tilesetsPreview = null;
   if (tilesets) {
-    tilesetsContent = tilesets.map((tileset: AssetTileset, index) => {
+    tilesetsContent = tilesets.map((tileset: Tileset, index) => {
       const isSelected = !!selected && selected.type === tileset.type && selected.id === tileset.id;
       return (
         <Card

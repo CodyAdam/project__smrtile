@@ -1,4 +1,4 @@
-import { AssetTileset, TilesetFilter } from '../../../../app/globalTypes';
+import { Tileset, TilesetFilter } from '../../../../app/globalTypes';
 import { Propertie } from '../../../../common/propertie/Propertie';
 import { ImageInput } from '../../../../common/imageInput/ImageInput';
 import { TilesetPreview } from '../../../../common/tilesetPreview/TilesetPreview';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { TagsDisplay } from '../../../../common/tags/TagsDisplay';
 import { TagInput } from '../../../../common/tags/TagInput';
 
-export function TilesetPanel({ selected }: { selected: AssetTileset }) {
+export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
   const [showGrid, setShowGrid] = useState(true);
 

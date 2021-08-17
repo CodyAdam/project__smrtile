@@ -1,10 +1,10 @@
 import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, AssetTileset, ID, EditSelection, EditSelect, EditSelectObject } from '../../app/globalTypes';
+import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, Tileset, ID, EditSelection, EditSelect, EditSelectObject } from '../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const smartTilesAdapter = createEntityAdapter<SmartBrush>()
-const tilesetsAdapter = createEntityAdapter<AssetTileset>()
+const tilesetsAdapter = createEntityAdapter<Tileset>()
 
 //Initial State
 const initialState: ExplorerState = {
@@ -15,6 +15,7 @@ const initialState: ExplorerState = {
 const defaultSmartBrush: SmartBrush = {
   type: ObjTypes.SMART_BRUSH,
   name: "Nameless SmartTile",
+  sortOrder: { index: 0 },
   rulesets: [],
   isToggle: false,
   timelineIndex: 0,
@@ -22,9 +23,10 @@ const defaultSmartBrush: SmartBrush = {
   tags: [],
   id: ''
 }
-const defaultTileset: AssetTileset = {
+const defaultTileset: Tileset = {
   type: ObjTypes.TILESET,
   name: "Nameless Tileset",
+  sortOrder: { index: 0 },
   image: undefined,
   grid: {
     columns: 0,
@@ -78,7 +80,7 @@ export const explorerSlice = createSlice({
       switch (target.type) {
         case ObjTypes.SMART_BRUSH: smartTilesAdapter.updateOne(state.smartBrushes, { id: target.id, changes: changes as SmartBrush })
           break
-        case ObjTypes.TILESET: tilesetsAdapter.updateOne(state.tilesets, { id: target.id, changes: changes as AssetTileset })
+        case ObjTypes.TILESET: tilesetsAdapter.updateOne(state.tilesets, { id: target.id, changes: changes as Tileset })
           break;
       }
     },
