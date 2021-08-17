@@ -1,6 +1,6 @@
 import styles from './EditingHub.module.css';
 import { useAppSelector } from '../../../app/hooks';
-import { selectedContentSelector } from '../explorer/explorerSlice';
+import { selectedContentSelector } from '../../explorer/explorerSlice';
 import { ObjTypes } from '../../../app/globalTypes';
 import { TilesetPanel } from './tileset/TilesetPanel';
 

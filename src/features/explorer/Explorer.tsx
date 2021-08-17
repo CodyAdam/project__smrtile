@@ -1,11 +1,11 @@
 import styles from './Explorer.module.css';
 import { nanoid } from 'nanoid';
-import { SquareButton } from '../../../common/squareButton/SquareButton';
+import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { ObjTypes, SmartBrush, AssetTileset } from '../../../app/globalTypes';
-import { BrowsingGroup } from '../../../common/browsingGroup/BrowsingGroup';
-import { Card } from '../../../common/card/Card';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { ObjTypes, SmartBrush, AssetTileset } from '../../app/globalTypes';
+import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
+import { Card } from '../../common/card/Card';
 
 export function Explorer() {
   const dispatch = useAppDispatch();

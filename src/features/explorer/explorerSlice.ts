@@ -1,6 +1,6 @@
 import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector } from '@reduxjs/toolkit';
-import { RootState } from '../../../app/store';
-import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, AssetTileset, ID, EditSelection, EditSelect, EditSelectObject } from '../../../app/globalTypes';
+import { RootState } from '../../app/store';
+import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, AssetTileset, ID, EditSelection, EditSelect, EditSelectObject } from '../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const smartTilesAdapter = createEntityAdapter<SmartBrush>()

@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import explorerReducer from '../features/creator/explorer/explorerSlice';
+import explorerReducer from '../features/explorer/explorerSlice';
 import pickerReducer from '../features/picker/pickerSlice'
 import undoable from 'redux-undo';
 import { ExplorerHistory } from './globalTypes';

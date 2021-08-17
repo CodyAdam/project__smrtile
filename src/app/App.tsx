@@ -1,5 +1,5 @@
 import styles from './App.module.css';
-import { Explorer } from '../features/creator/explorer/Explorer';
+import { Explorer } from '../features/explorer/Explorer';
 import { EditingHub } from '../features/creator/editing/EditingHub';
 import { TopBar } from '../features/creator/topBar/TopBar';
 import { NavBar } from '../common/navigation/NavBar';

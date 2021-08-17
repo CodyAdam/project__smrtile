@@ -3,7 +3,7 @@ import { Propertie } from '../../../../common/propertie/Propertie';
 import { ImageInput } from '../../../../common/imageInput/ImageInput';
 import { TilesetPreview } from '../../../../common/tilesetPreview/TilesetPreview';
 import { useAppDispatch } from '../../../../app/hooks';
-import { update } from '../../explorer/explorerSlice';
+import { update } from '../../../explorer/explorerSlice';
 import { CheckboxInput } from '../../../../common/checkboxInput/CheckboxInput';
 import { GridSetter } from './GridSetter';
 import { useState } from 'react';

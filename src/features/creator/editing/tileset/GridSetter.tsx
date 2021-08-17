@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { WarnBox } from '../../../../common/warnBox/WarnBox';
 import { CheckboxInput } from '../../../../common/checkboxInput/CheckboxInput';
 import { TextButton } from '../../../../common/textButton/TextButton';
-import { update } from '../../explorer/explorerSlice';
+import { update } from '../../../explorer/explorerSlice';
 import { useAppDispatch } from '../../../../app/hooks';
 
 export function GridSetter({ selected }: { selected: AssetTileset }) {
