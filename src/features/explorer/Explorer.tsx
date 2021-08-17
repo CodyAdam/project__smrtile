@@ -6,13 +6,18 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../app/globalTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../common/card/Card';
-import { ResizeVertical } from '../../common/resize/Resizable';
-import { useState } from 'react';
+import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
+import { useEffect, useState } from 'react';
 
-export function Explorer() {
+export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize }) {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
-  const [value, setValue] = useState<number>(0);
+  const [horizontal, setHorizontal] = useState<HorizontalSize>(horizontalSize);
+  const [vertical, setVertical] = useState<VerticalSize>({ top: 0, bottom: 0 });
+
+  useEffect(() => {
+    setHorizontal(horizontalSize);
+  }, [horizontalSize]);
 
   const smartBrushes = useAppSelector(smartTilesSelector);
   let smartTilesContent = null;
@@ -51,7 +56,7 @@ export function Explorer() {
   }
 
   return (
-    <ResizeVertical min={4} max={96} onResize={setValue}>
+    <ResizeVertical min={4} max={96} onResize={setVertical}>
       <div className={styles.container}>
         <div className={styles.title}>
           <span>EXPLORER</span>
@@ -85,7 +90,9 @@ export function Explorer() {
         <div>
           tile picker goes here!
           <br />
-          {value}
+          {JSON.stringify(Math.round(vertical.bottom))}
+          <br />
+          {JSON.stringify(Math.round(horizontal.left))}
         </div>
       </div>
     </ResizeVertical>

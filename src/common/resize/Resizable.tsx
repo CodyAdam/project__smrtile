@@ -1,25 +1,39 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Resizable.module.css';
 
+function clearSelection() {
+  if (window.getSelection) {
+    const selection = window.getSelection();
+    if (selection) selection.removeAllRanges();
+  }
+}
+export type HorizontalSize = { left: number; right: number };
 export function ResizeHorizontal({
+  onResize,
+  className,
   children,
+  init = 50,
   min = 0,
   max = 100,
 }: {
+  onResize?: (value: HorizontalSize) => void;
+  className?: string;
   children: [React.ReactNode, React.ReactNode];
+  init?: number;
   min?: number;
   max?: number;
 }) {
-  const [value, setValue] = useState(50);
+  const [value, setValue] = useState(init);
   const div = useRef<HTMLDivElement>(null);
   let lastPos = 0;
 
-  function clearSelection() {
-    if (window.getSelection) {
-      const selection = window.getSelection();
-      if (selection) selection.removeAllRanges();
-    }
-  }
+  useEffect(() => {
+    if (onResize && div.current)
+      onResize({
+        left: (value / 100) * div.current.clientWidth,
+        right: div.current.clientWidth - (value / 100) * div.current.clientWidth,
+      });
+  }, [value]);
 
   function handleMouseDown(e: React.MouseEvent) {
     clearSelection();
@@ -45,7 +59,11 @@ export function ResizeHorizontal({
   }
 
   return (
-    <div ref={div} className={styles.container} style={{ gridTemplateColumns: `${value}% ${100 - value}%` }}>
+    <div
+      ref={div}
+      className={`${className} ${styles.container}`}
+      style={{ gridTemplateColumns: `${value}% ${100 - value}%` }}
+    >
       {children[0]}
       <div
         onMouseDown={handleMouseDown}
@@ -57,33 +75,33 @@ export function ResizeHorizontal({
   );
 }
 
+export type VerticalSize = { top: number; bottom: number };
 export function ResizeVertical({
   onResize,
   className,
   children,
+  init = 50,
   min = 0,
   max = 100,
 }: {
-  onResize?: (value: number) => void;
+  onResize?: (value: VerticalSize) => void;
   className?: string;
   children: [React.ReactNode, React.ReactNode];
+  init?: number;
   min?: number;
   max?: number;
 }) {
-  const [value, setValue] = useState(50);
+  const [value, setValue] = useState(init);
   const div = useRef<HTMLDivElement>(null);
   let lastPos = 0;
 
   useEffect(() => {
-    if (onResize) onResize(value);
+    if (onResize && div.current)
+      onResize({
+        top: (value / 100) * div.current.clientHeight,
+        bottom: div.current.clientHeight - (value / 100) * div.current.clientHeight,
+      });
   }, [value]);
-
-  function clearSelection() {
-    if (window.getSelection) {
-      const selection = window.getSelection();
-      if (selection) selection.removeAllRanges();
-    }
-  }
 
   function handleMouseDown(e: React.MouseEvent) {
     clearSelection();

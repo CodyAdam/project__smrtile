@@ -3,22 +3,23 @@ import { Explorer } from '../features/explorer/Explorer';
 import { EditingHub } from '../features/creator/editing/EditingHub';
 import { TopBar } from '../features/creator/topBar/TopBar';
 import { NavBar } from '../common/navigation/NavBar';
-import { ResizeHorizontal } from '../common/resize/Resizable';
+import { HorizontalSize, ResizeHorizontal } from '../common/resize/Resizable';
+import { useState } from 'react';
 
 function App() {
+  const [explorereSize, setExplorereSize] = useState<HorizontalSize>({ left: 0, right: 0 });
+  function handleResize(value: HorizontalSize) {
+    setExplorereSize(value);
+  }
   return (
-    <div className={styles.app}>
-      <div className={styles.horizontal}>
-        <NavBar />
-        <div className={styles.vertical}>
-          <TopBar />
-          <div className={styles.horizontal}>
-            <ResizeHorizontal min={2} max={98}>
-              <Explorer></Explorer>
-              <EditingHub></EditingHub>
-            </ResizeHorizontal>
-          </div>
-        </div>
+    <div className={`${styles.app} ${styles.horizontal}`}>
+      <NavBar />
+      <div className={styles.vertical}>
+        <TopBar />
+        <ResizeHorizontal init={30} min={2} max={98} onResize={handleResize} className={styles.horizontal}>
+          <Explorer horizontalSize={explorereSize}></Explorer>
+          <EditingHub></EditingHub>
+        </ResizeHorizontal>
       </div>
     </div>
   );
