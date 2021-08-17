@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './Resizable.module.css';
 
 function clearSelection() {
@@ -27,6 +27,14 @@ export function ResizeHorizontal({
   const div = useRef<HTMLDivElement>(null);
   let lastPos = 0;
 
+  const handleChange = useCallback(() => {
+    if (onResize && div.current)
+      onResize({
+        left: (value / 100) * div.current.clientWidth,
+        right: div.current.clientWidth - (value / 100) * div.current.clientWidth,
+      });
+  }, [value, onResize]);
+
   useEffect(() => {
     window.addEventListener('resize', handleChange);
     return () => {
@@ -37,14 +45,6 @@ export function ResizeHorizontal({
   useEffect(() => {
     handleChange();
   }, [value, onResize, handleChange]);
-
-  function handleChange() {
-    if (onResize && div.current)
-      onResize({
-        left: (value / 100) * div.current.clientWidth,
-        right: div.current.clientWidth - (value / 100) * div.current.clientWidth,
-      });
-  }
 
   function handleMouseDown(e: React.MouseEvent) {
     clearSelection();
@@ -106,6 +106,14 @@ export function ResizeVertical({
   const div = useRef<HTMLDivElement>(null);
   let lastPos = 0;
 
+  const handleChange = useCallback(() => {
+    if (onResize && div.current)
+      onResize({
+        top: (value / 100) * div.current.clientHeight,
+        bottom: div.current.clientHeight - (value / 100) * div.current.clientHeight,
+      });
+  }, [value, onResize]);
+
   useEffect(() => {
     window.addEventListener('resize', handleChange);
     return () => {
@@ -116,14 +124,6 @@ export function ResizeVertical({
   useEffect(() => {
     handleChange();
   }, [value, onResize, handleChange]);
-
-  function handleChange() {
-    if (onResize && div.current)
-      onResize({
-        top: (value / 100) * div.current.clientHeight,
-        bottom: div.current.clientHeight - (value / 100) * div.current.clientHeight,
-      });
-  }
 
   function handleMouseDown(e: React.MouseEvent) {
     clearSelection();
