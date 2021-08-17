@@ -15,7 +15,7 @@ const initialState: ExplorerState = {
 const defaultSmartBrush: SmartBrush = {
   type: ObjTypes.SMART_BRUSH,
   name: "Nameless SmartTile",
-  sortOrder: { index: 0 },
+  sortOrder: { type: ObjTypes.ORDER_ITEM, index: 0 },
   rulesets: [],
   isToggle: false,
   timelineIndex: 0,
@@ -26,7 +26,7 @@ const defaultSmartBrush: SmartBrush = {
 const defaultTileset: Tileset = {
   type: ObjTypes.TILESET,
   name: "Nameless Tileset",
-  sortOrder: { index: 0 },
+  sortOrder: { type: ObjTypes.ORDER_ITEM, index: 0 },
   image: undefined,
   grid: {
     columns: 0,
