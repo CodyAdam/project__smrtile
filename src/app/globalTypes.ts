@@ -15,13 +15,15 @@ export enum ExplorerHistory {
 //////////////////////////////////////////////////////////////////////////
 
 export enum ObjTypes {
+  ORDER_FOLDER = 'folder',
+  ORDER_ITEM = 'item',
   TILE_SMART = 'smartTile',
   TILE_BASIC = 'basicTile',
   TILE_ANIMATED = 'animatedTile',
   SMART_BRUSH = 'smartBrush',
   TILESET = 'tileset',
-  BASIC_SPRITE = 'basicSprite',
-  ANIMATED_SPRITE = 'animatedSprite',
+  SPRITE_BASIC = 'basicSprite',
+  SRITE_ANIMATED = 'animatedSprite',
 }
 
 export type ID = ReturnType<typeof nanoid>;
@@ -60,11 +62,13 @@ export type EditSelectObject = Tileset | SmartBrush;
 export type EditSelect = ObjTypes.TILESET | ObjTypes.SMART_BRUSH
 export type SortOrder = Folder | Item
 export type Folder = {
+  type: ObjTypes.ORDER_FOLDER,
   name: string,
   index: number,
   content: Item
 }
 export type Item = {
+  type: ObjTypes.ORDER_ITEM,
   index: number
 }
 //////////////////////////////////////////////////////////////////////////
