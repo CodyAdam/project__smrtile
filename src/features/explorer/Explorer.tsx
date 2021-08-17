@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../common/card/Card';
+import { ResizeVertical } from '../../common/resize/Resizable';
 
 export function Explorer() {
   const dispatch = useAppDispatch();
@@ -48,30 +49,39 @@ export function Explorer() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>
-        <span>EXPLORER</span>
-        <SquareButton icon='tag' onClick={() => {}} title='filter' />
+    <ResizeVertical min={4} max={96}>
+      <div className={styles.container}>
+        <div className={styles.title}>
+          <span>EXPLORER</span>
+          <SquareButton icon='tag' onClick={() => {}} title='filter' />
+        </div>
+        <div className={styles.scrollable}>
+          <BrowsingGroup
+            title='smart brushes'
+            onAdd={() => {
+              dispatch(add({ type: ObjTypes.SMART_BRUSH, id: nanoid() }));
+            }}
+          >
+            {smartTilesContent}
+          </BrowsingGroup>
+          <BrowsingGroup
+            title='tilesets'
+            onAdd={() => {
+              dispatch(add({ type: ObjTypes.TILESET, id: nanoid() }));
+            }}
+          >
+            {tilesetsContent}
+            {tilesetsPreview}
+          </BrowsingGroup>
+        </div>
       </div>
-      <div className={styles.scrollable}>
-        <BrowsingGroup
-          title='smart brushes'
-          onAdd={() => {
-            dispatch(add({ type: ObjTypes.SMART_BRUSH, id: nanoid() }));
-          }}
-        >
-          {smartTilesContent}
-        </BrowsingGroup>
-        <BrowsingGroup
-          title='tilesets'
-          onAdd={() => {
-            dispatch(add({ type: ObjTypes.TILESET, id: nanoid() }));
-          }}
-        >
-          {tilesetsContent}
-          {tilesetsPreview}
-        </BrowsingGroup>
+      <div className={`${styles.container} ${styles.borderTop}`}>
+        <div className={styles.title}>
+          <span>TILE PICKER</span>
+          <SquareButton icon='tag' onClick={() => {}} title='filter' />
+        </div>
+        <div>tile picker goes here! </div>
       </div>
-    </div>
+    </ResizeVertical>
   );
 }

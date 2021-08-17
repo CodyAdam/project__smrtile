@@ -58,10 +58,12 @@ export function ResizeHorizontal({
 }
 
 export function ResizeVertical({
+  className,
   children,
   min = 0,
   max = 100,
 }: {
+  className?: string;
   children: [React.ReactNode, React.ReactNode];
   min?: number;
   max?: number;
@@ -101,7 +103,11 @@ export function ResizeVertical({
   }
 
   return (
-    <div ref={div} className={styles.container} style={{ gridTemplateRows: `${value}% ${100 - value}%` }}>
+    <div
+      ref={div}
+      className={`${className} ${styles.container}`}
+      style={{ gridTemplateRows: `${value}% ${100 - value}%` }}
+    >
       {children[0]}
       <div
         onMouseDown={handleMouseDown}
