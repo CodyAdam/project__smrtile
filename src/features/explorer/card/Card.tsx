@@ -3,16 +3,16 @@ import styles from './Card.module.css';
 
 export function Card({
   object,
-  selected = false,
+  isSelected = false,
   onClick,
 }: {
   object: Rule | Tileset | SmartBrush;
-  selected?: boolean;
+  isSelected?: boolean;
   onClick?: () => void;
 }) {
   return (
     <div
-      className={`${styles.container} ${selected ? styles.selected : ''} ${onClick ? styles.clickable : ''}`}
+      className={`${styles.container} ${isSelected ? styles.selected : ''} ${onClick ? styles.clickable : ''}`}
       onClick={onClick}
     >
       {object.name.substring(0, 2).toUpperCase()}
