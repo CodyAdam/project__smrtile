@@ -28,8 +28,8 @@
 }
 
 .groupContent {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  /* background-color: rgba(0, 0, 0, 0.05); */
+  padding: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;

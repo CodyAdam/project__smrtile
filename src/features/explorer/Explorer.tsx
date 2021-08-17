@@ -4,8 +4,8 @@ import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
-import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
-import { Card } from '../../common/card/Card';
+import { BrowsingGroup } from './browsingGroup/BrowsingGroup';
+import { Card } from './card/Card';
 import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
 import { useEffect, useState } from 'react';
 

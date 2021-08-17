@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import styles from './BrowsingGroup.module.css';
-import { SquareButton } from '../squareButton/SquareButton';
+import { SquareButton } from '../../../common/squareButton/SquareButton';
 
 export function BrowsingGroup({
   title,

@@ -1,4 +1,4 @@
-import { Rule, SmartBrush, Tileset } from '../../app/globalTypes';
+import { Rule, SmartBrush, Tileset } from '../../../app/globalTypes';
 import styles from './Card.module.css';
 
 export function Card({
