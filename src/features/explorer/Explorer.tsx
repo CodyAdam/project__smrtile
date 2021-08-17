@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../app/globalTypes';
+import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
 import { BrowsingGroup } from '../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../common/card/Card';
 import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
@@ -56,7 +56,13 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
   }
 
   return (
-    <ResizeVertical min={4} max={96} onResize={setVertical}>
+    <ResizeVertical
+      min={4}
+      max={96}
+      onResize={(value) => {
+        if (vertical.bottom !== value.bottom && vertical.top !== value.top) setVertical(value);
+      }}
+    >
       <div className={styles.container}>
         <div className={styles.title}>
           <span>EXPLORER</span>

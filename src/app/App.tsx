@@ -9,7 +9,7 @@ import { useState } from 'react';
 function App() {
   const [explorereSize, setExplorereSize] = useState<HorizontalSize>({ left: 0, right: 0 });
   function handleResize(value: HorizontalSize) {
-    setExplorereSize(value);
+    if (explorereSize.left !== value.left && explorereSize.right !== value.right) setExplorereSize(value);
   }
   return (
     <div className={`${styles.app} ${styles.horizontal}`}>

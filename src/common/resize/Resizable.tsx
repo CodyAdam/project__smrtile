@@ -28,12 +28,23 @@ export function ResizeHorizontal({
   let lastPos = 0;
 
   useEffect(() => {
+    window.addEventListener('resize', handleChange);
+    return () => {
+      window.removeEventListener('resize', handleChange);
+    };
+  }, [handleChange]);
+
+  useEffect(() => {
+    handleChange();
+  }, [value, onResize, handleChange]);
+
+  function handleChange() {
     if (onResize && div.current)
       onResize({
         left: (value / 100) * div.current.clientWidth,
         right: div.current.clientWidth - (value / 100) * div.current.clientWidth,
       });
-  }, [value]);
+  }
 
   function handleMouseDown(e: React.MouseEvent) {
     clearSelection();
@@ -96,12 +107,23 @@ export function ResizeVertical({
   let lastPos = 0;
 
   useEffect(() => {
+    window.addEventListener('resize', handleChange);
+    return () => {
+      window.removeEventListener('resize', handleChange);
+    };
+  });
+
+  useEffect(() => {
+    handleChange();
+  }, [value, onResize, handleChange]);
+
+  function handleChange() {
     if (onResize && div.current)
       onResize({
         top: (value / 100) * div.current.clientHeight,
         bottom: div.current.clientHeight - (value / 100) * div.current.clientHeight,
       });
-  }, [value]);
+  }
 
   function handleMouseDown(e: React.MouseEvent) {
     clearSelection();
