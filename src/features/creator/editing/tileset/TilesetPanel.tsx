@@ -1,5 +1,5 @@
 import styles from './TilesetPanel.module.css';
-import { Tileset, TilesetFilter } from '../../../../app/globalTypes';
+import { AssetTileset, TilesetFilter } from '../../../../app/globalTypes';
 import { Propertie } from '../../../../common/propertie/Propertie';
 import { ImageInput } from '../../../../common/imageInput/ImageInput';
 import { TilesetPreview } from '../../../../common/tilesetPreview/TilesetPreview';
@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { TagsDisplay } from '../../../../common/tags/TagsDisplay';
 import { TagInput } from '../../../../common/tags/TagInput';
 
-export function TilesetPanel({ selected }: { selected: Tileset }) {
+export function TilesetPanel({ selected }: { selected: AssetTileset }) {
   const dispatch = useAppDispatch();
   const [showGrid, setShowGrid] = useState(true);
 
@@ -36,7 +36,7 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
               update({
                 target: selected,
                 changes: {
-                  sprite: sprite,
+                  image: sprite,
                   grid: { columns: 0, height: 0, width: 0, rows: 0, offset: { bottom: 0, left: 0, right: 0, top: 0 } },
                 },
               }),
@@ -53,16 +53,11 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
               setShowGrid(bool);
             }}
           />
-          <TilesetPreview
-            sprite={selected.sprite}
-            showGrid={showGrid}
-            grid={selected.grid}
-            filters={selected.filters}
-          />
-          {selected.sprite ? (
+          <TilesetPreview sprite={selected.image} showGrid={showGrid} grid={selected.grid} filters={selected.filters} />
+          {selected.image ? (
             <p>
               <i>
-                Image size: <b>{selected.sprite.width}</b> x <b>{selected.sprite.height}</b>
+                Image size: <b>{selected.image.width}</b> x <b>{selected.image.height}</b>
               </i>
             </p>
           ) : null}

@@ -12,7 +12,7 @@ export function RulePanel({ selected }: { selected: Rule }) {
 
   return (
     <>
-      <h1>Rule</h1>
+      {/* <h1>Rule</h1>
       <Propertie
         name='Name'
         about='The rule name have to:\n
@@ -52,7 +52,7 @@ export function RulePanel({ selected }: { selected: Rule }) {
           dispatch(remove(selected));
         }}
         icon='trash'
-      />
+      /> */}
     </>
   );
 }

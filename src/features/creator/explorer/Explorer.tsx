@@ -1,9 +1,9 @@
 import styles from './Explorer.module.css';
 import { nanoid } from 'nanoid';
 import { SquareButton } from '../../../common/squareButton/SquareButton';
-import { add, rulesSelector, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
+import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { ObjectType, Rule, SmartTile, Tileset } from '../../../app/globalTypes';
+import { ObjTypes, Rule, SmartBrush, AssetTileset } from '../../../app/globalTypes';
 import { BrowsingGroup } from '../../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../../common/card/Card';
 
@@ -11,35 +11,18 @@ export function Explorer() {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
 
-  const rules = useAppSelector(rulesSelector);
-  let rulesContent = null;
-  if (rules)
-    rulesContent = rules.map((rule: Rule) => {
-      const isSelected = !!selected && selected.type === rule.type && selected.id === rule.id;
-      return (
-        <Card
-          key={rule.id}
-          object={rule}
-          selected={isSelected}
-          onClick={() => {
-            dispatch(select(rule));
-          }}
-        />
-      );
-    });
-
-  const smartTiles = useAppSelector(smartTilesSelector);
+  const smartBrushes = useAppSelector(smartTilesSelector);
   let smartTilesContent = null;
-  if (smartTiles)
-    smartTilesContent = smartTiles.map((smartTile: SmartTile) => {
-      const isSelected = !!selected && selected.type === smartTile.type && selected.id === smartTile.id;
+  if (smartBrushes)
+    smartTilesContent = smartBrushes.map((smartBrush: SmartBrush) => {
+      const isSelected = !!selected && selected.type === smartBrush.type && selected.id === smartBrush.id;
       return (
         <Card
-          key={smartTile.id}
-          object={smartTile}
+          key={smartBrush.id}
+          object={smartBrush}
           selected={isSelected}
           onClick={() => {
-            dispatch(select(smartTile));
+            dispatch(select(smartBrush));
           }}
         />
       );
@@ -49,7 +32,7 @@ export function Explorer() {
   let tilesetsContent = null;
   let tilesetsPreview = null;
   if (tilesets) {
-    tilesetsContent = tilesets.map((tileset: Tileset, index) => {
+    tilesetsContent = tilesets.map((tileset: AssetTileset, index) => {
       const isSelected = !!selected && selected.type === tileset.type && selected.id === tileset.id;
       return (
         <Card
@@ -72,17 +55,9 @@ export function Explorer() {
       </div>
       <div className={styles.scrollable}>
         <BrowsingGroup
-          title='rules'
-          onAdd={() => {
-            dispatch(add({ type: ObjectType.RULE, id: nanoid() }));
-          }}
-        >
-          {rulesContent}
-        </BrowsingGroup>
-        <BrowsingGroup
           title='smart tiles'
           onAdd={() => {
-            dispatch(add({ type: ObjectType.SMARTTILE, id: nanoid() }));
+            dispatch(add({ type: ObjTypes.SMARTBRUSH, id: nanoid() }));
           }}
         >
           {smartTilesContent}
@@ -90,7 +65,7 @@ export function Explorer() {
         <BrowsingGroup
           title='tilesets'
           onAdd={() => {
-            dispatch(add({ type: ObjectType.TILESET, id: nanoid() }));
+            dispatch(add({ type: ObjTypes.TILESET, id: nanoid() }));
           }}
         >
           {tilesetsContent}

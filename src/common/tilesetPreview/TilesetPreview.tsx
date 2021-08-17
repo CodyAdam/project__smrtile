@@ -1,4 +1,4 @@
-import { GridSettings, Sprite, TilesetFilter } from '../../app/globalTypes';
+import { GridSettings, ImageData, TilesetFilter } from '../../app/globalTypes';
 import { useRef, useEffect, useState } from 'react';
 import styles from './TilesetPreview.module.css';
 
@@ -8,7 +8,7 @@ export function TilesetPreview({
   filters,
   showGrid = true,
 }: {
-  sprite?: Sprite | undefined;
+  sprite?: ImageData | undefined;
   grid?: GridSettings;
   filters?: TilesetFilter[];
   showGrid?: boolean;

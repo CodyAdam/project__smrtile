@@ -1,8 +1,7 @@
 import styles from './EditingHub.module.css';
 import { useAppSelector } from '../../../app/hooks';
 import { selectedContentSelector } from '../explorer/explorerSlice';
-import { ObjectType } from '../../../app/globalTypes';
-import { RulePanel } from './rule/RulePanel';
+import { ObjTypes } from '../../../app/globalTypes';
 import { TilesetPanel } from './tileset/TilesetPanel';
 
 export function EditingHub() {
@@ -11,13 +10,7 @@ export function EditingHub() {
   if (!selected)
     return <div className={`${styles.placeholder}`}>Select an element inside the Browser or add a new element</div>;
   switch (selected.type) {
-    case ObjectType.RULE:
-      return (
-        <div className={styles.container}>
-          <RulePanel key={selected.id} selected={selected} />
-        </div>
-      );
-    case ObjectType.SMARTTILE:
+    case ObjTypes.SMARTBRUSH:
       return (
         <div className={styles.container}>
           <h1>NOT YET IMPLEMENTED</h1>
@@ -27,7 +20,7 @@ export function EditingHub() {
           </article>
         </div>
       );
-    case ObjectType.TILESET:
+    case ObjTypes.TILESET:
       return (
         <div className={styles.container}>
           <TilesetPanel key={selected.id} selected={selected} />

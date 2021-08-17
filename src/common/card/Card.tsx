@@ -1,4 +1,4 @@
-import { Rule, SmartTile, Tileset } from '../../app/globalTypes';
+import { Rule, SmartBrush, AssetTileset } from '../../app/globalTypes';
 import styles from './Card.module.css';
 
 export function Card({
@@ -6,7 +6,7 @@ export function Card({
   selected = false,
   onClick,
 }: {
-  object: Rule | Tileset | SmartTile;
+  object: Rule | AssetTileset | SmartBrush;
   selected?: boolean;
   onClick?: () => void;
 }) {

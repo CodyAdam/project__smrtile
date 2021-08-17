@@ -1,7 +1,7 @@
-import { Sprite } from '../../app/globalTypes';
+import { ImageData } from '../../app/globalTypes';
 import styles from './ImageInput.module.css';
 
-export function ImageInput({ onChange }: { onChange: (sprite: Sprite) => void }) {
+export function ImageInput({ onChange }: { onChange: (sprite: ImageData) => void }) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (files && files.length) {

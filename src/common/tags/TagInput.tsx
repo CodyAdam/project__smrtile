@@ -1,6 +1,6 @@
 import styles from './TagInput.module.css';
 import { useState, useEffect } from 'react';
-import { ObjectType, Tag } from '../../app/globalTypes';
+import { ObjTypes, Tag } from '../../app/globalTypes';
 
 export function TagInput({
   tags,
@@ -15,9 +15,9 @@ export function TagInput({
   const [isInputValid, setIsInputValid] = useState(false);
 
   const tagsSuggestion: Tag[] = [
-    { type: ObjectType.TAG, color: '#cfc72e', name: 'yellow' },
-    { type: ObjectType.TAG, color: '#ba273e', name: 'red' },
-    { type: ObjectType.TAG, color: '#39b271', name: 'green' },
+    { color: '#cfc72e', name: 'yellow' },
+    { color: '#ba273e', name: 'red' },
+    { color: '#39b271', name: 'green' },
   ];
 
   function handleAdd(toAdd: Tag[]) {
@@ -44,7 +44,7 @@ export function TagInput({
   }
 
   function stringToTag(str: string): Tag {
-    let output: Tag = { type: ObjectType.TAG, name: str };
+    let output: Tag = { name: str };
     //check if is global tag
     tagsSuggestion.forEach((tag) => {
       if (tag.name === str) output = tag;
