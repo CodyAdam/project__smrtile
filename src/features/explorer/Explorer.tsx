@@ -23,16 +23,16 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
   let smartTilesContent = null;
   if (smartBrushes)
     smartTilesContent = smartBrushes
-      .sort((val1, val2) => val2.sortOrder.index - val1.sortOrder.index)
+      .sort((val1, val2) => val2.order - val1.order)
       .map((smartBrush: SmartBrush) => {
         const isSelected = !!selected && selected.type === smartBrush.type && selected.id === smartBrush.id;
         return (
           <Card
             key={smartBrush.id}
             object={smartBrush}
-            selected={isSelected}
+            isSelected={isSelected}
             onClick={() => {
-              if (selected && selected.id !== smartBrush.id) dispatch(select(smartBrush));
+              if (!selected || (selected && selected.id !== smartBrush.id)) dispatch(select(smartBrush));
             }}
           />
         );
@@ -40,19 +40,18 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
 
   const tilesets = useAppSelector(tilesetsSelector);
   let tilesetsContent = null;
-  let tilesetsPreview = null;
   if (tilesets) {
     tilesetsContent = tilesets
-      .sort((val1, val2) => val2.sortOrder.index - val1.sortOrder.index)
+      .sort((val1, val2) => val2.order - val1.order)
       .map((tileset: Tileset, index) => {
         const isSelected = !!selected && selected.type === tileset.type && selected.id === tileset.id;
         return (
           <Card
             key={tileset.id}
             object={tileset}
-            selected={isSelected}
+            isSelected={isSelected}
             onClick={() => {
-              if (selected && selected.id !== tileset.id) dispatch(select(tileset));
+              if (!selected || (selected && selected.id !== tileset.id)) dispatch(select(tileset));
             }}
           />
         );
@@ -88,7 +87,6 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
             }}
           >
             {tilesetsContent}
-            {tilesetsPreview}
           </BrowsingGroup>
         </div>
       </div>

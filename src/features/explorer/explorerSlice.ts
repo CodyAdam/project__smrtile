@@ -1,6 +1,6 @@
-import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector, EntityState } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, Tileset, ID, EditSelection, EditSelect, EditSelectObject } from '../../app/globalTypes';
+import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, Tileset, ID, EditSelection, EditSelect, EditSelectObject, Order } from '../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const smartTilesAdapter = createEntityAdapter<SmartBrush>()
@@ -14,8 +14,8 @@ const initialState: ExplorerState = {
 }
 const defaultSmartBrush: SmartBrush = {
   type: ObjTypes.SMART_BRUSH,
-  name: "Nameless SmartTile",
-  sortOrder: { type: ObjTypes.ORDER_ITEM, index: 0 },
+  name: "New Smart Tile",
+  order: 0,
   rulesets: [],
   isToggle: false,
   timelineIndex: 0,
@@ -25,8 +25,8 @@ const defaultSmartBrush: SmartBrush = {
 }
 const defaultTileset: Tileset = {
   type: ObjTypes.TILESET,
-  name: "Nameless Tileset",
-  sortOrder: { type: ObjTypes.ORDER_ITEM, index: 0 },
+  name: "New Tileset",
+  order: 0,
   image: undefined,
   grid: {
     columns: 0,
@@ -43,6 +43,23 @@ const defaultTileset: Tileset = {
 
 }
 
+function orderIncrementFrom<T extends { order: Order, }>(input: EntityState<T>, index: number): EntityState<T> {
+  input.ids.forEach(id => {
+    const element = input.entities[id]
+    if (element && element.order >= index)
+      element.order = element.order + 1;
+  });
+  return input;
+}
+function orderDecrementFrom<T extends { order: Order, }>(input: EntityState<T>, index: number): EntityState<T> {
+  input.ids.forEach(id => {
+    const element = input.entities[id]
+    if (element && element.order >= index)
+      element.order = element.order - 1;
+  });
+  return input;
+}
+
 export const explorerSlice = createSlice({
   name: 'creator',
   initialState,
@@ -51,11 +68,7 @@ export const explorerSlice = createSlice({
       const { type, id } = action.payload;
       switch (type) {
         case ObjTypes.SMART_BRUSH:
-          state.smartBrushes.ids.forEach(id => {
-            const element = state.smartBrushes.entities[id]
-            if (element)
-              element.sortOrder.index = element.sortOrder.index + 1;
-          });
+          state.smartBrushes = orderIncrementFrom(state.smartBrushes, 0);
           smartTilesAdapter.addOne(state.smartBrushes, { ...defaultSmartBrush, id })
           state.editSelection = { type: ObjTypes.SMART_BRUSH, id }
           break;
@@ -63,7 +76,7 @@ export const explorerSlice = createSlice({
           state.tilesets.ids.forEach(id => {
             const element = state.tilesets.entities[id]
             if (element)
-              element.sortOrder.index = element.sortOrder.index + 1;
+              element.order = element.order + 1;
           });
           tilesetsAdapter.addOne(state.tilesets, { ...defaultTileset, id })
           state.editSelection = { type: ObjTypes.TILESET, id }
@@ -85,12 +98,31 @@ export const explorerSlice = createSlice({
           break;
       }
     },
-    update: (state, actions: PayloadAction<{ target: EditSelectObject, changes: Partial<EditSelectObject> }>) => {
-      const { target, changes } = actions.payload;
+    update: (state, action: PayloadAction<{ target: EditSelectObject, changes: Partial<EditSelectObject> }>) => {
+      const { target, changes } = action.payload;
       switch (target.type) {
         case ObjTypes.SMART_BRUSH: smartTilesAdapter.updateOne(state.smartBrushes, { id: target.id, changes: changes as SmartBrush })
           break
         case ObjTypes.TILESET: tilesetsAdapter.updateOne(state.tilesets, { id: target.id, changes: changes as Tileset })
+          break;
+      }
+    },
+    insertAt: (state, action: PayloadAction<{ target: EditSelectObject, order: Order }>) => {
+      const { target, order } = action.payload;
+      switch (target.type) {
+        case ObjTypes.SMART_BRUSH:
+          state.smartBrushes = orderDecrementFrom(state.smartBrushes, target.order);
+          state.smartBrushes = orderIncrementFrom(state.smartBrushes, order);
+          const smartBrush = state.smartBrushes.entities[target.id];
+          if (smartBrush)
+            smartBrush.order = order;
+          break
+        case ObjTypes.TILESET:
+          state.smartBrushes = orderDecrementFrom(state.smartBrushes, target.order);
+          state.smartBrushes = orderIncrementFrom(state.smartBrushes, order);
+          const tileset = state.smartBrushes.entities[target.id];
+          if (tileset)
+            tileset.order = order;
           break;
       }
     },
@@ -110,7 +142,7 @@ const historyActions = {
   redo: createAction(ExplorerHistory.REDO)
 }
 export const { undo, redo } = historyActions
-export const { add, select, deselect, update, remove } = explorerSlice.actions;
+export const { add, select, deselect, update, remove, insertAt } = explorerSlice.actions;
 
 //Selectors
 export const historyIndexSelector = createSelector(
