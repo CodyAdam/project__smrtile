@@ -1,4 +1,3 @@
-import styles from './TilesetPanel.module.css';
 import { AssetTileset, TilesetFilter } from '../../../../app/globalTypes';
 import { Propertie } from '../../../../common/propertie/Propertie';
 import { ImageInput } from '../../../../common/imageInput/ImageInput';

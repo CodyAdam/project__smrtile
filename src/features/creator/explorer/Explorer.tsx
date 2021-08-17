@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { SquareButton } from '../../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { ObjTypes, Rule, SmartBrush, AssetTileset } from '../../../app/globalTypes';
+import { ObjTypes, SmartBrush, AssetTileset } from '../../../app/globalTypes';
 import { BrowsingGroup } from '../../../common/browsingGroup/BrowsingGroup';
 import { Card } from '../../../common/card/Card';
 
@@ -55,7 +55,7 @@ export function Explorer() {
       </div>
       <div className={styles.scrollable}>
         <BrowsingGroup
-          title='smart tiles'
+          title='smart brushes'
           onAdd={() => {
             dispatch(add({ type: ObjTypes.SMARTBRUSH, id: nanoid() }));
           }}

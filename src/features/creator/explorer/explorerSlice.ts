@@ -1,6 +1,6 @@
-import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector, Update } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, PayloadAction, createAction, createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
-import { ExplorerHistory, ExplorerState as ExplorerState, ObjTypes, Rule, SmartBrush, AssetTileset, ID, LeftSelection, LeftSelect, LeftSelectObject } from '../../../app/globalTypes';
+import { ExplorerHistory, ExplorerState, ObjTypes, SmartBrush, AssetTileset, ID, LeftSelection, LeftSelect, LeftSelectObject } from '../../../app/globalTypes';
 
 //Normalize with EntityAdapter
 const smartTilesAdapter = createEntityAdapter<SmartBrush>()
@@ -13,7 +13,7 @@ const initialState: ExplorerState = {
   leftSelection: null,
   rightSelection: null
 }
-const defaultSmartTile: SmartBrush = {
+const defaultSmartBrush: SmartBrush = {
   type: ObjTypes.SMARTBRUSH,
   name: "Nameless SmartTile",
   rulesets: [],
@@ -51,7 +51,7 @@ export const explorerSlice = createSlice({
       const { type, id } = action.payload;
       switch (type) {
         case ObjTypes.SMARTBRUSH:
-          smartTilesAdapter.addOne(state.smartBrushes, { ...defaultSmartTile, id })
+          smartTilesAdapter.addOne(state.smartBrushes, { ...defaultSmartBrush, id })
           state.leftSelection = { type: ObjTypes.SMARTBRUSH, id }
           break;
         case ObjTypes.TILESET:
