@@ -28,14 +28,14 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
       <h1>Tileset</h1>
       <Propertie name='Import image' about='Upload the tilesheet image for the tileset'>
         <ImageInput
-          onChange={(sprite) => {
+          onChange={(imageData) => {
             //TODO
-            // if (selected.imageUrl) window.URL.revokeObjectURL(selected.imageUrl);
+            if (selected.image) window.URL.revokeObjectURL(selected.image.url);
             dispatch(
               update({
                 target: selected,
                 changes: {
-                  image: sprite,
+                  image: imageData,
                   grid: { columns: 0, height: 0, width: 0, rows: 0, offset: { bottom: 0, left: 0, right: 0, top: 0 } },
                 },
               }),
