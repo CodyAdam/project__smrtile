@@ -211,7 +211,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, top },
-                    rows: getSanitazedValue(selected.image.height / (grid.height + top + grid.offset.bottom)),
+                    height: selected.grid.height - (top - selected.grid.offset.top),
                   };
                   setGrid(newGrid);
                 }
@@ -226,7 +226,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, bottom },
-                    rows: getSanitazedValue(selected.image.height / (grid.height + grid.offset.top + bottom)),
+                    height: selected.grid.height - (bottom - selected.grid.offset.bottom),
                   };
                   setGrid(newGrid);
                 }
@@ -243,7 +243,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, right },
-                    columns: getSanitazedValue(selected.image.width / (grid.width + right + grid.offset.left)),
+                    width: selected.grid.width - (right - selected.grid.offset.right),
                   };
                   setGrid(newGrid);
                 }
@@ -258,7 +258,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
                   const newGrid: GridSettings = {
                     ...grid,
                     offset: { ...grid.offset, left },
-                    columns: getSanitazedValue(selected.image.width / (grid.width + left + grid.offset.right)),
+                    width: selected.grid.width - (left - selected.grid.offset.left),
                   };
                   setGrid(newGrid);
                 }
