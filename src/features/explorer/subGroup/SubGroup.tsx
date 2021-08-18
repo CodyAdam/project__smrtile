@@ -19,7 +19,7 @@ export function SubGroup({
   useEffect(() => {
     if (label.current && isSelected && !show) label.current.style.border = '1px solid var(--hl1)';
     else if (label.current) label.current.style.border = '1px solid transparent';
-  }, [isSelected, label.current, show]);
+  }, [isSelected, label, show]);
 
   return (
     <div className={styles.container}>

@@ -17,12 +17,13 @@ const ZOOM_INCREMENT = 0.2;
 export function TilePicker({ size }: { size: { width: number; height: number } }) {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
-  const picked = useAppSelector(selectedContentSelector);
+  const picked: Tileset | null = useAppSelector(selectedContentSelector) as Tileset | null;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showGrid, setShowGrid] = useState(false);
   const [showControls, setShowControls] = useState(false);
   const [zoom, setZoom] = useState<null | number>(null);
   const [offset, setOffset] = useState<Vector2>({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState<Vector2>({ x: 0, y: 0 });
 
   useEffect(() => {
     // INIT
@@ -36,8 +37,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       c.clearRect(0, 0, width, height);
       return;
     }
-    if (picked && picked.type === ObjTypes.TILESET && picked.filters.includes('pixelated'))
-      c.imageSmoothingEnabled = false;
+    if (picked && picked.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
     else c.imageSmoothingEnabled = true;
 
     // DRAWING IMG
@@ -53,52 +53,62 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
         c.drawImage(img, x, y, w, h);
       }
     };
-  }, [canvasRef, size, picked, zoom, offset]);
+  }, [canvasRef, size, picked, zoom, offset, mousePos]);
 
   function handleWheel(e: React.WheelEvent) {
-    if (zoom) setZoom(e.deltaY > 0 ? zoom * (1 + ZOOM_INCREMENT) : zoom * (1 - ZOOM_INCREMENT));
+    if (zoom && picked && picked.image && canvasRef.current) {
+      const newZoom = e.deltaY > 0 ? zoom * (1 + ZOOM_INCREMENT) : zoom * (1 - ZOOM_INCREMENT);
+      const { width, height } = canvasRef.current;
+      const w = picked.image.width / zoom;
+      const h = picked.image.height / zoom;
+      const x = offset.x + (w - width) / -2;
+      const y = offset.y + (h - height) / -2;
+      const offX = mousePos.x - (x + w / 2) - (((mousePos.x - (x + w / 2)) / w) * picked.image.width) / newZoom;
+      const offY = mousePos.y - (y + h / 2) - (((mousePos.y - (y + h / 2)) / h) * picked.image.height) / newZoom;
+      setZoom(newZoom);
+      setOffset({ x: offset.x + offX, y: offset.y + offY });
+    }
   }
   let startPos: Vector2 = { x: 0, y: 0 };
   function handleMouseDown(e: React.MouseEvent) {
     if (e.button === 1) {
       //MIDDLE CLICK
       startPos = { x: e.clientX, y: e.clientY };
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleDrag);
       window.addEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'grabbing';
     }
   }
-  function handleMouseMove(e: MouseEvent) {
+  function handleDrag(e: MouseEvent) {
     const x = offset.x + (e.clientX - startPos.x);
     const y = offset.y + (e.clientY - startPos.y);
     setOffset({ x: x, y: y });
   }
   function handleMouseUp(e: MouseEvent) {
-    window.removeEventListener('mousemove', handleMouseMove);
+    window.removeEventListener('mousemove', handleDrag);
     window.removeEventListener('mouseup', handleMouseUp);
     document.body.style.cursor = 'default';
   }
 
-  if (picked && picked.type === ObjTypes.TILESET && picked.image)
+  function handleMouseMove(e: React.MouseEvent) {
+    if (canvasRef.current) {
+      const rect = canvasRef.current.getBoundingClientRect();
+      setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    }
+  }
+
+  if (picked && picked.image)
     return (
       <>
         <div className={styles.title}>
           <span>TILE PICKER</span>
           <SquareButton
-            icon='info'
-            isActive={showControls}
+            icon='debug-restart'
             onClick={() => {
-              setShowControls(!showControls);
+              setOffset({ x: 0, y: 0 });
+              setZoom(null);
             }}
-            title='show controls'
-          />
-          <SquareButton
-            icon='symbol-numeric'
-            isActive={showGrid}
-            onClick={() => {
-              setShowGrid(!showGrid);
-            }}
-            title='show grid'
+            title='reset zoom'
           />
           <SquareButton
             icon='edit'
@@ -109,12 +119,20 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
             title='edit tileset'
           />
           <SquareButton
-            icon='debug-restart'
+            icon='symbol-numeric'
+            isActive={showGrid}
             onClick={() => {
-              setOffset({ x: 0, y: 0 });
-              setZoom(null);
+              setShowGrid(!showGrid);
             }}
-            title='reset zoom'
+            title='show grid'
+          />
+          <SquareButton
+            icon='info'
+            isActive={showControls}
+            onClick={() => {
+              setShowControls(!showControls);
+            }}
+            title='show controls'
           />
         </div>
 
@@ -123,6 +141,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
             ref={canvasRef}
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
             className={styles.canvas}
             width={Math.max(0, size.width - 20)}
             height={Math.max(0, size.height - 40 - 10)}
@@ -145,9 +164,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
           <span>TILE PICKER</span>
         </div>
         <div className={styles.placeholder}>
-          {picked && picked.type === ObjTypes.TILESET && !picked.image
-            ? 'The selected tileset has no image'
-            : 'Select a tileset using right click'}
+          {picked && !picked.image ? 'The selected tileset has no image' : 'Select a tileset using right click'}
         </div>
       </>
     );
