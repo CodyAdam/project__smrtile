@@ -52,6 +52,7 @@ export function ResizeHorizontal({
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('mouseleave', handleMouseUp);
+    document.body.style.cursor = 'e-resize';
   }
 
   function handleMouseMove(e: MouseEvent) {
@@ -67,6 +68,7 @@ export function ResizeHorizontal({
     window.removeEventListener('mousemove', handleMouseMove);
     window.removeEventListener('mouseup', handleMouseUp);
     window.removeEventListener('mouseleave', handleMouseUp);
+    document.body.style.cursor = 'default';
   }
 
   return (
@@ -125,15 +127,15 @@ export function ResizeVertical({
     handleChange();
   }, [value, onResize, handleChange]);
 
-  function handleMouseDown(e: React.MouseEvent) {
+  function handleMouseDown(e: React.PointerEvent) {
     clearSelection();
     lastPos = e.clientY;
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseleave', handleMouseUp);
+    window.addEventListener('pointermove', handleMouseMove);
+    window.addEventListener('pointerup', handleMouseUp);
+    document.body.style.cursor = 'n-resize';
   }
 
-  function handleMouseMove(e: MouseEvent) {
+  function handleMouseMove(e: PointerEvent) {
     const pixDiff = e.clientY - lastPos;
     if (div.current) {
       const percentDiff = (100 * pixDiff) / div.current.clientHeight;
@@ -143,9 +145,9 @@ export function ResizeVertical({
   }
 
   function handleMouseUp() {
-    window.removeEventListener('mousemove', handleMouseMove);
-    window.removeEventListener('mouseup', handleMouseUp);
-    window.removeEventListener('mouseleave', handleMouseUp);
+    window.removeEventListener('pointermove', handleMouseMove);
+    window.removeEventListener('pointerup', handleMouseUp);
+    document.body.style.cursor = 'default';
   }
 
   return (
@@ -156,7 +158,7 @@ export function ResizeVertical({
     >
       {children[0]}
       <div
-        onMouseDown={handleMouseDown}
+        onPointerDown={handleMouseDown}
         className={`${styles.resizeBar} ${styles.vertical}`}
         style={{ top: `calc(${value}% - 3px` }}
       />

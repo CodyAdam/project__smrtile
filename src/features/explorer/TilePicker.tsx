@@ -1,9 +1,9 @@
-import styles from './TilePicker.module.css';
+import styles from './Explorer.module.css';
 import { useEffect, useRef, useState } from 'react';
-import { useAppSelector } from '../../../app/hooks';
-import { selectedContentSelector } from '../explorerSlice';
-import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../../app/globalTypes';
-import { SquareButton } from '../../../common/squareButton/SquareButton';
+import { useAppSelector } from '../../app/hooks';
+import { selectedContentSelector } from './explorerSlice';
+import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../app/globalTypes';
+import { SquareButton } from '../../common/squareButton/SquareButton';
 
 function getImage(selected: Tileset | SmartBrush | undefined | null): HTMLImageElement | null {
   if (!selected || selected.type !== ObjTypes.TILESET || !selected.image) return null;
@@ -22,10 +22,6 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
 
   useEffect(() => {
     const img = getImage(selected);
-    draw(img);
-  }, [canvasRef, size, selected, zoom, offset]);
-
-  function draw(img: HTMLImageElement | null) {
     // INIT
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -53,7 +49,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
         c.drawImage(img, x, y, w, h);
       }
     };
-  }
+  }, [canvasRef, size, selected, zoom, offset]);
 
   function reset() {
     setOffset({ x: 0, y: 0 });
@@ -71,7 +67,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       startPos = { x: e.clientX, y: e.clientY };
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleMouseUp);
-      window.addEventListener('mouseleave', handleMouseUp);
+      document.body.style.cursor = 'grabbing';
     }
   }
 
@@ -83,24 +79,36 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
   function handleMouseUp(e: MouseEvent) {
     window.removeEventListener('mousemove', handleMouseMove);
     window.removeEventListener('mouseup', handleMouseUp);
-    window.removeEventListener('mouseleave', handleMouseUp);
+    document.body.style.cursor = 'default';
   }
 
+  let content = null;
   if (selected && selected.type === ObjTypes.TILESET)
     if (selected.image)
-      return (
-        <div className={styles.container}>
-          <SquareButton onClick={reset} title='reset' className={styles.button} icon='debug-restart' />
+      content = (
+        <div className={styles.canvasContainer}>
           <canvas
             ref={canvasRef}
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
             className={styles.canvas}
             width={Math.max(0, size.width - 20)}
-            height={Math.max(0, size.height - 40 - 20)}
+            height={Math.max(0, size.height - 40 - 10)}
           />
         </div>
       );
-    else return <div className={styles.container}>The selected tileset has no image</div>;
-  else return <div className={styles.container}>Select a tileset</div>;
+    else content = <div className={styles.placeholder}>The selected tileset has no image</div>;
+  else content = <div className={styles.placeholder}>Select a tileset</div>;
+  return (
+    <>
+      <div className={styles.title}>
+        <span>TILE PICKER</span>
+        <SquareButton icon='record-keys' onClick={() => {}} title='show controls' />
+        <SquareButton icon='edit' onClick={() => {}} title='edit tileset' />
+        <SquareButton icon='symbol-numeric' onClick={() => {}} title='show grid' />
+        <SquareButton icon='debug-restart' onClick={reset} title='reset zoom' />
+      </div>
+      {content}
+    </>
+  );
 }
