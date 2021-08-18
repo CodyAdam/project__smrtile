@@ -43,13 +43,11 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
     const c = canvas.getContext('2d');
     if (!c) return;
     if (!img) {
-      console.log('img is null');
       c.clearRect(0, 0, width, height);
       return;
     }
     if (picked && picked.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
     else c.imageSmoothingEnabled = true;
-    console.log('drawing');
 
     // DRAWING IMG
     // img.onload = () => {
