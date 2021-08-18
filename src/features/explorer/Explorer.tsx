@@ -4,11 +4,11 @@ import { SquareButton } from '../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
-import { BrowsingGroup } from './browsingGroup/BrowsingGroup';
+import { SubGroup } from './subGroup/SubGroup';
 import { Card } from './card/Card';
 import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
 import { useEffect, useState } from 'react';
-import { TilePicker } from './tilePicker/TilePicker';
+import { TilePicker } from './TilePicker';
 
 export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize }) {
   const dispatch = useAppDispatch();
@@ -73,31 +73,27 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
           <SquareButton icon='tag' onClick={() => {}} title='filter' />
         </div>
         <div className={styles.scrollable}>
-          <BrowsingGroup
+          <SubGroup
             title='smart brushes'
+            isSelected={!!selected && selected.type === ObjTypes.SMART_BRUSH}
             onAdd={() => {
               dispatch(add({ type: ObjTypes.SMART_BRUSH, id: nanoid() }));
             }}
           >
             {smartTilesContent}
-          </BrowsingGroup>
-          <BrowsingGroup
+          </SubGroup>
+          <SubGroup
             title='tilesets'
+            isSelected={!!selected && selected.type === ObjTypes.TILESET}
             onAdd={() => {
               dispatch(add({ type: ObjTypes.TILESET, id: nanoid() }));
             }}
           >
             {tilesetsContent}
-          </BrowsingGroup>
+          </SubGroup>
         </div>
       </div>
       <div className={`${styles.container} ${styles.borderTop}`}>
-        <div className={styles.title}>
-          <span>TILE PICKER</span>
-          <SquareButton icon='edit' onClick={() => {}} title='filter' />
-          <SquareButton icon='symbol-numeric' onClick={() => {}} title='filter' />
-          <SquareButton icon='debug-restart' onClick={() => {}} title='filter' />
-        </div>
         <TilePicker size={{ width: horizontal.left, height: vertical.bottom }} />
       </div>
     </ResizeVertical>

@@ -11,25 +11,6 @@
   border-top: 1px solid var(--bg1);
 }
 
-.resizeBar {
-  position: absolute;
-  height: 100%;
-  width: 5px;
-  right: 0;
-  top: 0;
-  opacity: 0;
-  background-color: var(--txt1);
-  transform: translateX(3px);
-  cursor: w-resize;
-  transition: all 0.05s ease-in-out;
-  user-select: none;
-}
-
-.resizeBar:hover {
-  transition: all 0.2s cubic-bezier(1, 0, 1, 0);
-  opacity: 1;
-}
-
 .title {
   overflow: hidden;
   display: flex;
@@ -37,18 +18,34 @@
   height: 40px;
   user-select: none;
   flex-shrink: 0;
-}
-.title > button {
-  margin: 0 10px 0 0;
+  gap: 4px;
+  padding: 0 10px;
 }
 .title span {
   margin-right: auto;
-  margin-left: 15px;
+  margin-left: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
   font-weight: 400;
+}
+
+.canvasContainer {
+  padding: 10px;
+  padding-top: 0;
+  position: relative;
+}
+.canvas {
+  border-radius: 6px;
+}
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  height: 100%;
+  padding: 10px;
 }
 
 .scrollable {
