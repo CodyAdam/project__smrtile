@@ -94,7 +94,9 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
       <div className={`${styles.container} ${styles.borderTop}`}>
         <div className={styles.title}>
           <span>TILE PICKER</span>
-          <SquareButton icon='tag' onClick={() => {}} title='filter' />
+          <SquareButton icon='edit' onClick={() => {}} title='filter' />
+          <SquareButton icon='symbol-numeric' onClick={() => {}} title='filter' />
+          <SquareButton icon='debug-restart' onClick={() => {}} title='filter' />
         </div>
         <TilePicker size={{ width: horizontal.left, height: vertical.bottom }} />
       </div>
