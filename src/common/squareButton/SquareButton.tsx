@@ -6,18 +6,20 @@ export function SquareButton({
   children,
   className,
   title,
+  isActive = false,
 }: {
   onClick?: () => void;
   icon?: string;
   children?: React.ReactNode;
   className?: string;
   title: string;
+  isActive?: boolean;
 }) {
   if (icon)
     return (
       <button
         title={title}
-        className={`${styles.button} ${className}`}
+        className={`${styles.button} ${className} ${isActive ? styles.active : null}`}
         onClick={(e: React.MouseEvent<HTMLElement>) => {
           e.stopPropagation();
           if (onClick) onClick();
@@ -30,7 +32,7 @@ export function SquareButton({
     return (
       <button
         title={title}
-        className={`${styles.button} ${className}`}
+        className={`${styles.button} ${className} ${isActive ? styles.active : null}`}
         onClick={(e: React.MouseEvent<HTMLElement>) => {
           e.stopPropagation();
           if (onClick) onClick();
