@@ -35,6 +35,7 @@
   padding: 10px;
   padding-top: 0;
   position: relative;
+  overflow: hidden;
 }
 .canvas {
   border-radius: 6px;
