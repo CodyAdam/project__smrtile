@@ -8,6 +8,7 @@ import { BrowsingGroup } from './browsingGroup/BrowsingGroup';
 import { Card } from './card/Card';
 import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
 import { useEffect, useState } from 'react';
+import { TilePicker } from './tilePicker/TilePicker';
 
 export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize }) {
   const dispatch = useAppDispatch();
@@ -95,13 +96,7 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
           <span>TILE PICKER</span>
           <SquareButton icon='tag' onClick={() => {}} title='filter' />
         </div>
-        <div>
-          tile picker goes here!
-          <br />
-          {JSON.stringify(Math.round(vertical.bottom))}
-          <br />
-          {JSON.stringify(Math.round(horizontal.left))}
-        </div>
+        <TilePicker size={{ width: horizontal.left, height: vertical.bottom }} />
       </div>
     </ResizeVertical>
   );
