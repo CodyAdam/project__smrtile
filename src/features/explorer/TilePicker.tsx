@@ -5,8 +5,8 @@ import { select, selectedContentSelector, selectedSelector } from './explorerSli
 import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../app/globalTypes';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 
-function getImage(selected: Tileset | SmartBrush | undefined | null): HTMLImageElement | null {
-  if (!selected || selected.type !== ObjTypes.TILESET || !selected.image) return null;
+function getImage(selected: Tileset | null): HTMLImageElement | null {
+  if (!selected || !selected.image) return null;
   const img = new Image();
   img.src = selected.image.url;
   return img;
@@ -24,36 +24,47 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
   const [zoom, setZoom] = useState<null | number>(null);
   const [offset, setOffset] = useState<Vector2>({ x: 0, y: 0 });
   const [mousePos, setMousePos] = useState<Vector2>({ x: 0, y: 0 });
+  const [image, setImage] = useState<HTMLImageElement | null>(null);
+
+  useEffect(() => {
+    const img = getImage(picked);
+    if (img)
+      img.onload = () => {
+        setImage(img);
+      };
+  }, [picked]);
 
   useEffect(() => {
     // INIT
-    const img = getImage(picked);
+    const img = image;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const { width, height } = canvas;
     const c = canvas.getContext('2d');
     if (!c) return;
     if (!img) {
+      console.log('img is null');
       c.clearRect(0, 0, width, height);
       return;
     }
     if (picked && picked.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
     else c.imageSmoothingEnabled = true;
+    console.log('drawing');
 
     // DRAWING IMG
-    img.onload = () => {
-      c.clearRect(0, 0, width, height);
-      if (!zoom) {
-        setZoom(Math.max(img.width / width, img.height / height));
-      } else {
-        const w = img.width / zoom;
-        const h = img.height / zoom;
-        const x = offset.x + (w - width) / -2;
-        const y = offset.y + (h - height) / -2;
-        c.drawImage(img, x, y, w, h);
-      }
-    };
-  }, [canvasRef, size, picked, zoom, offset, mousePos]);
+    // img.onload = () => {
+    c.clearRect(0, 0, width, height);
+    if (!zoom) {
+      setZoom(Math.max(img.width / width, img.height / height));
+    } else {
+      const w = img.width / zoom;
+      const h = img.height / zoom;
+      const x = offset.x + (w - width) / -2;
+      const y = offset.y + (h - height) / -2;
+      c.drawImage(img, x, y, w, h);
+    }
+    // };
+  }, [canvasRef, size, picked, zoom, offset, mousePos, image]);
 
   function handleWheel(e: React.WheelEvent) {
     if (zoom && picked && picked.image && canvasRef.current) {
