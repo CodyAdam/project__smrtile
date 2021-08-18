@@ -159,6 +159,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
             <div className={styles.controls}>
               <p className='icon icon-info' />
               <p>TODO</p>
+              <p>{`scroll -> zoom`}</p>
               <p>{`middle -> pan the viewport`}</p>
               <p>{`left -> pick a tile`}</p>
             </div>
