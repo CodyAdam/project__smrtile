@@ -39,7 +39,7 @@
   flex-shrink: 0;
 }
 .title > button {
-  margin: 0 10px;
+  margin: 0 10px 0 0;
 }
 .title span {
   margin-right: auto;
