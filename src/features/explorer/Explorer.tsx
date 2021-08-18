@@ -70,7 +70,7 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
       <div className={styles.container}>
         <div className={styles.title}>
           <span>EXPLORER</span>
-          <SquareButton icon='tag' onClick={() => {}} title='filter' />
+          <SquareButton icon='search' onClick={() => {}} title='filter' />
         </div>
         <div className={styles.scrollable}>
           <SubGroup
