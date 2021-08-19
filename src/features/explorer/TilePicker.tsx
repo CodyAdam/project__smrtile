@@ -42,27 +42,75 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
     const { width, height } = canvas;
     const c = canvas.getContext('2d');
     if (!c) return;
-    if (!img) {
+    if (!img || !picked || !picked.image) {
       c.clearRect(0, 0, width, height);
       return;
     }
-    if (picked && picked.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
+    if (picked.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
     else c.imageSmoothingEnabled = true;
 
     // DRAWING IMG
-    // img.onload = () => {
     c.clearRect(0, 0, width, height);
     if (!zoom) {
       setZoom(Math.max(img.width / width, img.height / height));
-    } else {
-      const w = img.width / zoom;
-      const h = img.height / zoom;
-      const x = offset.x + (w - width) / -2;
-      const y = offset.y + (h - height) / -2;
-      c.drawImage(img, x, y, w, h);
+      return;
     }
-    // };
-  }, [canvasRef, size, picked, zoom, offset, mousePos, image]);
+
+    const w = img.width / zoom;
+    const h = img.height / zoom;
+    const x = offset.x + (w - width) / -2;
+    const y = offset.y + (h - height) / -2;
+    c.drawImage(img, x, y, w, h);
+
+    // DRAW GRID
+    const grid = picked.grid;
+    if (showGrid) {
+      //OFFSET GRID
+      c.globalAlpha = 0.2;
+      c.lineWidth = 1;
+      c.strokeStyle = 'yellow';
+      if (grid.offset.bottom !== 0 || grid.offset.left !== 0 || grid.offset.right !== 0 || grid.offset.top !== 0)
+        for (let row = 0; row < grid.rows; row++)
+          for (let col = 0; col < grid.columns; col++) {
+            const offX = x + (col * (grid.width + grid.offset.left + grid.offset.right) + grid.offset.left) / zoom;
+            const offY = y + (row * (grid.height + grid.offset.top + grid.offset.bottom) + grid.offset.top) / zoom;
+            c.strokeRect(offX, offY, grid.width / zoom, grid.height / zoom);
+          }
+
+      // GRID
+      c.strokeStyle = 'white';
+      c.globalAlpha = 0.8;
+      c.lineWidth = 1;
+      for (let col = 0; col <= grid.columns; col++) {
+        const gridX = x + (col * (grid.width + grid.offset.left + grid.offset.right)) / zoom;
+        c.beginPath();
+        c.moveTo(gridX, y);
+        c.lineTo(gridX, y + h);
+        c.stroke();
+      }
+      for (let row = 0; row <= grid.rows; row++) {
+        const gridY = y + (row * (grid.height + grid.offset.top + grid.offset.bottom)) / zoom;
+        c.beginPath();
+        c.moveTo(x, gridY);
+        c.lineTo(x + w, gridY);
+        c.stroke();
+      }
+      c.globalAlpha = 1;
+    }
+    // MOUSE BOX
+    const col = Math.round((mousePos.x - x) / (w / grid.columns) - 0.5);
+    const row = Math.round((mousePos.y - y) / (h / grid.rows) - 0.5);
+    if (col >= 0 && row >= 0 && col < grid.columns && row < grid.rows) {
+      const mouseX = x + col * (w / grid.columns);
+      const mouseY = y + row * (h / grid.rows);
+      c.strokeStyle = 'white';
+      c.lineWidth = 5;
+      c.strokeRect(mouseX, mouseY, w / grid.columns, h / grid.rows);
+      c.fillStyle = 'white';
+      c.font = '13px Segoe UI, sans-serif';
+      c.fillText(`x: ${col} y: ${row}`, mouseX + 5, mouseY - 10);
+    }
+  }, [canvasRef, size, picked, zoom, offset, mousePos, image, showGrid]);
 
   function handleWheel(e: React.WheelEvent) {
     if (zoom && picked && picked.image && canvasRef.current) {
