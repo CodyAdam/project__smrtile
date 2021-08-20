@@ -54,7 +54,13 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
             object={tileset}
             isSelected={isSelected}
             onClick={() => {
-              if (!selected || (selected && selected.id !== tileset.id)) dispatch(select(tileset));
+              if (!selected || (selected && selected.id !== tileset.id)) {
+                dispatch(select(tileset));
+                if (pickedTileset !== tileset.id) {
+                  console.log('selected');
+                  dispatch(pickTileset(tileset.id));
+                }
+              }
             }}
             onAltClick={() => {
               if (pickedTileset !== tileset.id) {
