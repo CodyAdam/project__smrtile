@@ -1,33 +1,38 @@
-import styles from './TilesetPanel.module.css';
-import { GridSettings, Tileset } from '../../../../app/globalTypes';
-import { NumberInput } from '../../../../common/numberInput/NumberInput';
+import styles from './GridSetter.module.css';
+import { GridSettings, Tileset } from '../../../../../app/globalTypes';
+import { NumberInput } from '../../../../../common/numberInput/NumberInput';
 import { useEffect, useState } from 'react';
-import { WarnBox } from '../../../../common/warnBox/WarnBox';
-import { CheckboxInput } from '../../../../common/checkboxInput/CheckboxInput';
-import { TextButton } from '../../../../common/textButton/TextButton';
-import { update } from '../../../explorer/explorerSlice';
-import { useAppDispatch } from '../../../../app/hooks';
+import { WarnBox } from '../../../../../common/warnBox/WarnBox';
+import { CheckboxInput } from '../../../../../common/checkboxInput/CheckboxInput';
+import { TextButton } from '../../../../../common/textButton/TextButton';
+import { update } from '../../../../explorer/explorerSlice';
+import { useAppDispatch } from '../../../../../app/hooks';
+
+export function isTilesetGridValid(g: GridSettings, i: ImageData): boolean {
+  return (
+    g.columns !== 0 &&
+    g.rows !== 0 &&
+    g.height !== 0 &&
+    g.width !== 0 &&
+    i.width % (g.offset.left + g.offset.right + g.width) === 0 &&
+    i.height % (g.offset.top + g.offset.bottom + g.height) === 0
+  );
+}
+
+export function isUsingOffset(g: GridSettings): boolean {
+  return g.offset.bottom !== 0 || g.offset.left !== 0 || g.offset.right !== 0 || g.offset.top !== 0;
+}
 
 export function GridSetter({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
   const [grid, setGrid] = useState(selected.grid);
   const [isSquared, setIsSquared] = useState(selected.grid.height === selected.grid.width);
-  const [useOffset, setUseOffset] = useState(
-    selected.grid.offset.bottom !== 0 ||
-      selected.grid.offset.left !== 0 ||
-      selected.grid.offset.right !== 0 ||
-      selected.grid.offset.top !== 0,
-  );
+  const [useOffset, setUseOffset] = useState(isUsingOffset(selected.grid));
 
   useEffect(() => {
     setGrid(selected.grid);
     setIsSquared(selected.grid.height === selected.grid.width);
-    setUseOffset(
-      selected.grid.offset.bottom !== 0 ||
-        selected.grid.offset.left !== 0 ||
-        selected.grid.offset.right !== 0 ||
-        selected.grid.offset.top !== 0,
-    );
+    setUseOffset(isUsingOffset(selected.grid));
   }, [selected]);
 
   function getSanitazedValue(value: number): number {
@@ -53,6 +58,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
       grid.width === Math.floor(grid.width);
     return isColumns && isWidth;
   }
+
   return (
     <>
       {!isSquared ? <WarnBox message='Rectangle tiles are not yet supported' /> : null}

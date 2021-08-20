@@ -2,7 +2,7 @@
   overflow: hidden;
   height: 26px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   cursor: pointer;
   color: var(--txt3);
@@ -12,12 +12,15 @@
   align-items: center;
   border: 1px solid transparent;
   padding: 6px 8px;
-  font-size: 13px;
+  font-size: 14px;
   gap: 8px;
+  font-weight: 600;
+
+  opacity: 0.8;
 }
 
 .button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
 }
 .button:active {
   background-color: rgba(255, 255, 255, 0.2);
@@ -28,20 +31,14 @@
   outline: none;
 }
 
-.invalidButton {
-  cursor: not-allowed;
+.highlight {
+  background-color: var(--hl1) !important;
+  color: rgb(24, 24, 24);
+}
+
+.invalid {
+  cursor: not-allowed !important ;
   border: 1px solid rgb(190, 38, 38) !important;
-  overflow: hidden;
-  height: 26px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 5px;
-  color: var(--txt2);
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 8px;
-  font-size: 13px;
-  gap: 8px;
+  color: rgb(190, 38, 38);
+  background-color: rgba(255, 255, 255, 0.05) !important;
 }

@@ -1,10 +1,15 @@
 .container {
+  position: relative;
+}
+
+.subContainer {
   height: 100%;
   width: 100%;
   padding: 20px;
   overflow: hidden auto;
   overflow: hidden overlay;
   display: flex;
+  padding: 20px;
   flex-direction: column;
   row-gap: 10px;
 }
@@ -49,17 +54,38 @@ i {
   overflow-y: auto;
 }
 
-.container::-webkit-scrollbar,
-.container::-webkit-scrollbar-corner {
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+.column {
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subContainer::-webkit-scrollbar,
+.subContainer::-webkit-scrollbar-corner {
   background-color: transparent;
   width: 8px;
   height: 8px;
   transition: all 1s ease-in-out;
 }
 
-.container::-webkit-scrollbar-thumb {
+.subContainer::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
-.container:hover::-webkit-scrollbar-thumb {
+.subContainer:hover::-webkit-scrollbar-thumb {
   background-color: rgb(255, 255, 255, 0.2);
+}
+
+.blurred {
+  filter: blur(5px);
 }

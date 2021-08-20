@@ -11,6 +11,9 @@ function App() {
   function handleResize(value: HorizontalSize) {
     if (explorereSize.left !== value.left && explorereSize.right !== value.right) setExplorereSize(value);
   }
+  document.oncontextmenu = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className={`${styles.app} ${styles.horizontal}`}>
       <NavBar />

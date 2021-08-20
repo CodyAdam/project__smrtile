@@ -42,3 +42,11 @@
 .invalid {
   border: 1px solid red !important;
 }
+
+.fixed {
+  color: var(--txt2);
+  pointer-events: none;
+  user-select: none;
+  width: 38px;
+  padding-right: 5px;
+}

@@ -1,0 +1,24 @@
+.container {
+  top: 0;
+  left: 0;
+  display: grid;
+  --space: 70px;
+  grid-template-columns: var(--space) 1fr var(--space);
+  grid-template-rows: var(--space) 1fr var(--space);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.subContainer {
+  background-color: var(--bg3);
+  padding: 10px;
+  border-radius: 6px;
+  overflow: hidden auto;
+  position: relative;
+}
+
+.spacer {
+  cursor: pointer;
+}

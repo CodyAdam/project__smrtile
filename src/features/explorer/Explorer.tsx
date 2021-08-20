@@ -9,10 +9,12 @@ import { Card } from './card/Card';
 import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
 import { useEffect, useState } from 'react';
 import { TilePicker } from './TilePicker';
+import { pickedTilesetSelector, pickTileset } from '../picker/pickerSlice';
 
 export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize }) {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
+  const pickedTileset = useAppSelector(pickedTilesetSelector);
   const [horizontal, setHorizontal] = useState<HorizontalSize>(horizontalSize);
   const [vertical, setVertical] = useState<VerticalSize>({ top: 0, bottom: 0 });
 
@@ -52,7 +54,17 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
             object={tileset}
             isSelected={isSelected}
             onClick={() => {
-              if (!selected || (selected && selected.id !== tileset.id)) dispatch(select(tileset));
+              if (!selected || (selected && selected.id !== tileset.id)) {
+                dispatch(select(tileset));
+                if (pickedTileset !== tileset.id) {
+                  dispatch(pickTileset(tileset.id));
+                }
+              }
+            }}
+            onAltClick={() => {
+              if (pickedTileset !== tileset.id) {
+                dispatch(pickTileset(tileset.id));
+              }
             }}
           />
         );
@@ -86,7 +98,9 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
             title='tilesets'
             isSelected={!!selected && selected.type === ObjTypes.TILESET}
             onAdd={() => {
-              dispatch(add({ type: ObjTypes.TILESET, id: nanoid() }));
+              const id = nanoid();
+              dispatch(add({ type: ObjTypes.TILESET, id }));
+              dispatch(pickTileset(id));
             }}
           >
             {tilesetsContent}
