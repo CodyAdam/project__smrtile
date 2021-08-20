@@ -4,6 +4,7 @@ export function TextButton({
   onClick,
   title,
   icon,
+  highlight = false,
   invalid = false,
   invalidText,
   children,
@@ -12,37 +13,23 @@ export function TextButton({
   onClick?: () => void;
   title: string;
   icon?: string;
+  highlight?: boolean;
   invalid?: boolean;
   invalidText?: string;
   children?: React.ReactNode;
   className?: string;
 }) {
-  if (icon)
-    return (
-      <button
-        title={invalid && invalidText ? invalidText : title}
-        className={` ${className} ${invalid ? styles.invalidButton : styles.button}`}
-        onClick={(e: React.MouseEvent<HTMLElement>) => {
-          e.stopPropagation();
-          if (onClick && !invalid) onClick();
-        }}
-      >
-        <div className={styles.title}>{title}</div>
-        {icon ? <div className={`icon icon-${icon}`} /> : null}
-      </button>
-    );
-  else
-    return (
-      <button
-        title={invalid && invalidText ? invalidText : title}
-        className={` ${className} ${invalid ? styles.invalidButton : styles.button}`}
-        onClick={(e: React.MouseEvent<HTMLElement>) => {
-          e.stopPropagation();
-          if (onClick && !invalid) onClick();
-        }}
-      >
-        <div className={styles.title}>{title}</div>
-        {children}
-      </button>
-    );
+  return (
+    <button
+      title={invalid && invalidText ? invalidText : title}
+      className={` ${className} ${styles.button} ${invalid ? styles.invalid : ''} ${highlight ? styles.highlight : ''}`}
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+        if (onClick && !invalid) onClick();
+      }}
+    >
+      <div>{title}</div>
+      {icon ? <div className={`icon icon-${icon}`} /> : children}
+    </button>
+  );
 }
