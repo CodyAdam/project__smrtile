@@ -54,18 +54,18 @@ i {
   overflow-y: auto;
 }
 
-.container::-webkit-scrollbar,
-.container::-webkit-scrollbar-corner {
+.subContainer::-webkit-scrollbar,
+.subContainer::-webkit-scrollbar-corner {
   background-color: transparent;
   width: 8px;
   height: 8px;
   transition: all 1s ease-in-out;
 }
 
-.container::-webkit-scrollbar-thumb {
+.subContainer::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
-.container:hover::-webkit-scrollbar-thumb {
+.subContainer:hover::-webkit-scrollbar-thumb {
   background-color: rgb(255, 255, 255, 0.2);
 }
 
