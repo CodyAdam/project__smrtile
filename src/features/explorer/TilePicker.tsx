@@ -2,7 +2,7 @@ import styles from './Explorer.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { select, selectedContentSelector, selectedSelector } from './explorerSlice';
-import { ObjTypes, SmartBrush, Tileset, Vector2 } from '../../app/globalTypes';
+import { ObjTypes, Tileset, Vector2 } from '../../app/globalTypes';
 import { SquareButton } from '../../common/squareButton/SquareButton';
 
 function getImage(selected: Tileset | null): HTMLImageElement | null {

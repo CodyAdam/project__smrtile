@@ -1,10 +1,15 @@
 .container {
+  position: relative;
+}
+
+.subContainer {
   height: 100%;
   width: 100%;
   padding: 20px;
   overflow: hidden auto;
   overflow: hidden overlay;
   display: flex;
+  padding: 20px;
   flex-direction: column;
   row-gap: 10px;
 }
@@ -62,4 +67,8 @@ i {
 }
 .container:hover::-webkit-scrollbar-thumb {
   background-color: rgb(255, 255, 255, 0.2);
+}
+
+.blurred {
+  filter: blur(5px);
 }
