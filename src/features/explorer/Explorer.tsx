@@ -9,10 +9,12 @@ import { Card } from './card/Card';
 import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
 import { useEffect, useState } from 'react';
 import { TilePicker } from './TilePicker';
+import { pickedTilesetSelector, pickTileset } from '../picker/pickerSlice';
 
 export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize }) {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
+  const pickedTileset = useAppSelector(pickedTilesetSelector);
   const [horizontal, setHorizontal] = useState<HorizontalSize>(horizontalSize);
   const [vertical, setVertical] = useState<VerticalSize>({ top: 0, bottom: 0 });
 
@@ -53,6 +55,12 @@ export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize })
             isSelected={isSelected}
             onClick={() => {
               if (!selected || (selected && selected.id !== tileset.id)) dispatch(select(tileset));
+            }}
+            onAltClick={() => {
+              if (pickedTileset !== tileset.id) {
+                console.log('selected');
+                dispatch(pickTileset(tileset.id));
+              }
             }}
           />
         );

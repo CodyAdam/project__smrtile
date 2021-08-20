@@ -39,10 +39,11 @@ export type Order = number;
 //////////////////////////////////////////////////////////////////////////
 
 export interface PickerState { // store
+  tileset: null | ID
   picked: null | PickSelection
 }
 export type PickSelection = Tile
-export type PickSelect = ObjTypes.TILE_BASIC | ObjTypes.TILE_ANIMATED | ObjTypes.TILE_BASIC
+export type PickSelect = ObjTypes.TILE_BASIC | ObjTypes.TILE_ANIMATED
 
 
 //////////////////////////////////////////////////////////////////////////

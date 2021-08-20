@@ -1,11 +1,12 @@
 import styles from './Explorer.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { select, selectedContentSelector, selectedSelector } from './explorerSlice';
+import { select, selectedSelector } from './explorerSlice';
 import { ObjTypes, Tileset, Vector2 } from '../../app/globalTypes';
 import { SquareButton } from '../../common/squareButton/SquareButton';
+import { pickedTilesetContentSelector } from '../picker/pickerSlice';
 
-function getImage(selected: Tileset | null): HTMLImageElement | null {
+function getImage(selected: Tileset | undefined): HTMLImageElement | null {
   if (!selected || !selected.image) return null;
   const img = new Image();
   img.src = selected.image.url;
@@ -17,7 +18,7 @@ const ZOOM_INCREMENT = 0.2;
 export function TilePicker({ size }: { size: { width: number; height: number } }) {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
-  const picked: Tileset | null = useAppSelector(selectedContentSelector) as Tileset | null;
+  const picked: Tileset | undefined = useAppSelector(pickedTilesetContentSelector);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showGrid, setShowGrid] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -192,7 +193,6 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
             title='show controls'
           />
         </div>
-
         <div className={styles.canvasContainer}>
           <canvas
             ref={canvasRef}

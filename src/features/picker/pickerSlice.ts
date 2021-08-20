@@ -1,19 +1,24 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { PickerState, PickSelection } from '../../app/globalTypes';
+import { ID, PickerState, PickSelection } from '../../app/globalTypes';
 import { RootState } from '../../app/store';
 
 //Initial State
 const initialState: PickerState = {
+  tileset: null,
   picked: null,
 }
 export const pickerSlice = createSlice({
   name: 'creator',
   initialState,
   reducers: {
+    pickTileset: (state, action: PayloadAction<ID>) => {
+      state.tileset = action.payload
+    },
     pick: (state, action: PayloadAction<PickSelection>) => {
       state.picked = action.payload
     },
-    unselect: (state) => { state.picked = null; }
+    unpickTileset: (state) => { state.tileset = null; },
+    unpick: (state) => { state.picked = null; }
   }
 })
 
@@ -21,9 +26,18 @@ export const pickerSlice = createSlice({
 export default pickerSlice.reducer
 
 //Actions 
-export const { pick, unselect } = pickerSlice.actions;
+export const { pick, unpickTileset, pickTileset, unpick } = pickerSlice.actions;
 
 //Selectors
 export const pickedSelector = createSelector(
   (state: RootState) => state.picker,
   picker => picker.picked)
+export const pickedTilesetContentSelector = createSelector(
+  (state: RootState) => state,
+  state => {
+    if (state.picker.tileset)
+      return state.browser.present.tilesets.entities[state.picker.tileset]
+  })
+export const pickedTilesetSelector = createSelector(
+  (state: RootState) => state.picker,
+  picker => picker.tileset)
