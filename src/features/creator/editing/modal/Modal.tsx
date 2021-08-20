@@ -1,21 +1,17 @@
 import styles from './Modal.module.css';
 
-export function Modal({ children }: { children: React.ReactNode }) {
-  function handleCancel() {
-    console.log('cancel');
-  }
-
+export function Modal({ children, onCancel }: { children: React.ReactNode; onCancel: () => void }) {
   return (
     <div className={styles.container}>
-      <div onClick={handleCancel} className={styles.spacer} />
-      <div onClick={handleCancel} className={styles.spacer} />
-      <div onClick={handleCancel} className={styles.spacer} />
-      <div onClick={handleCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
       <div className={styles.subContainer}>{children}</div>
-      <div onClick={handleCancel} className={styles.spacer} />
-      <div onClick={handleCancel} className={styles.spacer} />
-      <div onClick={handleCancel} className={styles.spacer} />
-      <div onClick={handleCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
+      <div onClick={onCancel} className={styles.spacer} />
     </div>
   );
 }

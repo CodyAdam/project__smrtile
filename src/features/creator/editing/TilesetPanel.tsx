@@ -2,21 +2,21 @@ import styles from './Editing.module.css';
 import { Tileset, TilesetFilter } from '../../../app/globalTypes';
 import { Propertie } from '../../../common/propertie/Propertie';
 import { ImageInput } from '../../../common/imageInput/ImageInput';
-import { TilesetPreview } from '../../../common/tilesetPreview/TilesetPreview';
 import { useAppDispatch } from '../../../app/hooks';
 import { update } from '../../explorer/explorerSlice';
 import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
-import { GridSetter } from './modal/grid/GridSetter';
+import { GridSetter, isUsingOffset } from './modal/grid/GridSetter';
 import { useState } from 'react';
 import { TagsDisplay } from '../../../common/tags/TagsDisplay';
 import { TagInput } from '../../../common/tags/TagInput';
 import { Modal } from './modal/Modal';
 import { ActionCreators } from 'redux-undo';
+import { NumberInput } from '../../../common/numberInput/NumberInput';
+import { TextButton } from '../../../common/textButton/TextButton';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
-  const [showGrid, setShowGrid] = useState(true);
-  const [isBlurred, setIsBlurred] = useState(false);
+  const [showGridModal, setShowGrid] = useState(false);
 
   function setFilter(filter: TilesetFilter, value: boolean): TilesetFilter[] {
     const filters = [...selected.filters];
@@ -29,12 +29,11 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.subContainer} ${isBlurred ? styles.blurred : ''}`}>
+      <div className={`${styles.subContainer} ${showGridModal ? styles.blurred : ''}`}>
         <h1>Tileset</h1>
-        <Propertie name='Import image' about='Upload the tilesheet image for the tileset'>
+        <Propertie name='Import image'>
           <ImageInput
             onChange={(imageData) => {
-              //TODO
               if (selected.image) window.URL.revokeObjectURL(selected.image.url);
               dispatch(
                 update({
@@ -55,39 +54,65 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
             }}
           />
         </Propertie>
-        <Propertie name='Preview'>
-          <>
-            <CheckboxInput
-              value={showGrid}
-              title='Show the grid'
-              onChange={(bool) => {
-                setShowGrid(bool);
-              }}
-            />
-            <TilesetPreview
-              sprite={selected.image}
-              showGrid={showGrid}
-              grid={selected.grid}
-              filters={selected.filters}
-            />
-            {selected.image ? (
-              <p>
-                <i>
-                  Image size: <b>{selected.image.width}</b> x <b>{selected.image.height}</b>
-                </i>
-              </p>
-            ) : null}
-          </>
-        </Propertie>
-        <Propertie name='Grid' about='Set the grid layout size\nDesc TODO'>
-          <GridSetter selected={selected} />
+        <Propertie name='Grid'>
+          <TextButton
+            title='Edit'
+            invalid={!selected.image}
+            onClick={() => {
+              setShowGrid(true);
+            }}
+          />
+          <div className={styles.row} style={{ gap: '20px' }}>
+            <div className={`${styles.column}`}>
+              <div className={`${styles.row} ${styles.end}`}>
+                Colums: <NumberInput value={selected.grid.columns} fixed />
+              </div>
+              <div className={`${styles.row} ${styles.end}`}>
+                Tile width:
+                <NumberInput value={selected.grid.width} fixed />
+              </div>
+            </div>
+            <div className={`${styles.column}`}>
+              <div className={`${styles.row} ${styles.end}`}>
+                Rows:
+                <NumberInput value={selected.grid.rows} fixed />
+              </div>
+              <div className={`${styles.row} ${styles.end}`}>
+                Tile height:
+                <NumberInput value={selected.grid.height} fixed />
+              </div>
+            </div>
+          </div>
+          {!isUsingOffset(selected.grid) ? null : (
+            <div className={styles.row} style={{ gap: '20px' }}>
+              <div className={`${styles.column}`}>
+                <div className={`${styles.row} ${styles.end}`}>
+                  Colums: <NumberInput value={selected.grid.columns} fixed />
+                </div>
+                <div className={`${styles.row} ${styles.end}`}>
+                  Tile width:
+                  <NumberInput value={selected.grid.width} fixed />
+                </div>
+              </div>
+              <div className={`${styles.column}`}>
+                <div className={`${styles.row} ${styles.end}`}>
+                  Rows:
+                  <NumberInput value={selected.grid.rows} fixed />
+                </div>
+                <div className={`${styles.row} ${styles.end}`}>
+                  Tile height:
+                  <NumberInput value={selected.grid.height} fixed />
+                </div>
+              </div>
+            </div>
+          )}
         </Propertie>
         <Propertie
           name='Filters'
           about='Add filters to your tileset for display purpose\nChoose whether or not the image should be pixelated'
         >
           <CheckboxInput
-            title='Pixelated'
+            title='Pixel perfect'
             value={selected.filters.includes('pixelated')}
             onChange={(value) => {
               dispatch(update({ target: selected, changes: { filters: setFilter('pixelated', value) } }));
@@ -111,6 +136,15 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
           </>
         </Propertie>
       </div>
+      {showGridModal ? (
+        <Modal
+          onCancel={() => {
+            setShowGrid(false);
+          }}
+        >
+          <GridSetter selected={selected}></GridSetter>
+        </Modal>
+      ) : null}
     </div>
   );
 }
