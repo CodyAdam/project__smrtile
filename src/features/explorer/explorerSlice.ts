@@ -129,7 +129,8 @@ export const explorerSlice = createSlice({
     select: (state, action: PayloadAction<EditSelection>) => {
       state.editSelection = { type: action.payload.type, id: action.payload.id }
     },
-    deselect: state => { state.editSelection = null }
+    deselect: state => { state.editSelection = null },
+
   }
 })
 

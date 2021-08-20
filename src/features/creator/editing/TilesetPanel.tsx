@@ -6,16 +6,17 @@ import { TilesetPreview } from '../../../common/tilesetPreview/TilesetPreview';
 import { useAppDispatch } from '../../../app/hooks';
 import { update } from '../../explorer/explorerSlice';
 import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
-import { GridSetter } from './tileset/GridSetter';
+import { GridSetter } from './modal/grid/GridSetter';
 import { useState } from 'react';
 import { TagsDisplay } from '../../../common/tags/TagsDisplay';
 import { TagInput } from '../../../common/tags/TagInput';
-import { Modal } from './Modal';
+import { Modal } from './modal/Modal';
+import { ActionCreators } from 'redux-undo';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
   const [showGrid, setShowGrid] = useState(true);
-  const [isBlurred, setIsBlurred] = useState(true);
+  const [isBlurred, setIsBlurred] = useState(false);
 
   function setFilter(filter: TilesetFilter, value: boolean): TilesetFilter[] {
     const filters = [...selected.filters];
@@ -50,6 +51,7 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
                   },
                 }),
               );
+              dispatch(ActionCreators.clearHistory());
             }}
           />
         </Propertie>
@@ -109,7 +111,6 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
           </>
         </Propertie>
       </div>
-      <Modal>test</Modal>
     </div>
   );
 }
