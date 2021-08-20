@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 export function NumberInput({
   value = 0,
+  fixed = false,
   min = 0,
   max = 9999,
   invalid = false,
@@ -11,6 +12,7 @@ export function NumberInput({
   onChange,
 }: {
   value?: number;
+  fixed?: boolean;
   min?: number;
   max?: number;
   invalid?: boolean;
@@ -70,10 +72,10 @@ export function NumberInput({
       <input
         onChange={handleChange}
         value={localValue.toString()}
-        className={`${styles.input} ${invalid ? styles.invalid : ''}`}
+        className={`${styles.input} ${invalid ? styles.invalid : ''} ${fixed ? styles.fixed : 'null'}`}
         type='number'
       />
-      <div className={`icon icon-gripper ${styles.slider}`} onMouseDown={handleMouseDown}></div>
+      {fixed ? null : <div className={`icon icon-gripper ${styles.slider}`} onMouseDown={handleMouseDown}></div>}
     </div>
   );
 }
