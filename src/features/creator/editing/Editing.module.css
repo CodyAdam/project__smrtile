@@ -54,6 +54,23 @@ i {
   overflow-y: auto;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+.column {
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .subContainer::-webkit-scrollbar,
 .subContainer::-webkit-scrollbar-corner {
   background-color: transparent;
