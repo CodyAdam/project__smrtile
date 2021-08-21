@@ -1,7 +1,7 @@
 import styles from './TopBar.module.css';
 import { SquareButton } from '../../../common/squareButton/SquareButton';
 import { useAppDispatch } from '../../../app/hooks';
-import { undo, redo } from '../../explorer/explorerSlice';
+import { undo, redo, remove } from '../../explorer/explorerSlice';
 import { useAppSelector } from '../../../app/hooks';
 import { selectedContentSelector } from '../../explorer/explorerSlice';
 
@@ -29,6 +29,13 @@ export function TopBar() {
       {selectionInfo}
       <div className={styles.spacer} />
 
+      <SquareButton
+        title='remove'
+        onClick={() => {
+          if (selectedContent) dispatch(remove(selectedContent));
+        }}
+        icon='trash'
+      />
       <SquareButton
         title='undo'
         onClick={() => {
