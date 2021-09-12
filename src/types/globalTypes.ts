@@ -67,7 +67,7 @@ export type EditSelect = ObjTypes.TILESET | ObjTypes.SMART_BRUSH
 // TILES 
 //////////////////////////////////////////////////////////////////////////
 
-export type Tile = AnimatedTile | BasicTile | SmartTile;
+export type Tile = BasicTile | SmartTile;
 export interface SmartTile {
   type: ObjTypes.TILE_SMART
   name: string,
@@ -80,13 +80,6 @@ export type BasicTile = {
   name: string,
   tileset: ID,
   sprite: BasicSprite,
-  tags: Tag[],
-}
-export type AnimatedTile = {
-  type: ObjTypes.TILE_ANIMATED
-  name: string,
-  tileset: ID,
-  sprite: AnimatedSprite,
   tags: Tag[],
 }
 //////////////////////////////////////////////////////////////////////////
@@ -118,16 +111,11 @@ export interface Rule {
 export type Pattern = { layer: number, x: number, y: number, patternTile: PatternTile, not: boolean }[]
 export type PatternTile = 'any' | SmartBrush | BasicTile
 
-export type Sprite = BasicSprite | AnimatedSprite
+export type Sprite = BasicSprite
 export interface BasicSprite {
-  type: ObjTypes.TILE_BASIC
+  type: ObjTypes.SPRITE_BASIC
   tileset: ID,
   pos: { origin: Vector2 },
-}
-export interface AnimatedSprite {
-  type: ObjTypes.TILE_ANIMATED
-  tileset: ID,
-  pos: { origin: Vector2, delay: number }[]
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -140,7 +128,6 @@ export interface Tileset {
   order: Order,
   image: ImageData | undefined,
   grid: GridSettings,
-  animations: AnimatedTile[],
   thumbnail: Thumbnail[],
   filters: TilesetFilter[],
   tags: Tag[],

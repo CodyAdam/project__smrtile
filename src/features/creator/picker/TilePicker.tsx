@@ -2,9 +2,9 @@ import styles from './TilePicker.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { select, selectedSelector } from '../explorer/explorerSlice';
-import { ObjTypes, Tileset, Vector2 } from '../../../types/globalTypes';
+import { ObjTypes, Tile, Tileset, Vector2 } from '../../../types/globalTypes';
 import { SquareButton } from '../../../common/squareButton/SquareButton';
-import { pickedTilesetContentSelector } from './pickerSlice';
+import { pick, pickedTileSelector, pickedTilesetContentSelector, unpick } from './pickerSlice';
 
 function getImage(selected: Tileset | undefined): HTMLImageElement | null {
   if (!selected || !selected.image) return null;
@@ -18,7 +18,8 @@ const ZOOM_INCREMENT = 0.2;
 export function TilePicker({ size }: { size: { width: number; height: number } }) {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(selectedSelector);
-  const picked: Tileset | undefined = useAppSelector(pickedTilesetContentSelector);
+  const tileset: Tileset | undefined = useAppSelector(pickedTilesetContentSelector);
+  const tile: Tile | null = useAppSelector(pickedTileSelector);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showGrid, setShowGrid] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -27,13 +28,15 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
   const [mousePos, setMousePos] = useState<Vector2>({ x: 0, y: 0 });
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
+  let startPos: Vector2 = { x: 0, y: 0 };
+
   useEffect(() => {
-    const img = getImage(picked);
+    const img = getImage(tileset);
     if (img)
       img.onload = () => {
         setImage(img);
       };
-  }, [picked]);
+  }, [tileset]);
 
   useEffect(() => {
     // INIT
@@ -43,11 +46,11 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
     const { width, height } = canvas;
     const c = canvas.getContext('2d');
     if (!c) return;
-    if (!img || !picked || !picked.image) {
+    if (!img || !tileset || !tileset.image) {
       c.clearRect(0, 0, width, height);
       return;
     }
-    if (picked.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
+    if (tileset.filters.includes('pixelated')) c.imageSmoothingEnabled = false;
     else c.imageSmoothingEnabled = true;
 
     // DRAWING IMG
@@ -57,14 +60,14 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       return;
     }
 
-    const w = img.width / zoom;
-    const h = img.height / zoom;
-    const x = offset.x + (w - width) / -2;
-    const y = offset.y + (h - height) / -2;
-    c.drawImage(img, x, y, w, h);
+    const imgW = img.width / zoom;
+    const imgH = img.height / zoom;
+    const imgX = offset.x + (imgW - width) / -2;
+    const imgY = offset.y + (imgH - height) / -2;
+    c.drawImage(img, imgX, imgY, imgW, imgH);
 
     // DRAW GRID
-    const grid = picked.grid;
+    const grid = tileset.grid;
     if (showGrid) {
       //OFFSET GRID
       c.globalAlpha = 0.2;
@@ -73,8 +76,8 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       if (grid.offset.bottom !== 0 || grid.offset.left !== 0 || grid.offset.right !== 0 || grid.offset.top !== 0)
         for (let row = 0; row < grid.rows; row++)
           for (let col = 0; col < grid.columns; col++) {
-            const offX = x + (col * (grid.width + grid.offset.left + grid.offset.right) + grid.offset.left) / zoom;
-            const offY = y + (row * (grid.height + grid.offset.top + grid.offset.bottom) + grid.offset.top) / zoom;
+            const offX = imgX + (col * (grid.width + grid.offset.left + grid.offset.right) + grid.offset.left) / zoom;
+            const offY = imgY + (row * (grid.height + grid.offset.top + grid.offset.bottom) + grid.offset.top) / zoom;
             c.strokeRect(offX, offY, grid.width / zoom, grid.height / zoom);
           }
 
@@ -83,51 +86,63 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       c.globalAlpha = 0.8;
       c.lineWidth = 1;
       for (let col = 0; col <= grid.columns; col++) {
-        const gridX = x + (col * (grid.width + grid.offset.left + grid.offset.right)) / zoom;
+        const gridX = imgX + (col * (grid.width + grid.offset.left + grid.offset.right)) / zoom;
         c.beginPath();
-        c.moveTo(gridX, y);
-        c.lineTo(gridX, y + h);
+        c.moveTo(gridX, imgY);
+        c.lineTo(gridX, imgY + imgH);
         c.stroke();
       }
       for (let row = 0; row <= grid.rows; row++) {
-        const gridY = y + (row * (grid.height + grid.offset.top + grid.offset.bottom)) / zoom;
+        const gridY = imgY + (row * (grid.height + grid.offset.top + grid.offset.bottom)) / zoom;
         c.beginPath();
-        c.moveTo(x, gridY);
-        c.lineTo(x + w, gridY);
+        c.moveTo(imgX, gridY);
+        c.lineTo(imgX + imgW, gridY);
         c.stroke();
       }
       c.globalAlpha = 1;
     }
     // MOUSE BOX
-    const col = Math.round((mousePos.x - x) / (w / grid.columns) - 0.5);
-    const row = Math.round((mousePos.y - y) / (h / grid.rows) - 0.5);
+    const col = Math.round((mousePos.x - imgX) / (imgW / grid.columns) - 0.5);
+    const row = Math.round((mousePos.y - imgY) / (imgH / grid.rows) - 0.5);
     if (col >= 0 && row >= 0 && col < grid.columns && row < grid.rows) {
-      const mouseX = x + col * (w / grid.columns);
-      const mouseY = y + row * (h / grid.rows);
+      const rectX = imgX + col * (imgW / grid.columns);
+      const rectY = imgY + row * (imgH / grid.rows);
       c.strokeStyle = 'white';
       c.lineWidth = 5;
-      c.strokeRect(mouseX, mouseY, w / grid.columns, h / grid.rows);
+      c.strokeRect(rectX, rectY, imgW / grid.columns, imgH / grid.rows);
       c.fillStyle = 'white';
       c.font = '13px Segoe UI, sans-serif';
-      c.fillText(`x: ${col} y: ${row}`, mouseX + 5, mouseY - 10);
+      c.fillText(`x: ${col} y: ${row}`, rectX, rectY - 10);
     }
-  }, [canvasRef, size, picked, zoom, offset, mousePos, image, showGrid]);
+
+    // Picked tile box
+    if (tile) {
+      c.strokeStyle = 'yellow';
+      c.lineWidth = 5;
+      const rectX = imgX + tile.sprite.pos.origin.x * (imgW / grid.columns);
+      const rectY = imgY + tile.sprite.pos.origin.y * (imgH / grid.rows);
+      c.strokeRect(rectX, rectY, imgW / grid.columns, imgH / grid.rows);
+      c.fillStyle = 'yellow';
+      c.font = '13px Segoe UI, sans-serif';
+      c.fillText(`x: ${tile.sprite.pos.origin.x} y: ${tile.sprite.pos.origin.y}`, rectX, rectY - 10);
+    }
+  }, [canvasRef, size, tileset, zoom, offset, mousePos, image, showGrid, tile]);
 
   function handleWheel(e: React.WheelEvent) {
-    if (zoom && picked && picked.image && canvasRef.current) {
+    if (zoom && tileset && tileset.image && canvasRef.current) {
       const newZoom = e.deltaY > 0 ? zoom * (1 + ZOOM_INCREMENT) : zoom * (1 - ZOOM_INCREMENT);
       const { width, height } = canvasRef.current;
-      const w = picked.image.width / zoom;
-      const h = picked.image.height / zoom;
+      const w = tileset.image.width / zoom;
+      const h = tileset.image.height / zoom;
       const x = offset.x + (w - width) / -2;
       const y = offset.y + (h - height) / -2;
-      const offX = mousePos.x - (x + w / 2) - (((mousePos.x - (x + w / 2)) / w) * picked.image.width) / newZoom;
-      const offY = mousePos.y - (y + h / 2) - (((mousePos.y - (y + h / 2)) / h) * picked.image.height) / newZoom;
+      const offX = mousePos.x - (x + w / 2) - (((mousePos.x - (x + w / 2)) / w) * tileset.image.width) / newZoom;
+      const offY = mousePos.y - (y + h / 2) - (((mousePos.y - (y + h / 2)) / h) * tileset.image.height) / newZoom;
       setZoom(newZoom);
       setOffset({ x: offset.x + offX, y: offset.y + offY });
     }
   }
-  let startPos: Vector2 = { x: 0, y: 0 };
+
   function handleMouseDown(e: React.MouseEvent) {
     if (e.button === 1) {
       //MIDDLE CLICK
@@ -135,17 +150,25 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       window.addEventListener('mousemove', handleDrag);
       window.addEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'grabbing';
-    }
-    // else if (e.button === 0 && picked)
-    // dispatch(
-    //   pick({
-    //     name: picked.name,
-    //     tileset: picked.id,
-    //     sprite: {pos:undefined, },
-    //     tags: [],
-    //     type: ObjTypes.TILE_BASIC,
-    //   }),
-    // );
+    } else if (e.button === 0 && tileset && tileset.image && zoom && canvasRef.current) {
+      const grid = tileset.grid;
+      const { width, height } = canvasRef.current;
+      const w = tileset.image.width / zoom;
+      const h = tileset.image.height / zoom;
+      const x = offset.x + (w - width) / -2;
+      const y = offset.y + (h - height) / -2;
+      const col = Math.round((mousePos.x - x) / (w / grid.columns) - 0.5);
+      const row = Math.round((mousePos.y - y) / (h / grid.rows) - 0.5);
+      dispatch(
+        pick({
+          name: `picked.name@X${col}Y${row}`,
+          tileset: tileset.id,
+          sprite: { pos: { origin: { x: col, y: row } }, tileset: tileset.id, type: ObjTypes.SPRITE_BASIC },
+          tags: [],
+          type: ObjTypes.TILE_BASIC,
+        }),
+      );
+    } else if (e.button === 2) dispatch(unpick());
   }
   function handleDrag(e: MouseEvent) {
     const x = offset.x + (e.clientX - startPos.x);
@@ -165,7 +188,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
     }
   }
 
-  if (picked && picked.image)
+  if (tileset && tileset.image)
     return (
       <>
         <div className={styles.title}>
@@ -181,8 +204,8 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
           <SquareButton
             icon='edit'
             onClick={() => {
-              if ((!selected && picked) || (selected && picked && selected.id !== picked.id))
-                dispatch(select({ type: ObjTypes.TILESET, id: picked.id }));
+              if ((!selected && tileset) || (selected && tileset && selected.id !== tileset.id))
+                dispatch(select({ type: ObjTypes.TILESET, id: tileset.id }));
             }}
             title='edit tileset'
           />
@@ -232,7 +255,7 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
           <span>TILE PICKER</span>
         </div>
         <div className={styles.placeholder}>
-          {picked && !picked.image ? 'The selected tileset has no image' : 'Select a tileset using right click'}
+          {tileset && !tileset.image ? 'The selected tileset has no image' : 'Select a tileset using right click'}
         </div>
       </>
     );

@@ -12,7 +12,8 @@ export const pickerSlice = createSlice({
   initialState,
   reducers: {
     pickTileset: (state, action: PayloadAction<ID>) => {
-      state.tileset = action.payload
+      state.tileset = action.payload;
+      state.picked = null;
     },
     pick: (state, action: PayloadAction<PickSelection>) => {
       state.picked = action.payload

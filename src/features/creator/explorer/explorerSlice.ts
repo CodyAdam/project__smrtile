@@ -35,7 +35,6 @@ const defaultTileset: Tileset = {
     height: 0,
     offset: { top: 0, right: 0, bottom: 0, left: 0 }
   },
-  animations: [],
   thumbnail: [],
   filters: [],
   tags: [],

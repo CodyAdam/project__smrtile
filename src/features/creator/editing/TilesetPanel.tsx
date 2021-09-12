@@ -13,6 +13,7 @@ import { Modal } from './modal/Modal';
 import { ActionCreators } from 'redux-undo';
 import { NumberInput } from '../../../common/numberInput/NumberInput';
 import { TextButton } from '../../../common/textButton/TextButton';
+import { TextInput } from '../../../common/textInput/TextInput';
 
 export function TilesetPanel({ selected }: { selected: Tileset }) {
   const dispatch = useAppDispatch();
@@ -31,6 +32,14 @@ export function TilesetPanel({ selected }: { selected: Tileset }) {
     <div className={styles.container}>
       <div className={`${styles.subContainer} ${showGridModal ? styles.blurred : ''}`}>
         <h1>Tileset</h1>
+        <Propertie name='Name'>
+          <TextInput
+            onChange={(name) => {
+              dispatch(update({ target: selected, changes: { name: name } }));
+            }}
+            text={selected.name}
+          />
+        </Propertie>
         <Propertie name='Import image'>
           <ImageInput
             onChange={(imageData) => {
