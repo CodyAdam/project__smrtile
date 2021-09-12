@@ -60,7 +60,7 @@ export function GridSetter({ selected }: { selected: Tileset }) {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       {!isSquared ? <WarnBox message='Rectangle tiles are not yet supported' /> : null}
       <CheckboxInput
         value={isSquared}
@@ -273,14 +273,16 @@ export function GridSetter({ selected }: { selected: Tileset }) {
           </div>
         </div>
       ) : null}
-      <TextButton
-        title='Apply changes'
-        invalid={!isRowValid() || !isColumnsValid()}
-        invalidText='Some of the inputs are not valid'
-        onClick={() => {
-          dispatch(update({ target: selected, changes: { grid: grid } }));
-        }}
-      />
-    </>
+      <div>
+        <TextButton
+          title='Apply changes'
+          invalid={!isRowValid() || !isColumnsValid()}
+          invalidText='Some of the inputs are not valid'
+          onClick={() => {
+            dispatch(update({ target: selected, changes: { grid: grid } }));
+          }}
+        />
+      </div>
+    </div>
   );
 }

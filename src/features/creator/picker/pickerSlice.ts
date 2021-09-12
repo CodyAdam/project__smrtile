@@ -29,7 +29,7 @@ export default pickerSlice.reducer
 export const { pick, unpickTileset, pickTileset, unpick } = pickerSlice.actions;
 
 //Selectors
-export const pickedSelector = createSelector(
+export const pickedTileSelector = createSelector(
   (state: RootState) => state.picker,
   picker => picker.picked)
 export const pickedTilesetContentSelector = createSelector(

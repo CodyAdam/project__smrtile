@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { select, selectedSelector } from '../explorer/explorerSlice';
 import { ObjTypes, Tileset, Vector2 } from '../../../types/globalTypes';
 import { SquareButton } from '../../../common/squareButton/SquareButton';
-import { pick, pickedTilesetContentSelector } from './pickerSlice';
+import { pickedTilesetContentSelector } from './pickerSlice';
 
 function getImage(selected: Tileset | undefined): HTMLImageElement | null {
   if (!selected || !selected.image) return null;

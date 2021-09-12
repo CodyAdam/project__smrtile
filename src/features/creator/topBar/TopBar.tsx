@@ -4,11 +4,11 @@ import { useAppDispatch } from '../../../app/hooks';
 import { undo, redo } from '../explorer/explorerSlice';
 import { useAppSelector } from '../../../app/hooks';
 import { selectedContentSelector } from '../explorer/explorerSlice';
-import { pickedSelector, pickedTilesetContentSelector } from '../picker/pickerSlice';
+import { pickedTileSelector, pickedTilesetContentSelector } from '../picker/pickerSlice';
 
 export function TopBar() {
   const selectedContent = useAppSelector(selectedContentSelector);
-  const pickedTile = useAppSelector(pickedSelector);
+  const pickedTile = useAppSelector(pickedTileSelector);
   const pickedTileset = useAppSelector(pickedTilesetContentSelector);
   const dispatch = useAppDispatch();
 
