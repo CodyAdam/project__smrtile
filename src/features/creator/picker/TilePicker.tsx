@@ -1,10 +1,10 @@
-import styles from './Explorer.module.css';
+import styles from './TilePicker.module.css';
 import { useEffect, useRef, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { select, selectedSelector } from './explorerSlice';
-import { ObjTypes, Tileset, Vector2 } from '../../app/globalTypes';
-import { SquareButton } from '../../common/squareButton/SquareButton';
-import { pickedTilesetContentSelector } from '../picker/pickerSlice';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { select, selectedSelector } from '../explorer/explorerSlice';
+import { ObjTypes, Tileset, Vector2 } from '../../../types/globalTypes';
+import { SquareButton } from '../../../common/squareButton/SquareButton';
+import { pick, pickedTilesetContentSelector } from './pickerSlice';
 
 function getImage(selected: Tileset | undefined): HTMLImageElement | null {
   if (!selected || !selected.image) return null;
@@ -136,6 +136,16 @@ export function TilePicker({ size }: { size: { width: number; height: number } }
       window.addEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'grabbing';
     }
+    // else if (e.button === 0 && picked)
+    // dispatch(
+    //   pick({
+    //     name: picked.name,
+    //     tileset: picked.id,
+    //     sprite: {pos:undefined, },
+    //     tags: [],
+    //     type: ObjTypes.TILE_BASIC,
+    //   }),
+    // );
   }
   function handleDrag(e: MouseEvent) {
     const x = offset.x + (e.clientX - startPos.x);

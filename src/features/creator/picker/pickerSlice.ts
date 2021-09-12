@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { ID, PickerState, PickSelection } from '../../app/globalTypes';
-import { RootState } from '../../app/store';
+import { ID, PickerState, PickSelection } from '../../../types/globalTypes';
+import { RootState } from '../../../app/store';
 
 //Initial State
 const initialState: PickerState = {

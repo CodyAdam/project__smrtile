@@ -1,0 +1,86 @@
+.container {
+  background-color: var(--bg2);
+  border-right: 1px solid var(--bg1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.borderTop {
+  border-top: 1px solid var(--bg1);
+}
+
+.title {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  user-select: none;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 0 10px;
+}
+.title span {
+  margin-right: auto;
+  margin-left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.canvasContainer {
+  padding: 10px;
+  padding-top: 0;
+  position: relative;
+  overflow: hidden;
+}
+.canvas {
+  border-radius: 6px;
+}
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  height: 100%;
+  padding: 10px;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  pointer-events: none;
+}
+.controls > p {
+  color: var(--txt2);
+}
+
+.scrollable {
+  overflow: hidden auto;
+  overflow: hidden overlay;
+}
+.scrollable::-webkit-scrollbar,
+.scrollable::-webkit-scrollbar-corner {
+  background-color: transparent;
+  width: 8px;
+  height: 8px;
+  transition: all 1s ease-in-out;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+.scrollable:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255, 0.2);
+}

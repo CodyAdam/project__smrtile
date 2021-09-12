@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from './SubGroup.module.css';
-import { SquareButton } from '../../../common/squareButton/SquareButton';
+import { SquareButton } from '../../../../common/squareButton/SquareButton';
 
 export function SubGroup({
   title,

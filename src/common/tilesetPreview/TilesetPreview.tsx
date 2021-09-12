@@ -1,4 +1,4 @@
-import { GridSettings, ImageData, TilesetFilter } from '../../app/globalTypes';
+import { GridSettings, ImageData, TilesetFilter } from '../../types/globalTypes';
 import { useRef, useEffect, useState } from 'react';
 import styles from './TilesetPreview.module.css';
 

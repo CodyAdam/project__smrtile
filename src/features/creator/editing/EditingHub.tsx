@@ -1,7 +1,7 @@
 import styles from './Editing.module.css';
 import { useAppSelector } from '../../../app/hooks';
-import { selectedContentSelector } from '../../explorer/explorerSlice';
-import { ObjTypes } from '../../../app/globalTypes';
+import { selectedContentSelector } from '../explorer/explorerSlice';
+import { ObjTypes } from '../../../types/globalTypes';
 import { TilesetPanel } from './TilesetPanel';
 
 export function EditingHub() {

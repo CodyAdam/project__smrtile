@@ -1,14 +1,14 @@
 import styles from './Explorer.module.css';
 import { nanoid } from 'nanoid';
-import { SquareButton } from '../../common/squareButton/SquareButton';
+import { SquareButton } from '../../../common/squareButton/SquareButton';
 import { add, smartTilesSelector, tilesetsSelector, selectedSelector, select } from './explorerSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { ObjTypes, SmartBrush, Tileset } from '../../app/globalTypes';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { ObjTypes, SmartBrush, Tileset } from '../../../types/globalTypes';
 import { SubGroup } from './subGroup/SubGroup';
 import { Card } from './card/Card';
-import { HorizontalSize, ResizeVertical, VerticalSize } from '../../common/resize/Resizable';
+import { HorizontalSize, ResizeVertical, VerticalSize } from '../../../common/resize/Resizable';
 import { useEffect, useState } from 'react';
-import { TilePicker } from './TilePicker';
+import { TilePicker } from '../picker/TilePicker';
 import { pickedTilesetSelector, pickTileset } from '../picker/pickerSlice';
 
 export function Explorer({ horizontalSize }: { horizontalSize: HorizontalSize }) {

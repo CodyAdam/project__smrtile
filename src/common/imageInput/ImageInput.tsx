@@ -1,4 +1,4 @@
-import { ImageData } from '../../app/globalTypes';
+import { ImageData } from '../../types/globalTypes';
 import styles from './ImageInput.module.css';
 
 export function ImageInput({ onChange }: { onChange: (sprite: ImageData) => void }) {

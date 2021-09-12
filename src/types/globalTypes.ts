@@ -120,7 +120,7 @@ export type PatternTile = 'any' | SmartBrush | BasicTile
 
 export type Sprite = BasicSprite | AnimatedSprite
 export interface BasicSprite {
-  type: ObjTypes.TILE_ANIMATED
+  type: ObjTypes.TILE_BASIC
   tileset: ID,
   pos: { origin: Vector2 },
 }

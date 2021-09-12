@@ -1,9 +1,9 @@
 import styles from './Editing.module.css';
-import { Tileset, TilesetFilter } from '../../../app/globalTypes';
+import { Tileset, TilesetFilter } from '../../../types/globalTypes';
 import { Propertie } from '../../../common/propertie/Propertie';
 import { ImageInput } from '../../../common/imageInput/ImageInput';
 import { useAppDispatch } from '../../../app/hooks';
-import { update } from '../../explorer/explorerSlice';
+import { update } from '../explorer/explorerSlice';
 import { CheckboxInput } from '../../../common/checkboxInput/CheckboxInput';
 import { GridSetter, isUsingOffset } from './modal/grid/GridSetter';
 import { useState } from 'react';

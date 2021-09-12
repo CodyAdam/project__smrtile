@@ -1,4 +1,4 @@
-import { Tag } from '../../app/globalTypes';
+import { Tag } from '../../types/globalTypes';
 import styles from './TagsDisplay.module.css';
 import { SquareButton } from '../squareButton/SquareButton';
 
@@ -52,10 +52,5 @@ export function TagsDisplay({
         <SquareButton title='clear' icon='clear-all' onClick={clear} className={styles.button} />
       </div>
     );
-  } else
-    return (
-      <div className={`${className} ${styles.container}`}>
-        <div className={styles.placeholder}>There are no tags yet</div>
-      </div>
-    );
+  } else return null;
 }
