@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './assets/iconFont.css';
-import App from './app/App';
-import { store } from './app/store';
+
+import './assets/css/index.css';
+import './assets/css/iconFont.css';
+import App from './views/App';
+import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
 ReactDOM.render(
